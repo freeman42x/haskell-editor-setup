@@ -145,7 +145,8 @@ Alternatives to HIE:
 ### [Neovim](https://neovim.io/)
 
 * neovimhaskell/haskell-vim
-* neoclide/coc.nvim
+* [neoclide/coc.nvim](https://github.com/neoclide/coc.nvim/wiki/Language-servers#haskell)
+* [autozimu/LanguageClient-neovim (Haskell IDE Engine)](https://github.com/haskell/haskell-ide-engine#using-hie-with-vim-or-neovim)
 
 Alternatives to HIE:
 
@@ -155,6 +156,7 @@ Alternatives to HIE:
 ### [Vim](https://www.vim.org/)
 
 * neovimhaskell/haskell-vim
+* [neoclide/coc.nvim](https://github.com/neoclide/coc.nvim/wiki/Language-servers#haskell)
 * [autozimu/LanguageClient-neovim (Haskell IDE Engine)](https://github.com/haskell/haskell-ide-engine#using-hie-with-vim-or-neovim)
 
 Alternatives to HIE:
