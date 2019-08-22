@@ -5,8 +5,9 @@ Instructions for setting up Haskell editors/IDEs
 Steps:
 
 * Install Nix on your operating system
-* Install GHC and cabal-install using Nix
+* Install GHC and cabal-install
 * Install the editor / IDE of your choice
+* Install Haskell IDE Engine executable
 * Install the extensions for your editor / IDE that help with Haskell development
 
 ## Install Nix on your operating system
@@ -21,7 +22,7 @@ To install Nix in your OS run:
 curl https://nixos.org/nix/install | sh
 ```
 
-## Install GHC and cabal-install using Nix
+## Install GHC and cabal-install
 
 Create the file `~/.nixpkgs/config.nix` and copy paste this into it:
 
@@ -61,6 +62,22 @@ Recommended editors for beginners Atom or Visual Studio code.
 * Find your editor / IDE Nix package using [https://nixos.org/nixos/packages.html](https://nixos.org/nixos/packages.html)
 * add the package to the packages list inside `~/.nixpkgs/config.nix`
 * run `nix-env -i all` to install it
+
+## Install Haskell IDE Engine executable
+
+In `~/.nixpkgs/config.nix` add to the `let` variables:
+
+ ```nix
+all-hies = import (fetchTarball "https://github.com/infinisil/all-hies/tarball/master") {};
+```
+
+and add following to the list of packages:
+
+ ```nix
+(all-hies.selection { selector = p: { inherit (p) ghc864; }; })
+```
+
+then run `nix-env -i all` to install it.
 
 ## Install the extensions for your editor / IDE that help with Haskell development
 
