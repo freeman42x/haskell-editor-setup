@@ -87,7 +87,16 @@ then run `nix-env -i all` to install it.
 
 ### Atom
 
-* Haskell IDE Engine
+* nix
+* language-haskell
+* atom-ide-ui
+* ide-haskell-hie
+* ide-haskell-repl
+* autocomplete-haskell
+* hasklig
+* ide-haskell-hoogle
+* ide-haskell-cabal
+* ide-haskell-hasktags
 
 ### Visual Studio Code (VSCode)
 
