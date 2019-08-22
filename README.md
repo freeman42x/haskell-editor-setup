@@ -106,3 +106,21 @@ then run `nix-env -i all` to install it.
 * haskell-ghcid
 * hoogle-vscode
 * [Hasklig](https://github.com/i-tu/Hasklig) - ligatures for Haskell code
+
+### Emacs
+
+* Haskell Mode
+
+### Spacemacs
+
+### Neovim
+
+* coc.nvim
+
+### Vim
+
+### Leksah
+
+### Sublime Text
+
+* SublimeHaskell
