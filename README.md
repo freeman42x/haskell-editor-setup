@@ -2,13 +2,19 @@
 
 Instructions for setting up Haskell editors/IDEs
 
-Steps:
+The most stable and full of features plugin for developing Haskell is Haskell IDE Engine.
+
+To see a list of Haskell IDE Engine features see: [HIE features](https://github.com/haskell/haskell-ide-engine#features)
+
+Setup step:
 
 * Install Nix on your operating system
 * Install GHC and cabal-install
 * Install the editor / IDE of your choice
 * Install Haskell IDE Engine executable
 * Install the extensions for your editor / IDE that help with Haskell development
+
+For a list of editor / IDE features see: [rainbyte/haskell-ide-chart](https://github.com/rainbyte/haskell-ide-chart)
 
 ## Install Nix on your operating system
 
