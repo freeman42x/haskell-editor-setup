@@ -12,6 +12,10 @@ Steps:
 
 ## Install Nix on your operating system
 
+[Nix](https://nixos.org/nix/) is a package manager that is very good at doing successful installs.
+
+If you require any system level libraries to use in the project you are working on it is recommended to use Nix to provide them and then do your development inside a `nix-shell`.
+
 Doing Haskell development on Windows is not recommended since many Haskell packages have issues building on Windows. For doing development while using Widnows as your OS the recommended options are to use either a VMWare virtual machine (preferred) or Windows Subsystem for Linux (unrecommended since the build times are much slower).
 
 Developing on Linux or MacOS should work fine.
@@ -83,10 +87,13 @@ then run `nix-env -i all` to install it.
 
 ### Atom
 
-#### Haskell IDE Engine
+* Haskell IDE Engine
 
 ### Visual Studio Code (VSCode)
 
-#### Haskell IDE Engine
-
-#### GHCID
+* Nix
+* Haskell Syntax Highlighting
+* Haskell Language Server (Haskell IDE Engine)
+* haskell-ghcid
+* hoogle-vscode
+* [Hasklig](https://github.com/i-tu/Hasklig) - ligatures for Haskell code
