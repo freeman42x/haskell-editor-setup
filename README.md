@@ -85,12 +85,12 @@ then run `nix-env -i all` to install it.
 
 ## Install the extensions for your editor / IDE that help with Haskell development
 
-### Atom
+### [Atom](https://atom.io/)
 
 * nix
 * language-haskell
 * atom-ide-ui
-* ide-haskell-hie
+* ide-haskell-hie (Haskell IDE Engine)
 * ide-haskell-repl
 * autocomplete-haskell
 * hasklig
@@ -98,7 +98,7 @@ then run `nix-env -i all` to install it.
 * ide-haskell-cabal
 * ide-haskell-hasktags
 
-### Visual Studio Code (VSCode)
+### [Visual Studio Code (VSCode)](https://code.visualstudio.com/)
 
 * Nix
 * Haskell Syntax Highlighting
@@ -107,20 +107,65 @@ then run `nix-env -i all` to install it.
 * hoogle-vscode
 * [Hasklig](https://github.com/i-tu/Hasklig) - ligatures for Haskell code
 
-### Emacs
+Alternatives to HIE:
 
-* Haskell Mode
+* Haskelly
+* Haskero
 
-### Spacemacs
+### [Emacs](https://www.gnu.org/software/emacs/)
 
-### Neovim
+* emacs-lsp/lsp-haskell (Haskell IDE Engine)
 
-* coc.nvim
+Alternatives to HIE:
 
-### Vim
+* jyp/dante (intero fork)
+* chrisdone/intero
+* flycheck/flycheck-haskell
+* haskell/haskell-mode
+* nominolo/scion
+* DanielG/ghc-mod
 
-### Leksah
+### [Spacemacs](http://spacemacs.org/)
 
-### Sublime Text
+* emacs-lsp/lsp-haskell (Haskell IDE Engine)
+* haskell/haskell-mode
+
+Alternatives to HIE:
+
+* Haskell layer (uses intero)
+
+### [Neovim](https://neovim.io/)
+
+* neovimhaskell/haskell-vim
+* neoclide/coc.nvim
+
+Alternatives to HIE:
+
+* chrisdone/intero
+* parsonsmatt/intero-neovim
+
+### [Vim](https://www.vim.org/)
+
+* neovimhaskell/haskell-vim
+* [autozimu/LanguageClient-neovim (Haskell IDE Engine)](https://github.com/haskell/haskell-ide-engine#using-hie-with-vim-or-neovim)
+
+Alternatives to HIE:
+
+* vim-syntastic/syntastic
+
+### [Leksah](http://leksah.org/)
+
+### [IntelliJ IDEA Community](https://www.jetbrains.com/idea/download/)
+
+* IntelliJ-Haskell (intero)
+* HaskForce
+* HoogleIt
+
+### [Sublime Text](https://www.sublimetext.com/)
+
+* LSP (Haskell IDE Engine)
+
+Alternatives to HIE:
 
 * SublimeHaskell
+* dariusf/sublime-intero
