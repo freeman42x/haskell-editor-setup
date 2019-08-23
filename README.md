@@ -81,11 +81,19 @@ In `~/.nixpkgs/config.nix` add to the `let` variables:
 all-hies = import (fetchTarball "https://github.com/infinisil/all-hies/tarball/master") {};
 ```
 
-and add following to the list of packages:
+and add following to the list of packages - change the GHC list to the ones you will want to have available (eg. `ghc864` or `ghc864 ghc863 ghc843`):
 
  ```nix
 (all-hies.selection { selector = p: { inherit (p) ghc864; }; })
 ```
+
+if you wish to install HIE for all GHC versions because you switch between projects with different GHC versions a lot then you can use this instead:
+
+```nix
+(all-hies.selection { selector = p: p; })
+```
+
+installing all HIE versions will take a long time to install
 
 then run `nix-env -i all` to install it.
 
@@ -144,7 +152,7 @@ Alternatives to HIE:
 
 ### [Neovim](https://neovim.io/)
 
-* neovimhaskell/haskell-vim
+* [neovimhaskell/haskell-vim](https://github.com/neovimhaskell/haskell-vim)
 * [neoclide/coc.nvim](https://github.com/neoclide/coc.nvim/wiki/Language-servers#haskell)
 * [autozimu/LanguageClient-neovim (Haskell IDE Engine)](https://github.com/haskell/haskell-ide-engine#using-hie-with-vim-or-neovim)
 
