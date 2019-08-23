@@ -2,7 +2,7 @@
 
 Instructions for setting up Haskell editors/IDEs
 
-The most stable and full of features plugin for developing Haskell is Haskell IDE Engine.
+HIE together with compatible plugins usually offers more features than the average Haskell multi-feature plugin + compatible plugins. Some exceptions are: IntelliJ IDEA which has a very good set of features (and HIE does not have an IDEA plugin yet) and Leksah (which also does not have a HIE plugin but offers quite a lot of features itself).
 
 To see a list of Haskell IDE Engine features see: [HIE features](https://github.com/haskell/haskell-ide-engine#features)
 
@@ -11,7 +11,7 @@ Setup step:
 * Install Nix on your operating system
 * Install GHC and cabal-install
 * Install the editor / IDE of your choice
-* Install Haskell IDE Engine executable
+* Install Haskell IDE Engine executable if you are going to use a HIE powered plugin (this step does not apply to IntelliJ IDEA or Leksah)
 * Install the extensions for your editor / IDE that help with Haskell development
 
 For a list of editor / IDE features see: [rainbyte/haskell-ide-chart](https://github.com/rainbyte/haskell-ide-chart)
@@ -72,6 +72,18 @@ Recommended editors for beginners Atom or Visual Studio code.
 * Find your editor / IDE Nix package using [https://nixos.org/nixos/packages.html](https://nixos.org/nixos/packages.html)
 * add the package to the packages list inside `~/.nixpkgs/config.nix`
 * run `nix-env -i all` to install it
+
+Editors / IDEs list and their Nix package name:
+
+* Atom - atom
+* Visual Studio Code - vscode
+* Emacs - emacs
+* Spacemacs - emacs (and then install the spacemacs layer)
+* Neovim - neovim
+* Vim - vim
+* Leksah - [install instructions](https://github.com/leksah/leksah#getting-leksah)
+* IntelliJ IDEA Community - jetbrains.idea-community
+* Sublime Text 3 - sublime3
 
 ## Install Haskell IDE Engine executable
 
@@ -194,7 +206,7 @@ Alternatives to HIE:
 
 ### [Vim](https://www.vim.org/) (setup difficulty hard)
 
-* neovimhaskell/haskell-vim
+* [neovimhaskell/haskell-vim](https://github.com/neovimhaskell/haskell-vim)
 * [neoclide/coc.nvim](https://github.com/neoclide/coc.nvim/wiki/Language-servers#haskell)
 * [autozimu/LanguageClient-neovim (Haskell IDE Engine)](https://github.com/haskell/haskell-ide-engine#using-hie-with-vim-or-neovim)
 
