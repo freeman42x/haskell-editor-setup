@@ -95,7 +95,38 @@ if you wish to install HIE for all GHC versions because you switch between proje
 
 installing all HIE versions will take a long time to install
 
-then run `nix-env -i all` to install it.
+after adding HIE your configuration should look something like the following:
+
+```nix
+let
+  all-hies = import (fetchTarball "https://github.com/infinisil/all-hies/tarball/master") {};
+  config = {
+    allowUnfree = true;
+
+    packageOverrides = pkgs: with pkgs;
+      let jdk = openjdk11; in rec {
+      unstable = import <nixpkgs> { inherit config; };
+
+      all = pkgs.buildEnv {
+        name = "all";
+
+        paths = [
+          binutils.bintools
+          haskell.compiler.ghc864
+          haskellPackages.cabal-install
+          unstable.haskellPackages.stack
+          unstable.haskellPackages.cabal2nix
+          haskellPackages.hoogle
+          haskellPackages.ghcid
+          (all-hies.selection { selector = p: { inherit (p) ghc864; }; })
+        ];
+      };
+    };
+  };
+in config
+```
+
+run `nix-env -i all` to install HIE
 
 ## Install the extensions for your editor / IDE that help with Haskell development
 
