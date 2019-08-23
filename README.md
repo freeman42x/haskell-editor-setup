@@ -67,11 +67,7 @@ nix-env -i all
 
 ## Install the editor / IDE of your choice
 
-Recommended editors for beginners Atom or Visual Studio code.
-
-* Find your editor / IDE Nix package using [https://nixos.org/nixos/packages.html](https://nixos.org/nixos/packages.html)
-* add the package to the packages list inside `~/.nixpkgs/config.nix`
-* run `nix-env -i all` to install it
+Editors that are easy to set up are Atom, Visual Studio Code, IntelliJ IDEA Community or Sublime Text 3.
 
 Editors / IDEs list and their Nix package name:
 
@@ -84,6 +80,12 @@ Editors / IDEs list and their Nix package name:
 * Leksah - [install instructions](https://github.com/leksah/leksah#getting-leksah)
 * IntelliJ IDEA Community - jetbrains.idea-community
 * Sublime Text 3 - sublime3
+
+To install:
+
+* pick your editor(s) from the list above
+* add the editor(s) Nix package name(s) to the packages list inside `~/.nixpkgs/config.nix`
+* run `nix-env -i all` to install the editors you chose
 
 ## Install Haskell IDE Engine executable
 
@@ -222,7 +224,7 @@ Alternatives to HIE:
 * HaskForce
 * HoogleIt
 
-### [Sublime Text](https://www.sublimetext.com/) (setup difficulty normal)
+### [Sublime Text 3](https://www.sublimetext.com/) (setup difficulty normal)
 
 * LSP (Haskell IDE Engine)
 
