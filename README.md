@@ -130,7 +130,7 @@ run `nix-env -i all` to install HIE
 
 ## Install the extensions for your editor / IDE that help with Haskell development
 
-### [Atom](https://atom.io/)
+### [Atom](https://atom.io/) (setup difficulty trivial)
 
 * nix
 * language-haskell
@@ -143,7 +143,7 @@ run `nix-env -i all` to install HIE
 * ide-haskell-cabal
 * ide-haskell-hasktags
 
-### [Visual Studio Code (VSCode)](https://code.visualstudio.com/)
+### [Visual Studio Code (VSCode)](https://code.visualstudio.com/) (setup difficulty trivial)
 
 * Nix
 * Haskell Syntax Highlighting
@@ -157,7 +157,7 @@ Alternatives to HIE:
 * Haskelly
 * Haskero
 
-### [Emacs](https://www.gnu.org/software/emacs/)
+### [Emacs](https://www.gnu.org/software/emacs/) (setup difficulty hard)
 
 * [emacs-lsp/lsp-haskell (Haskell IDE Engine)](https://github.com/emacs-lsp/lsp-haskell)
 * [emacs-lsp/lsp-ui](https://github.com/emacs-lsp/lsp-ui)
@@ -181,7 +181,7 @@ Alternatives to HIE:
 
 * Haskell layer (uses intero)
 
-### [Neovim](https://neovim.io/)
+### [Neovim](https://neovim.io/) (setup difficulty hard)
 
 * [neovimhaskell/haskell-vim](https://github.com/neovimhaskell/haskell-vim)
 * [neoclide/coc.nvim](https://github.com/neoclide/coc.nvim/wiki/Language-servers#haskell)
@@ -192,7 +192,7 @@ Alternatives to HIE:
 * chrisdone/intero
 * parsonsmatt/intero-neovim
 
-### [Vim](https://www.vim.org/)
+### [Vim](https://www.vim.org/) (setup difficulty hard)
 
 * neovimhaskell/haskell-vim
 * [neoclide/coc.nvim](https://github.com/neoclide/coc.nvim/wiki/Language-servers#haskell)
@@ -202,15 +202,15 @@ Alternatives to HIE:
 
 * vim-syntastic/syntastic
 
-### [Leksah](http://leksah.org/)
+### [Leksah](http://leksah.org/) (setup difficulty hard)
 
-### [IntelliJ IDEA Community](https://www.jetbrains.com/idea/download/)
+### [IntelliJ IDEA Community](https://www.jetbrains.com/idea/download/) (setup difficulty easy)
 
 * IntelliJ-Haskell (intero)
 * HaskForce
 * HoogleIt
 
-### [Sublime Text](https://www.sublimetext.com/)
+### [Sublime Text](https://www.sublimetext.com/) (setup difficulty normal)
 
 * LSP (Haskell IDE Engine)
 
