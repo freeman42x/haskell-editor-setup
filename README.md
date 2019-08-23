@@ -120,9 +120,9 @@ Alternatives to HIE:
 
 ### [Emacs](https://www.gnu.org/software/emacs/)
 
-* emacs-lsp/lsp-haskell (Haskell IDE Engine)
-* emacs-lsp/lsp-mode
-* emacs-lsp/lsp-ui
+* [emacs-lsp/lsp-haskell (Haskell IDE Engine)](https://github.com/emacs-lsp/lsp-haskell)
+* [emacs-lsp/lsp-ui](https://github.com/emacs-lsp/lsp-ui)
+* [emacs-lsp/lsp-mode](https://github.com/emacs-lsp/lsp-mode)
 
 Alternatives to HIE:
 
