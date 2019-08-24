@@ -6,6 +6,8 @@ HIE together with compatible plugins usually offers more features than the avera
 
 To see a list of Haskell IDE Engine features see: [HIE features](https://github.com/haskell/haskell-ide-engine#features)
 
+For a list of editor / IDE features see: [rainbyte/haskell-ide-chart](https://github.com/rainbyte/haskell-ide-chart)
+
 Choose your operating system and continue the steps required for it:
 
 * Windows
@@ -13,16 +15,6 @@ Choose your operating system and continue the steps required for it:
 * Windows using VMWare with Linux virtual machine
 * [Linux](#Install-Nix-on-your-operating-system)
 * [MacOS](#Install-Nix-on-your-operating-system)
-
-Setup step:
-
-* Install Nix on your operating system
-* Install GHC and cabal-install
-* Install the editor / IDE of your choice
-* Install Haskell IDE Engine executable if you are going to use a HIE powered plugin (this step does not apply to IntelliJ IDEA or Leksah)
-* Install the extensions for your editor / IDE that help with Haskell development
-
-For a list of editor / IDE features see: [rainbyte/haskell-ide-chart](https://github.com/rainbyte/haskell-ide-chart)
 
 ## Install Nix on your operating system
 
