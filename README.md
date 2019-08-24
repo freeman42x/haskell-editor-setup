@@ -1,10 +1,18 @@
 # Haskell editor / IDE setup
 
-Instructions for setting up Haskell editors/IDEs
+Instructions for setting up Haskell editors/IDE
 
 HIE together with compatible plugins usually offers more features than the average Haskell multi-feature plugin + compatible plugins. Some exceptions are: IntelliJ IDEA which has a very good set of features (and HIE does not have an IDEA plugin yet) and Leksah (which also does not have a HIE plugin but offers quite a lot of features itself).
 
 To see a list of Haskell IDE Engine features see: [HIE features](https://github.com/haskell/haskell-ide-engine#features)
+
+Choose your operating system and continue the steps required for it:
+
+* Windows
+* Windows using WSL
+* Windows using VMWare with Linux virtual machine
+* [Linux](#Install-Nix-on-your-operating-system)
+* [MacOS](#Install-Nix-on-your-operating-system)
 
 Setup step:
 
