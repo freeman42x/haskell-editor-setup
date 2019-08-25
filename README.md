@@ -16,6 +16,38 @@ Choose your operating system and continue the steps required for it:
 * [Linux](#Install-Nix-on-your-operating-system)
 * [MacOS](#Install-Nix-on-your-operating-system)
 
+## Windows
+
+### Install Git
+
+* download Git from [here](https://git-scm.com/download/win)
+* install it
+
+### Enable Win32 long paths:
+
+* Type <kbd>Windows</kbd> key, type `gpedit.msc` and press <kbd>Enter</kbd>.
+* Navigate to `Local Computer Policy > Computer Configuration > Administrative Templates > System > Filesystem`
+* Double click on `Enable Win32 long paths`
+* Click on `Enabled`
+* Click on `OK`
+* Close `Local Group Policy Editor`
+* Reboot your operating system
+
+### Install the [Haskell Tool Stack](https://docs.haskellstack.org/en/stable/README/)
+
+* download [Haskell Stack installer](https://get.haskellstack.org/stable/windows-x86_64-installer.exe)
+* install Haskell Stack through the installer, the default settings should be fine
+
+### Install Haskell IDE Engine
+
+* press <kbd>Win</kbd>+<kbd>E</kbd>
+* open the root of one of your drives where you want to clone Haskell IDE Engine
+* right click in the folder and click on `Git Bash Here`
+* clone Haskell IDE Engine with: `git clone https://github.com/haskell/haskell-ide-engine.git`
+* run `cd haskell-ide-engine`
+* run `stack ./install.hs hie-8.6.5` asynchronously (go graba cup of coffee, or do something else while it installs, etc. - it will take a while)
+* run `stack ./install.hs build-data`
+
 ## Install Nix on your operating system
 
 [Nix](https://nixos.org/nix/) is a package manager that is very good at doing successful installs.
