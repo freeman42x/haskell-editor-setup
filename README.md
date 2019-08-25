@@ -48,6 +48,8 @@ Choose your operating system and continue the steps required for it:
 * run `stack ./install.hs hie-8.6.5` asynchronously (go graba cup of coffee, or do something else while it installs, etc. - it will take a while, took  44m 43s for me)
 * run `stack ./install.hs build-data`
 
+### [Continue with installing the editor / IDE of your choice](#Install-the-editor-/-IDE-of-your-choice)
+
 ## Install Nix on your operating system
 
 [Nix](https://nixos.org/nix/) is a package manager that is very good at doing successful installs.
