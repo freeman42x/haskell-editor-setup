@@ -122,8 +122,8 @@ To install:
 Continue with:
 
 * [using Atom, VSCode, Emacs, Spacemacs, Neovim, Vim or Sublime Text 3](#Install-Haskell-IDE-Engine-executable)
-* [using IntelliJ IDEA Community](#IntelliJ-IDEA-Community-(setup-difficulty-easy))
-* [using Leksah](#Leksah-(setup-difficulty-hard))
+* [using IntelliJ IDEA Community](#IntelliJ-IDEA-Community-\(setup-difficulty-easy\))
+* [using Leksah](#Leksah-\(setup-difficulty-hard\))
 
 ## Install Haskell IDE Engine executable
 
