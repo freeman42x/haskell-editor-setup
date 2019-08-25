@@ -10,7 +10,7 @@ For a list of editor / IDE features see: [rainbyte/haskell-ide-chart](https://gi
 
 Choose your operating system and continue the steps required for it:
 
-* Windows
+* [Windows](#Windows)
 * Windows using WSL
 * Windows using VMWare with Linux virtual machine
 * [Linux](#Install-Nix-on-your-operating-system)
