@@ -45,7 +45,7 @@ Choose your operating system and continue the steps required for it:
 * right click in the folder and click on `Git Bash Here`
 * clone Haskell IDE Engine with: `git clone https://github.com/haskell/haskell-ide-engine.git`
 * run `cd haskell-ide-engine`
-* run `stack ./install.hs hie-8.6.5` asynchronously (go graba cup of coffee, or do something else while it installs, etc. - it will take a while)
+* run `stack ./install.hs hie-8.6.5` asynchronously (go graba cup of coffee, or do something else while it installs, etc. - it will take a while, took  44m 43s for me)
 * run `stack ./install.hs build-data`
 
 ## Install Nix on your operating system
