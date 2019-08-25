@@ -204,6 +204,24 @@ run `nix-env -i all` to install HIE
 * hoogle-vscode
 * [Hasklig](https://github.com/i-tu/Hasklig) - ligatures for Haskell code
 
+Installing Hasklig fonts on Windows:
+
+* press <kbd>Win</kbd>+<kbd>X</kbd>
+* press <kbd>A</kbd> to start cmd as administrator
+* run `@"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"` to install the package manager Chocolatey
+* run `choco install hasklig` to install the Hasklig fonts on your operating system
+
+Enabling Hasklig fonts:
+
+* open Visual Studio Code
+* type <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>
+* type `setting`
+* open `Preferences: Open Settings (JSON)`
+* make sure you have the following in your settings:
+
+  * `"editor.fontFamily": "Hasklig"`
+  * `"editor.fontLigatures": true`
+
 Alternatives to HIE:
 
 * Haskelly
