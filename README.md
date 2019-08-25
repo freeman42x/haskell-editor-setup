@@ -119,6 +119,12 @@ To install:
 * add the editor(s) Nix package name(s) to the packages list inside `~/.nixpkgs/config.nix`
 * run `nix-env -i all` to install the editors you chose
 
+Continue with:
+
+* [using Atom, VSCode, Emacs, Spacemacs, Neovim, Vim or Sublime Text 3](#Install-Haskell-IDE-Engine-executable)
+* [using IntelliJ IDEA Community](#IntelliJ-IDEA-Community-(setup-difficulty-easy))
+* [using Leksah](#Leksah-(setup-difficulty-hard))
+
 ## Install Haskell IDE Engine executable
 
 In `~/.nixpkgs/config.nix` add to the `let` variables:
@@ -176,7 +182,7 @@ run `nix-env -i all` to install HIE
 
 ## Install the extensions for your editor / IDE that help with Haskell development
 
-### [Atom](https://atom.io/) (setup difficulty trivial)
+### [Atom (setup difficulty trivial)](https://atom.io/)
 
 * nix
 * language-haskell
@@ -189,7 +195,7 @@ run `nix-env -i all` to install HIE
 * ide-haskell-cabal
 * ide-haskell-hasktags
 
-### [Visual Studio Code (VSCode)](https://code.visualstudio.com/) (setup difficulty trivial)
+### [Visual Studio Code (VSCode) (setup difficulty trivial)](https://code.visualstudio.com/)
 
 * Nix
 * Haskell Syntax Highlighting
@@ -203,7 +209,7 @@ Alternatives to HIE:
 * Haskelly
 * Haskero
 
-### [Emacs](https://www.gnu.org/software/emacs/) (setup difficulty hard)
+### [Emacs (setup difficulty hard)](https://www.gnu.org/software/emacs/)
 
 * [emacs-lsp/lsp-haskell (Haskell IDE Engine)](https://github.com/emacs-lsp/lsp-haskell)
 * [emacs-lsp/lsp-ui](https://github.com/emacs-lsp/lsp-ui)
@@ -227,7 +233,7 @@ Alternatives to HIE:
 
 * Haskell layer (uses intero)
 
-### [Neovim](https://neovim.io/) (setup difficulty hard)
+### [Neovim (setup difficulty hard)](https://neovim.io/)
 
 * [neovimhaskell/haskell-vim](https://github.com/neovimhaskell/haskell-vim)
 * [neoclide/coc.nvim](https://github.com/neoclide/coc.nvim/wiki/Language-servers#haskell)
@@ -238,7 +244,7 @@ Alternatives to HIE:
 * chrisdone/intero
 * parsonsmatt/intero-neovim
 
-### [Vim](https://www.vim.org/) (setup difficulty hard)
+### [Vim (setup difficulty hard)](https://www.vim.org/)
 
 * [neovimhaskell/haskell-vim](https://github.com/neovimhaskell/haskell-vim)
 * [neoclide/coc.nvim](https://github.com/neoclide/coc.nvim/wiki/Language-servers#haskell)
@@ -248,15 +254,15 @@ Alternatives to HIE:
 
 * vim-syntastic/syntastic
 
-### [Leksah](http://leksah.org/) (setup difficulty hard)
+### [Leksah (setup difficulty hard)](http://leksah.org/)
 
-### [IntelliJ IDEA Community](https://www.jetbrains.com/idea/download/) (setup difficulty easy)
+### [IntelliJ IDEA Community (setup difficulty easy)](https://www.jetbrains.com/idea/download/)
 
 * IntelliJ-Haskell (intero)
 * HaskForce
 * HoogleIt
 
-### [Sublime Text 3](https://www.sublimetext.com/) (setup difficulty normal)
+### [Sublime Text 3 (setup difficulty normal)](https://www.sublimetext.com/)
 
 * LSP (Haskell IDE Engine)
 
