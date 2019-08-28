@@ -230,6 +230,7 @@ Alternatives to HIE:
 
 * Haskelly
 * Haskero
+* Simple GHC
 
 ### [Emacs (setup difficulty hard)](https://www.gnu.org/software/emacs/)
 
