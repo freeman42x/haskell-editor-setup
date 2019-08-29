@@ -281,7 +281,7 @@ Alternatives to HIE:
 
 ### [IntelliJ IDEA Community (setup difficulty easy)](https://www.jetbrains.com/idea/download/)
 
-* IntelliJ-Haskell (intero)
+* IntelliJ-Haskell
 * HaskForce
 * HoogleIt
 
