@@ -39,7 +39,7 @@ Choose your operating system and continue the steps required for it:
 
 #### On Windows Home or Starter
 
-* Download the [registry patch file](Remove%20260%20Character%20Path%20Limit.reg)
+* Download the [registry patch file](https://raw.githubusercontent.com/fairy-tale-agi-solutions/haskell-editor-setup/master/Remove%20260%20Character%20Path%20Limit.reg)
 * Double click it and choose `Yes`
 * Reboot your operating system
 
