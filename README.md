@@ -25,7 +25,9 @@ Choose your operating system and continue the steps required for it:
 * download Git from [here](https://git-scm.com/download/win)
 * install it
 
-### Enable Win32 long paths:
+### Enable Win32 long paths
+
+#### On Windows Professional
 
 * Type <kbd>Windows</kbd> key, type `gpedit.msc` and press <kbd>Enter</kbd>.
 * Navigate to `Local Computer Policy > Computer Configuration > Administrative Templates > System > Filesystem`
@@ -33,6 +35,12 @@ Choose your operating system and continue the steps required for it:
 * Click on `Enabled`
 * Click on `OK`
 * Close `Local Group Policy Editor`
+* Reboot your operating system
+
+#### On Windows Home or Starter
+
+* Download the [registry patch file](Remove%20260%20Character%20Path%20Limit.reg)
+* Double click it and choose `Yes`
 * Reboot your operating system
 
 ### Install the [Haskell Tool Stack](https://docs.haskellstack.org/en/stable/README/)
