@@ -6,7 +6,7 @@ import Control.Monad (unless)
 import Data.Maybe (isNothing, Maybe(..))
 import Data.Text (Text, replace, isInfixOf)
 import Data.Text.IO (putStrLn, readFile, writeFile)
-import Prelude(IO, String, ($), (<>))
+import Prelude(IO, String, foldl, ($), (<>))
 import System.Directory (findExecutable)
 
 main :: IO ()
@@ -18,13 +18,8 @@ main = do
   unless (isNothing maybeFilePath) $ do
     putStrLn "Installing Haskell GHC and cabal-install"
     config <- readFile configurationNix
-
-    -- TODO how do I make a monoid instance for this? vvv
-    let configurationNix2 = addToConfigurationIfDoesNotExist config "haskell.compiler.ghc865"
-    let configurationNix3 = addToConfigurationIfDoesNotExist configurationNix2 "haskellPackages.cabal-install"
-    let configurationNix4 = addToConfigurationIfDoesNotExist configurationNix3 "atom"
-
-    writeFile configurationNix configurationNix4
+    let newConfig = foldl addToConfigurationIfDoesNotExist config ["haskell.compiler.ghc865", "haskellPackages.cabal-install", "atom"]
+    writeFile configurationNix newConfig
 
 configurationNix :: String
 configurationNix = "/etc/nixos/configuration.nix"
