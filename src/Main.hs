@@ -6,7 +6,7 @@ import Control.Monad (unless)
 import Data.Maybe (isNothing, Maybe(..))
 import Data.Text (Text, replace, isInfixOf)
 import Data.Text.IO (putStrLn, readFile, writeFile)
-import Prelude(IO, ($), (<>))
+import Prelude(IO, String, ($), (<>))
 import System.Directory (findExecutable)
 
 main :: IO ()
@@ -17,39 +17,31 @@ main = do
     _      -> "NixOS operating system not found"
   unless (isNothing maybeFilePath) $ do
     putStrLn "Installing Haskell GHC and cabal-install"
-    configurationNix <- readFile "/etc/nixos/configuration.nix"
-    let isGhcInstalled = "haskell.compiler.ghc865" `isInfixOf` configurationNix
-    let configurationNixWithGhc = if isGhcInstalled then configurationNix else
-         replace
-           "environment.systemPackages = with pkgs; ["
-           "environment.systemPackages = with pkgs; [\n\
-           \    haskell.compiler.ghc865"
-           configurationNix
+    config <- readFile configurationNix
 
-    -- let newConfigurationNix =
-    --      replace
-    --        "environment.systemPackages = with pkgs; ["
-    --        "environment.systemPackages = with pkgs; [\n\
-    --        \    haskell.compiler.ghc865\n\
-    --        \    haskellPackages.cabal-install\n\
-    --        \    atom"
-    --        (pack configurationNix)
-    putStrLn configurationNixWithGhc
-    writeFile "/etc/nixos/configuration.nix" configurationNixWithGhc
+    -- TODO how do I make a monoid instance for this? vvv
+    let configurationNix2 = addToConfigurationIfDoesNotExist config "haskell.compiler.ghc865"
+    let configurationNix3 = addToConfigurationIfDoesNotExist configurationNix2 "haskellPackages.cabal-install"
+    let configurationNix4 = addToConfigurationIfDoesNotExist configurationNix3 "atom"
+
+    writeFile configurationNix configurationNix4
+
+configurationNix :: String
+configurationNix = "/etc/nixos/configuration.nix"
 
 environmentSystemPackages :: Text
 environmentSystemPackages = "environment.systemPackages = with pkgs; ["
 
 addToConfigurationIfDoesNotExist :: Text -> Text -> Text
-addToConfigurationIfDoesNotExist configurationNix package =
-  if isPackageInstalled then configurationNix else
+addToConfigurationIfDoesNotExist configNix package =
+  if isPackageInstalled then configNix else
        replace
          environmentSystemPackages
          (environmentSystemPackages <> "\n\
          \    " <> package)
-         configurationNix
+         configNix
   where
-    isPackageInstalled = package `isInfixOf` configurationNix
+    isPackageInstalled = package `isInfixOf` configNix
 
 -- TODO install GHC, cabal-install, Atom if not already installed
 
