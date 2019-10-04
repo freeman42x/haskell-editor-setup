@@ -58,7 +58,8 @@ executable haskell-editor-setup
   -- other-extensions:
 
   -- Other library packages from which modules are imported.
-  build-depends:       base ^>=4.12.0.0
+  build-depends:       base      ^>= 4.12.0.0
+                     , directory  == 1.3.4.0
 
   -- Directories containing source files.
   hs-source-dirs:      src

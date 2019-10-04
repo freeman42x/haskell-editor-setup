@@ -1,9 +1,17 @@
 module Main where
 
-main :: IO ()
-main = putStrLn "Hello, Haskell!"
+import Control.Monad (unless)
+import Data.Maybe (isNothing)
+import System.Directory (findExecutable)
 
--- TODO check if operating system is NixOS, if yes continue otherwise print usupported OS
+main :: IO ()
+main = do
+  maybeFilePath <- findExecutable "nixos-version"
+  putStrLn $ case maybeFilePath of
+    Just _ -> "NixOS operating system detected"
+    _      -> "NixOS operating system not found"
+  unless (isNothing maybeFilePath) $ do
+    putStrLn "Installing Haskell GHC and cabal-install"
 
 -- TODO install GHC and cabal-install if not already installed
 
