@@ -94,7 +94,7 @@ let
         name = "all";
 
         paths = [
-          haskell.compiler.ghc864
+          haskell.compiler.ghc865
           haskellPackages.cabal-install
           binutils.bintools # required on WSL
         ];
@@ -146,10 +146,10 @@ In `~/.nixpkgs/config.nix` add to the `let` variables:
 all-hies = import (fetchTarball "https://github.com/infinisil/all-hies/tarball/master") {};
 ```
 
-and add following to the list of packages - change the GHC list to the ones you will want to have available (eg. `ghc864` or `ghc864 ghc863 ghc843`):
+and add following to the list of packages - change the GHC list to the ones you will want to have available (eg. `ghc865` or `ghc865 ghc864 ghc843`):
 
  ```nix
-(all-hies.selection { selector = p: { inherit (p) ghc864; }; })
+(all-hies.selection { selector = p: { inherit (p) ghc865; }; })
 ```
 
 if you wish to install HIE for all GHC versions because you switch between projects with different GHC versions a lot then you can use this instead:
@@ -177,13 +177,13 @@ let
 
         paths = [
           binutils.bintools
-          haskell.compiler.ghc864
+          haskell.compiler.ghc865
           haskellPackages.cabal-install
           unstable.haskellPackages.stack
           unstable.haskellPackages.cabal2nix
           haskellPackages.hoogle
           haskellPackages.ghcid
-          (all-hies.selection { selector = p: { inherit (p) ghc864; }; })
+          (all-hies.selection { selector = p: { inherit (p) ghc865; }; })
         ];
       };
     };
