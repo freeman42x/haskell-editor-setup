@@ -61,6 +61,7 @@ executable haskell-editor-setup
   build-depends:       base      ^>= 4.12.0.0
                      , directory  == 1.3.4.0
                      , text       == 1.2.4.0
+                     , turtle     == 1.5.15
 
   -- Directories containing source files.
   hs-source-dirs:      src

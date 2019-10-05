@@ -21,6 +21,13 @@ main = do
     let newConfig = foldl addToConfigurationIfDoesNotExist config ["haskell.compiler.ghc865", "haskellPackages.cabal-install", "atom"]
     writeFile configurationNix newConfig
 
+    -- putStrLn "Installing GHC, cabal-install and Atom"
+    -- exitCode <- shell "nixos-rebuild switch" empty
+    -- case exitCode of
+    --     ExitSuccess   -> return ()
+    --     ExitFailure n -> die ("`direnv allow` failed with exit code: " <> repr n)
+    -- putStrLn "Finished installing GHC, cabal-install and Atom"
+
 configurationNix :: String
 configurationNix = "/etc/nixos/configuration.nix"
 
