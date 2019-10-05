@@ -30,6 +30,25 @@ main = do
         ExitFailure n -> die ("nixos-rebuild switch failed with exit code: " <> repr n)
     putStrLn "Finished installing GHC, cabal-install and Atom"
 
+    putStrLn "Adding Haskell IDE Engine to configuration.nix"
+    config2 <- readFile configurationNix
+    let newConfig2 =
+          addToConfigurationIfDoesNotExist
+            config2
+            "((import (fetchTarball \"https://github.com/infinisil/all-hies/tarball/master\")\
+            \ {}).selection { selector = p: { inherit (p) ghc865 ghc864; }; })"
+    writeFile configurationNix newConfig2
+    putStrLn "Finished adding Haskell IDE Engine to configuration.nix"
+
+    putStrLn "Installing Haskell IDE Engine"
+    exitCode2 <- shell "nixos-rebuild switch" empty
+    case exitCode2 of
+        ExitSuccess   -> return ()
+        ExitFailure n -> die ("nixos-rebuild switch failed with exit code: " <> repr n)
+    putStrLn "Finished installing Haskell IDE Engine"
+
+
+
 configurationNix :: String
 configurationNix = "/etc/nixos/configuration.nix"
 
@@ -46,9 +65,5 @@ addToConfigurationIfDoesNotExist configNix package =
          configNix
   where
     isPackageInstalled = package `isInfixOf` configNix
-
--- TODO install GHC, cabal-install, Atom if not already installed
-
--- TODO install HIE if not already installed
 
 -- TODO install the Atom extensions if not already installed
