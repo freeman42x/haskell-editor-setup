@@ -47,6 +47,17 @@ main = do
         ExitFailure n -> die ("nixos-rebuild switch failed with exit code: " <> repr n)
     putStrLnGreen "Finished installing Haskell IDE Engine"
 
+    installAtomPackage "nix"
+    installAtomPackage "atom-ide-ui"
+    installAtomPackage "autocomplete-haskell"
+    installAtomPackage "hasklig"
+    installAtomPackage "ide-haskell-cabal"
+    installAtomPackage "ide-haskell-hasktags"
+    installAtomPackage "ide-haskell-hie"
+    installAtomPackage "ide-haskell-hoogle"
+    installAtomPackage "ide-haskell-repl"
+    installAtomPackage "language-haskell"
+
 
 
 putStrLnGreen :: Text -> IO ()
@@ -69,4 +80,11 @@ addToConfigurationIfDoesNotExist configNix package =
   where
     isPackageInstalled = package `isInfixOf` configNix
 
--- TODO install the Atom extensions if not already installed
+installAtomPackage :: Text -> IO ()
+installAtomPackage package = do
+  putStrLnGreen $ "Installing " <> package
+  exitCode <- shell ("apm install " <> package) empty
+  case exitCode of
+      ExitSuccess   -> return ()
+      ExitFailure n -> die ("apm install failed with exit code: " <> repr n)
+  putStrLnGreen $ "Finished installing " <> package
