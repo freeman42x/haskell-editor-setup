@@ -6,8 +6,9 @@ import Control.Monad (unless)
 import Data.Maybe (isNothing, Maybe(..))
 import Data.Text (Text, replace, isInfixOf)
 import Data.Text.IO (putStrLn, readFile, writeFile)
-import Prelude(IO, String, foldl, ($), (<>))
+import Prelude(IO, String, foldl, return, ($), (<>))
 import System.Directory (findExecutable)
+import Turtle (shell, empty, die, repr, ExitCode(..))
 
 main :: IO ()
 main = do
@@ -16,17 +17,18 @@ main = do
     Just _ -> "NixOS operating system detected"
     _      -> "NixOS operating system not found"
   unless (isNothing maybeFilePath) $ do
-    putStrLn "Installing Haskell GHC and cabal-install"
+    putStrLn "Adding Haskell GHC and cabal-install to configuration.nix"
     config <- readFile configurationNix
     let newConfig = foldl addToConfigurationIfDoesNotExist config ["haskell.compiler.ghc865", "haskellPackages.cabal-install", "atom"]
     writeFile configurationNix newConfig
+    putStrLn "Finished adding Haskell GHC and cabal-install to configuration.nix"
 
-    -- putStrLn "Installing GHC, cabal-install and Atom"
-    -- exitCode <- shell "nixos-rebuild switch" empty
-    -- case exitCode of
-    --     ExitSuccess   -> return ()
-    --     ExitFailure n -> die ("`direnv allow` failed with exit code: " <> repr n)
-    -- putStrLn "Finished installing GHC, cabal-install and Atom"
+    putStrLn "Installing GHC, cabal-install and Atom"
+    exitCode <- shell "nixos-rebuild switch" empty
+    case exitCode of
+        ExitSuccess   -> return ()
+        ExitFailure n -> die ("nixos-rebuild switch failed with exit code: " <> repr n)
+    putStrLn "Finished installing GHC, cabal-install and Atom"
 
 configurationNix :: String
 configurationNix = "/etc/nixos/configuration.nix"
