@@ -83,7 +83,7 @@ addToConfigurationIfDoesNotExist configNix package =
 installAtomPackage :: Text -> IO ()
 installAtomPackage package = do
   putStrLnGreen $ "Installing " <> package
-  exitCode <- shell ("apm install " <> package) empty
+  exitCode <- shell ("sudo -u $SUDO_USER apm install " <> package) empty
   case exitCode of
       ExitSuccess   -> return ()
       ExitFailure n -> die ("apm install failed with exit code: " <> repr n)
