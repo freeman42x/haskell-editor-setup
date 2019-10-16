@@ -285,6 +285,7 @@ Alternatives to HIE:
 Alternatives to HIE:
 
 * vim-syntastic/syntastic
+* dense-analysis/ale
 
 ### [Leksah (setup difficulty hard)](http://leksah.org/)
 
