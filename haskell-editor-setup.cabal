@@ -1,0 +1,25 @@
+cabal-version:       2.4
+name:                haskell-editor-setup
+version:             0.1.0.0
+synopsis:            GUI program that will set up Haskell environment with target selected editors or IDEs
+license:             GPL-3.0-only
+license-file:        LICENSE
+author:              Răzvan Flavius Panda
+maintainer:          razvan.panda@gmail.com
+category:            Development
+extra-source-files:  CHANGELOG.md, README.md
+
+executable haskell-editor-setup
+  main-is:             Main.hs
+  build-depends:       base        ^>= 4.12.0.0
+                     , miso         == 1.2.0.0
+                     , jsaddle-warp == 0.9.6.0
+                     , directory    == 1.3.4.0
+                     , text         == 1.2.4.0
+                     , turtle       == 1.5.15
+
+  hs-source-dirs:      src
+
+  default-language:    Haskell2010
+
+  ghc-options: -threaded -Wall

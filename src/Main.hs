@@ -1,90 +1,51 @@
+-- | Haskell language pragma
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
 
+-- | Haskell module declaration
 module Main where
 
-import Control.Monad (unless)
-import Data.Maybe (isNothing, Maybe(..))
-import Data.Text (Text, replace, isInfixOf)
-import Data.Text.IO (putStrLn, readFile, writeFile)
-import Prelude(IO, String, foldl, return, ($), (<>))
-import System.Directory (findExecutable)
-import Turtle (shell, empty, die, repr, ExitCode(..))
+-- | Miso framework import
+import Miso
+import Miso.String
+import Language.Javascript.JSaddle.Warp as JSaddle
+import Control.Monad.IO.Class (liftIO)
 
+-- | Type synonym for an application model
+type Model = Int
+
+-- | Sum type for application events
+data Action
+  = AddOne
+  | SubtractOne
+  | NoOp
+  | SayHelloWorld
+  deriving (Show, Eq)
+
+-- | Entry point for a miso application
 main :: IO ()
-main = do
-  maybeFilePath <- findExecutable "nixos-version"
-  putStrLnGreen $ case maybeFilePath of
-    Just _ -> "NixOS operating system detected"
-    _      -> "NixOS operating system not found"
-  unless (isNothing maybeFilePath) $ do
-    putStrLnGreen "Adding Haskell GHC and cabal-install to configuration.nix"
-    config <- readFile configurationNix
-    let newConfig = foldl addToConfigurationIfDoesNotExist config ["haskell.compiler.ghc865", "haskellPackages.cabal-install", "atom"]
-    writeFile configurationNix newConfig
-    putStrLnGreen "Finished adding Haskell GHC and cabal-install to configuration.nix"
-
-    putStrLnGreen "Installing GHC, cabal-install and Atom"
-    exitCode <- shell "nixos-rebuild switch" empty
-    case exitCode of
-        ExitSuccess   -> return ()
-        ExitFailure n -> die ("nixos-rebuild switch failed with exit code: " <> repr n)
-    putStrLnGreen "Finished installing GHC, cabal-install and Atom"
-
-    putStrLnGreen "Adding Haskell IDE Engine to configuration.nix"
-    config2 <- readFile configurationNix
-    let newConfig2 =
-          addToConfigurationIfDoesNotExist
-            config2
-            "((import (fetchTarball \"https://github.com/infinisil/all-hies/tarball/master\")\
-            \ {}).selection { selector = p: { inherit (p) ghc865 ghc864; }; })"
-    writeFile configurationNix newConfig2
-    putStrLnGreen "Finished adding Haskell IDE Engine to configuration.nix"
-
-    putStrLnGreen "Installing Haskell IDE Engine"
-    exitCode2 <- shell "nixos-rebuild switch" empty
-    case exitCode2 of
-        ExitSuccess   -> return ()
-        ExitFailure n -> die ("nixos-rebuild switch failed with exit code: " <> repr n)
-    putStrLnGreen "Finished installing Haskell IDE Engine"
-
-    installAtomPackage "nix"
-    installAtomPackage "atom-ide-ui"
-    installAtomPackage "autocomplete-haskell"
-    installAtomPackage "hasklig"
-    installAtomPackage "ide-haskell-cabal"
-    installAtomPackage "ide-haskell-hasktags"
-    installAtomPackage "ide-haskell-hie"
-    installAtomPackage "ide-haskell-hoogle"
-    installAtomPackage "ide-haskell-repl"
-    installAtomPackage "language-haskell"
-
-
-
-putStrLnGreen :: Text -> IO ()
-putStrLnGreen str = putStrLn $ "\x1b[32m" <> str <> "\x1b[0m"
-
-configurationNix :: String
-configurationNix = "/etc/nixos/configuration.nix"
-
-environmentSystemPackages :: Text
-environmentSystemPackages = "environment.systemPackages = with pkgs; ["
-
-addToConfigurationIfDoesNotExist :: Text -> Text -> Text
-addToConfigurationIfDoesNotExist configNix package =
-  if isPackageInstalled then configNix else
-       replace
-         environmentSystemPackages
-         (environmentSystemPackages <> "\n\
-         \    " <> package)
-         configNix
+main = JSaddle.run 8080 $ startApp App {..}
   where
-    isPackageInstalled = package `isInfixOf` configNix
+    initialAction = SayHelloWorld -- initial action to be executed on application load
+    model  = 0                    -- initial model
+    update = updateModel          -- update function
+    view   = viewModel            -- view function
+    events = defaultEvents        -- default delegated events
+    subs   = []                   -- empty subscription list
+    mountPoint = Nothing          -- mount point for application (Nothing defaults to 'body')
 
-installAtomPackage :: Text -> IO ()
-installAtomPackage package = do
-  putStrLnGreen $ "Installing " <> package
-  exitCode <- shell ("sudo -u $SUDO_USER apm install " <> package) empty
-  case exitCode of
-      ExitSuccess   -> return ()
-      ExitFailure n -> die ("apm install failed with exit code: " <> repr n)
-  putStrLnGreen $ "Finished installing " <> package
+-- | Updates model, optionally introduces side effects
+updateModel :: Action -> Model -> Effect Action Model
+updateModel AddOne m = noEff (m + 1)
+updateModel SubtractOne m = noEff (m - 1)
+updateModel NoOp m = noEff m
+updateModel SayHelloWorld m = m <# do
+  liftIO (putStrLn "Hello World") >> pure NoOp
+
+-- | Constructs a virtual DOM from a model
+viewModel :: Model -> View Action
+viewModel x = div_ [] [
+   button_ [ onClick AddOne ] [ text "+" ]
+ , text (ms x)
+ , button_ [ onClick SubtractOne ] [ text "-" ]
+ ]
