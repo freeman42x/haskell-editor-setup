@@ -1,0 +1,9 @@
+{
+    "name": "NW.JS JSADDLE Demo",
+    "main": "index.html",
+    "window": {
+        "title": "NW.JS JSADDLE Demo",
+        "width": 800,
+        "height": 600
+    }
+}
