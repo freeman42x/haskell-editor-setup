@@ -45,7 +45,14 @@ updateModel SayHelloWorld m = m <# do
 -- | Constructs a virtual DOM from a model
 viewModel :: Model -> View Action
 viewModel x = div_ [] [
-   button_ [ onClick AddOne ] [ text "+" ]
+   label_ [] [ text "Editor / IDE" ]
+ , br_ []
+ , label_ [] [ text "Atom" ]
+ , input_ [ type_ "radio", name_ "editor", value_ "Atom" ]
+ , label_ [] [ text "Visual Studio Code" ]
+ , input_ [ type_ "radio", name_ "editor", value_ "VSCode", disabled_ True ]
+ , br_ []
+ , button_ [ onClick AddOne ] [ text "+" ]
  , text (ms x)
  , button_ [ onClick SubtractOne ] [ text "-" ]
  ]
