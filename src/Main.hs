@@ -42,13 +42,20 @@ updateModel Install m = m <# do
 viewModel :: Model -> View Action
 viewModel x = form_ [] [
    link_ [ rel_ "stylesheet", href_ "https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" ]
- , label_ [] [ text "Editor / IDE" ]
- , br_ []
- , label_ [] [ text "Atom" ]
- , input_ [ type_ "radio", name_ "editor", value_ "Atom" ]
- , label_ [] [ text "Visual Studio Code" ]
- , input_ [ type_ "radio", name_ "editor", value_ "VSCode", disabled_ True ]
+ , h5_ [ class_ "title is-5" ] [ text "Easy Haskell Editor / IDE Setup" ]
+ , div_ [ class_ "control" ] [
+     "Editor / IDE"
+   , br_ []
+   , label_ [ class_ "radio" ] [
+         input_ [ type_ "radio", name_ "editor", value_ "Atom" ]
+       , "Atom"
+     ]
+   , label_ [ class_ "radio" ] [
+         input_ [ type_ "radio", name_ "editor", value_ "VSCode", disabled_ True ]
+       , "Visual Studio Code"
+     ]
+ ]
  , br_ []
  , text (ms x)
- , button_ [ onClick Install ] [ text "Install" ]
+ , button_ [ onClick Install, class_ "button" ] [ text "Install" ]
  ]
