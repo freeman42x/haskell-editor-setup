@@ -7,14 +7,13 @@
 module Main where
 
 -- | Miso framework import
-import Control.Lens
+import Control.Lens ((.~), (&), makeLenses)
 import Control.Monad.IO.Class (liftIO)
 import Miso
-import Miso.String
 import Language.Javascript.JSaddle.Warp as JSaddle
 
 -- | Type synonym for an application model
-data Model = Model
+newtype Model = Model
   { _editorOrIde :: EditorOrIde
   } deriving (Show, Eq)
 
@@ -50,10 +49,13 @@ main = JSaddle.run 8080 $ startApp App {..}
 -- | Updates model, optionally introduces side effects
 updateModel :: Action -> Model -> Effect Action Model
 updateModel NoOp m = noEff m
-updateModel (SetChecked editorOrIde_ (Checked True)) m = noEff $ m & editorOrIde +~ editorOrIde_
+updateModel (SetChecked editorOrIde_ (Checked True)) m = noEff $ m & editorOrIde .~ editorOrIde_
 updateModel (SetChecked _ _) m = noEff m
 updateModel Install m = m <# do
-  liftIO (putStrLn "Hello World") >> pure NoOp
+  liftIO (print $ _editorOrIde m) >> pure NoOp
+
+clickHandler :: action -> Attribute action
+clickHandler action = onWithOptions (defaultOptions { preventDefault = True }) "click" emptyDecoder $ \() -> action
 
 -- | Constructs a virtual DOM from a model
 viewModel :: Model -> View Action
@@ -64,26 +66,26 @@ viewModel m = form_ [] [
      "Editor / IDE"
    , br_ []
    , label_ [ class_ "radio" ] [
-         input_ [ type_ "radio", name_ "editor", onChecked (SetChecked Atom) ]
+         input_ [ type_ "radio", name_ "editor", checked_ (_editorOrIde m == Atom), onChecked (SetChecked Atom) ]
        , "Atom"
      ]
    , label_ [ class_ "radio" ] [
-         input_ [ type_ "radio", name_ "editor", onChecked (SetChecked VisualStudioCode) ]
+         input_ [ type_ "radio", name_ "editor", checked_ (_editorOrIde m == VisualStudioCode), onChecked (SetChecked VisualStudioCode) ]
        , "Visual Studio Code"
      ]
    , label_ [ class_ "radio" ] [
-         input_ [ type_ "radio", name_ "editor", onChecked (SetChecked IntelliJIdeaCommunity), disabled_ True ]
+         input_ [ type_ "radio", name_ "editor", checked_ (_editorOrIde m == IntelliJIdeaCommunity), onChecked (SetChecked IntelliJIdeaCommunity), disabled_ True ]
        , "IntelliJ IDEA Community"
      ]
    , label_ [ class_ "radio" ] [
-         input_ [ type_ "radio", name_ "editor", onChecked (SetChecked SublimeText3), disabled_ True ]
+         input_ [ type_ "radio", name_ "editor", checked_ (_editorOrIde m == SublimeText3), onChecked (SetChecked SublimeText3), disabled_ True ]
        , "Sublime Text 3"
      ]
    , label_ [ class_ "radio" ] [
-         input_ [ type_ "radio", name_ "editor", onChecked (SetChecked Leksah), disabled_ True ]
+         input_ [ type_ "radio", name_ "editor", checked_ (_editorOrIde m == Leksah), onChecked (SetChecked Leksah), disabled_ True ]
        , "Leksah"
      ]
  ]
  , br_ []
- , button_ [ onClick Install, class_ "button" ] [ text "Install" ]
+ , button_ [ clickHandler Install , class_ "button" ] [ text "Install" ]
  ]
