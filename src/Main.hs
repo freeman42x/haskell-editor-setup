@@ -16,7 +16,7 @@ import Control.Monad (unless)
 import Data.Maybe (isNothing, Maybe(..))
 import Data.Text (Text, replace, isInfixOf)
 import Data.Text.IO (putStrLn, readFile, writeFile)
-import Prelude(IO, String, Show, Eq, Bool(..), print, pure, foldl, return, ($), (<>), (==), (>>))
+import Prelude(IO, String, Show, Eq, Bool(..), pure, foldl, return, ($), (<>), (==), (>>))
 import System.Directory (findExecutable)
 import Turtle (shell, empty, die, repr, ExitCode(..))
 
@@ -60,7 +60,11 @@ updateModel NoOp m = noEff m
 updateModel (SetChecked editorOrIde_ (Checked True)) m = noEff $ m & editorOrIde .~ editorOrIde_
 updateModel (SetChecked _ _) m = noEff m
 updateModel Install m = m <# do
-  liftIO (print $ _editorOrIde m) >> pure NoOp
+  liftIO runSetup >> pure NoOp
+  where
+    runSetup = case _editorOrIde m of
+                 Atom -> nixOsAtom
+                 _    -> putStrLn "Not implemented yet"
 
 clickHandler :: action -> Attribute action
 clickHandler action = onWithOptions (defaultOptions { preventDefault = True }) "click" emptyDecoder $ \() -> action
