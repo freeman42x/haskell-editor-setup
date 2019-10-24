@@ -1,6 +1,6 @@
 with (import (builtins.fetchTarball {
-  url = "https://github.com/dmjio/miso/archive/4e15d92cc4f37605fc398229695de4d903ef8a47.tar.gz";
-  sha256 = "0kg9lg18qdsnb6gw3jmnl49widzf5cy151bls7k09d5dxlm0myd8";
+  url = "https://github.com/dmjio/miso/archive/561ffad.tar.gz";
+  sha256 = "1wwzckz2qxb873wdkwqmx9gmh0wshcdxi7gjwkba0q51jnkfdi41";
 }) {});
 with pkgs.haskell.packages;
 ghc865.callCabal2nix "haskell-editor-setup" ./. { miso = ghc865.miso-jsaddle; }
