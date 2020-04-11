@@ -87,7 +87,7 @@ let
     allowUnfree = true;
 
     packageOverrides = pkgs: with pkgs;
-      let jdk = openjdk11; in rec {
+      rec {
       unstable = import <nixpkgs> { inherit config; };
 
       all = pkgs.buildEnv {
@@ -169,7 +169,7 @@ let
     allowUnfree = true;
 
     packageOverrides = pkgs: with pkgs;
-      let jdk = openjdk11; in rec {
+      rec {
       unstable = import <nixpkgs> { inherit config; };
 
       all = pkgs.buildEnv {
