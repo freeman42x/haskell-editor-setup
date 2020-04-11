@@ -22,6 +22,9 @@ executable haskell-editor-setup
                      , turtle             == 1.5.14
                      , lens               == 4.17.1
 
+  other-modules:       OS.Linux.NixOS
+                       OS.Linux.Debian
+
   hs-source-dirs:      src
 
   default-extensions:  OverloadedStrings
