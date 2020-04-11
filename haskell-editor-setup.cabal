@@ -24,6 +24,9 @@ executable haskell-editor-setup
 
   hs-source-dirs:      src
 
+  default-extensions:  OverloadedStrings
+                     , RecordWildCards
+
   default-language:    Haskell2010
 
   ghc-options: -threaded -Wall
