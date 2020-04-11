@@ -10,7 +10,7 @@ module Main where
 import Control.Lens ((.~), (&), makeLenses)
 import Control.Monad.IO.Class (liftIO)
 import Miso
-import Language.Javascript.JSaddle.Warp as JSaddle
+import Language.Javascript.JSaddle.WebKitGTK (run)
 
 import Control.Monad (unless)
 import Data.Maybe (isNothing, Maybe(..))
@@ -44,7 +44,7 @@ data Action
 
 -- | Entry point for a miso application
 main :: IO ()
-main = JSaddle.run 8080 $ startApp App {..}
+main = run $ startApp App {..}
   where
     initialAction = NoOp -- initial action to be executed on application load
     model  = Model Atom           -- initial model
