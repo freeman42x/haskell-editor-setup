@@ -21,11 +21,9 @@ import           Prelude                        ( IO
                                                 , (>>)
                                                 , pure
                                                 )
-import qualified Data.Text                     as T
 import           Data.Text.IO                   ( putStrLn )
-
 import           OS.Linux.NixOS                 ( nixOsAtom )
-import           OS.Linux.Debian                ( debianAtom )
+
 
 
 data EditorOrIde =
@@ -35,11 +33,6 @@ data EditorOrIde =
   | SublimeText3
   | Leksah
   deriving (Show, Eq)
-
--- TODO: come up with more meaningful name
-automationDB :: [(EditorOrIde, [(T.Text, IO ())])]
-automationDB = [(Atom, [("nixos", nixOsAtom), ("debian", debianAtom)])]
-
 
 -- | Type synonym for an application model
 newtype Model = Model
