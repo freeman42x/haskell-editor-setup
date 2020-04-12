@@ -1,5 +1,7 @@
 module OS.Linux.NixOS where
 
+import           Miso.Effect
+import           Miso
 import           Prelude                        ( IO
                                                 , String
                                                 , foldl
@@ -20,9 +22,9 @@ import           Turtle                         ( shell
                                                 )
 
 
-nixOsAtom :: IO ()
+nixOsAtom :: Sink action -> IO ()
 nixOsAtom = do
-  putStrLnGreen "Adding Haskell GHC and cabal-install to configuration.nix"
+  consoleLog "Adding Haskell GHC and cabal-install to configuration.nix"
   config <- readFile configurationNix
   let newConfig = foldl
         addToConfigurationIfDoesNotExist
