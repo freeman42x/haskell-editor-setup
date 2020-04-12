@@ -79,29 +79,26 @@ curl https://nixos.org/nix/install | sh
 
 ## Install GHC and cabal-install
 
-Create the file `~/.nixpkgs/config.nix` and copy paste this into it:
+Create the file `~/.config/nixpkgs/config.nix` and copy paste this into it:
 
 ```nix
-let
-  config = {
-    allowUnfree = true;
+with import <nixpkgs> {};
 
-    packageOverrides = pkgs: with pkgs;
-      rec {
-      unstable = import <nixpkgs> { inherit config; };
+{
+  allowUnfree = true;
 
-      all = pkgs.buildEnv {
-        name = "all";
+  packageOverrides = pkgs: rec {
+    all = pkgs.buildEnv {
+      name = "all";
 
-        paths = [
-          haskell.compiler.ghc865
-          haskellPackages.cabal-install
-          binutils.bintools # required on WSL
-        ];
-      };
+      paths = [
+        haskell.compiler.ghc865
+        haskellPackages.cabal-install
+        binutils.bintools # required on WSL
+      ];
     };
   };
-in config
+}
 ```
 
 And run following command to install the `GHC` and `cabal-install` packages:
@@ -140,7 +137,7 @@ Continue with:
 
 ## Install Haskell IDE Engine executable
 
-In `~/.nixpkgs/config.nix` add to the `let` variables:
+In `~/.config/nixpkgs/config.nix` add to the `let` variables:
 
  ```nix
 all-hies = import (fetchTarball "https://github.com/infinisil/all-hies/tarball/master") {};
@@ -163,20 +160,20 @@ installing all HIE versions will take a long time to install
 after adding HIE your configuration should look something like the following:
 
 ```nix
+with import <nixpkgs> {};
+
 let
   all-hies = import (fetchTarball "https://github.com/infinisil/all-hies/tarball/master") {};
-  config = {
+in
+  {
     allowUnfree = true;
 
-    packageOverrides = pkgs: with pkgs;
-      rec {
-      unstable = import <nixpkgs> { inherit config; };
-
+    packageOverrides = pkgs: rec {
       all = pkgs.buildEnv {
         name = "all";
 
         paths = [
-          binutils.bintools
+          binutils.bintools # required on WSL
           haskell.compiler.ghc865
           haskellPackages.cabal-install
           unstable.haskellPackages.stack
@@ -187,8 +184,7 @@ let
         ];
       };
     };
-  };
-in config
+  }
 ```
 
 run `nix-env -i all` to install HIE
