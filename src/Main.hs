@@ -2,7 +2,6 @@
 
 module Main where
 
--- | Miso framework import
 import           Control.Lens                   ( (.~)
                                                 , (&)
                                                 , makeLenses
@@ -70,14 +69,14 @@ main = run $ startApp App { .. }
 
 -- | Updates model, optionally introduces side effects
 updateModel :: Action -> Model -> Effect Action Model
-updateModel NoOp m = noEff m
-updateModel (SetChecked editorOrIde_ (Checked True)) m =
-  noEff $ m & editorOrIde .~ editorOrIde_
-updateModel (SetChecked _ _) m = noEff m
-updateModel Install          m = m <# do
+updateModel NoOp model = noEff model
+updateModel (SetChecked editorOrIde_ (Checked True)) model =
+  noEff $ model & editorOrIde .~ editorOrIde_
+updateModel (SetChecked _ _) model = noEff model
+updateModel Install          model = model <# do
   liftIO runSetup >> pure NoOp
  where
-  runSetup = case _editorOrIde m of
+  runSetup = case _editorOrIde model of
     Atom -> nixOsAtom
     _    -> putStrLn "Not implemented yet"
 
@@ -88,7 +87,7 @@ clickHandler action =
 
 -- | Constructs a virtual DOM from a model
 viewModel :: Model -> View Action
-viewModel m = form_
+viewModel model = form_
   []
   [ link_
     [ rel_ "stylesheet"
@@ -104,7 +103,7 @@ viewModel m = form_
       [ input_
         [ type_ "radio"
         , name_ "editor"
-        , checked_ (_editorOrIde m == Atom)
+        , checked_ (_editorOrIde model == Atom)
         , onChecked (SetChecked Atom)
         ]
       , "Atom"
@@ -114,7 +113,7 @@ viewModel m = form_
       [ input_
         [ type_ "radio"
         , name_ "editor"
-        , checked_ (_editorOrIde m == VisualStudioCode)
+        , checked_ (_editorOrIde model == VisualStudioCode)
         , onChecked (SetChecked VisualStudioCode)
         ]
       , "Visual Studio Code"
@@ -124,7 +123,7 @@ viewModel m = form_
       [ input_
         [ type_ "radio"
         , name_ "editor"
-        , checked_ (_editorOrIde m == IntelliJIdeaCommunity)
+        , checked_ (_editorOrIde model == IntelliJIdeaCommunity)
         , onChecked (SetChecked IntelliJIdeaCommunity)
         , disabled_ True
         ]
@@ -135,7 +134,7 @@ viewModel m = form_
       [ input_
         [ type_ "radio"
         , name_ "editor"
-        , checked_ (_editorOrIde m == SublimeText3)
+        , checked_ (_editorOrIde model == SublimeText3)
         , onChecked (SetChecked SublimeText3)
         , disabled_ True
         ]
@@ -146,13 +145,15 @@ viewModel m = form_
       [ input_
         [ type_ "radio"
         , name_ "editor"
-        , checked_ (_editorOrIde m == Leksah)
+        , checked_ (_editorOrIde model == Leksah)
         , onChecked (SetChecked Leksah)
         , disabled_ True
         ]
       , "Leksah"
       ]
     ]
+  , br_ []
+  , textarea_ [rows_ "15", cols_ "80" ] [ {- View action -} ]
   , br_ []
   , button_ [clickHandler Install, class_ "button"] [text "Install"]
   ]
