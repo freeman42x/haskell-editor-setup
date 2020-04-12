@@ -1,9 +1,13 @@
 module OS.Linux.NixOS where
 
+import           Control.Monad.IO.Class (liftIO)
+import           Language.Javascript.JSaddle.Monad
 import           Miso.Effect
 import           Miso
 import           Prelude                        ( IO
+                                                , undefined
                                                 , String
+                                                , flip
                                                 , foldl
                                                 , return
                                                 , ($)
@@ -23,53 +27,54 @@ import           Turtle                         ( shell
 
 
 nixOsAtom :: Sink action -> IO ()
-nixOsAtom = do
+nixOsAtom _ = flip runJSM undefined $ do
   consoleLog "Adding Haskell GHC and cabal-install to configuration.nix"
-  config <- readFile configurationNix
+  config <- liftIO $ readFile configurationNix
   let newConfig = foldl
         addToConfigurationIfDoesNotExist
         config
         ["haskell.compiler.ghc865", "haskellPackages.cabal-install", "atom"]
-  writeFile configurationNix newConfig
-  putStrLnGreen
+  liftIO $ writeFile configurationNix newConfig
+  consoleLog
     "Finished adding Haskell GHC and cabal-install to configuration.nix"
 
-  putStrLnGreen "Installing GHC, cabal-install and Atom"
+  consoleLog "Installing GHC, cabal-install and Atom"
   exitCode <- shell "nixos-rebuild switch" empty
   case exitCode of
     ExitSuccess -> return ()
     ExitFailure n ->
       die ("nixos-rebuild switch failed with exit code: " <> repr n)
-  putStrLnGreen "Finished installing GHC, cabal-install and Atom"
+  consoleLog "Finished installing GHC, cabal-install and Atom"
 
-  putStrLnGreen "Adding Haskell IDE Engine to configuration.nix"
-  config2 <- readFile configurationNix
+  consoleLog "Adding Haskell IDE Engine to configuration.nix"
+  config2 <- liftIO $ readFile configurationNix
   let
     newConfig2 = addToConfigurationIfDoesNotExist
       config2
       "((import (fetchTarball \"https://github.com/infinisil/all-hies/tarball/master\")\
           \ {}).selection { selector = p: { inherit (p) ghc865 ghc864; }; })"
-  writeFile configurationNix newConfig2
-  putStrLnGreen "Finished adding Haskell IDE Engine to configuration.nix"
+  liftIO $ writeFile configurationNix newConfig2
+  consoleLog "Finished adding Haskell IDE Engine to configuration.nix"
 
-  putStrLnGreen "Installing Haskell IDE Engine"
+  consoleLog "Installing Haskell IDE Engine"
   exitCode2 <- shell "nixos-rebuild switch" empty
   case exitCode2 of
     ExitSuccess -> return ()
     ExitFailure n ->
       die ("nixos-rebuild switch failed with exit code: " <> repr n)
-  putStrLnGreen "Finished installing Haskell IDE Engine"
+  consoleLog "Finished installing Haskell IDE Engine"
 
-  installAtomPackage "nix"
-  installAtomPackage "atom-ide-ui"
-  installAtomPackage "autocomplete-haskell"
-  installAtomPackage "hasklig"
-  installAtomPackage "ide-haskell-cabal"
-  installAtomPackage "ide-haskell-hasktags"
-  installAtomPackage "ide-haskell-hie"
-  installAtomPackage "ide-haskell-hoogle"
-  installAtomPackage "ide-haskell-repl"
-  installAtomPackage "language-haskell"
+  liftIO $ do
+    installAtomPackage "nix"
+    installAtomPackage "atom-ide-ui"
+    installAtomPackage "autocomplete-haskell"
+    installAtomPackage "hasklig"
+    installAtomPackage "ide-haskell-cabal"
+    installAtomPackage "ide-haskell-hasktags"
+    installAtomPackage "ide-haskell-hie"
+    installAtomPackage "ide-haskell-hoogle"
+    installAtomPackage "ide-haskell-repl"
+    installAtomPackage "language-haskell"
 
 
 putStrLnGreen :: T.Text -> IO ()
