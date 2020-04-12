@@ -177,6 +177,7 @@ with import <nixpkgs> {};
 
 let
   all-hies = import (fetchTarball "https://github.com/infinisil/all-hies/tarball/master") {};
+  unstable = import <nixpkgs> { inherit config; };
 in
   {
     allowUnfree = true;
