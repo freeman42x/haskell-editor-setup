@@ -53,6 +53,8 @@ updateModel (SetChecked editorOrIde_ (Checked True)) model =
 updateModel (SetChecked _ _) model = noEff model
 updateModel Install          model = effectSub model $ liftIO . nixOsAtom
 
+-- nixOsAtom :: Sink Action -> IO ()
+
 clickHandler :: action -> Attribute action
 clickHandler action =
   onWithOptions (defaultOptions { preventDefault = True }) "click" emptyDecoder

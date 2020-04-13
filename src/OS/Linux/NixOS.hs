@@ -1,13 +1,9 @@
 module OS.Linux.NixOS where
 
 import           Control.Monad.IO.Class (liftIO)
-import           Language.Javascript.JSaddle.Monad (runJSM)
 import           Miso.Effect
-import           Miso
 import           Prelude                        ( IO
-                                                , undefined
                                                 , String
-                                                , flip
                                                 , foldl
                                                 , return
                                                 , ($)
@@ -27,29 +23,27 @@ import           Turtle                         ( shell
 
 import           Types
 
-
-
-nixOsAtom :: Sink action -> IO ()
+nixOsAtom :: Sink Action -> IO ()
 nixOsAtom sink = do
-  sink $ Append "Adding Haskell GHC and cabal-install to configuration.nix"
+  let log s = sink $ Append s
+  log "Adding Haskell GHC and cabal-install to configuration.nix"
   config <- liftIO $ readFile configurationNix
   let newConfig = foldl
         addToConfigurationIfDoesNotExist
         config
         ["haskell.compiler.ghc865", "haskellPackages.cabal-install", "atom"]
   liftIO $ writeFile configurationNix newConfig
-  consoleLog
-    "Finished adding Haskell GHC and cabal-install to configuration.nix"
+  log "Finished adding Haskell GHC and cabal-install to configuration.nix"
 
-  consoleLog "Installing GHC, cabal-install and Atom"
+  log "Installing GHC, cabal-install and Atom"
   exitCode <- shell "nixos-rebuild switch" empty
   case exitCode of
     ExitSuccess -> return ()
     ExitFailure n ->
       die ("nixos-rebuild switch failed with exit code: " <> repr n)
-  consoleLog "Finished installing GHC, cabal-install and Atom"
+  log "Finished installing GHC, cabal-install and Atom"
 
-  consoleLog "Adding Haskell IDE Engine to configuration.nix"
+  log "Adding Haskell IDE Engine to configuration.nix"
   config2 <- liftIO $ readFile configurationNix
   let
     newConfig2 = addToConfigurationIfDoesNotExist
@@ -57,15 +51,15 @@ nixOsAtom sink = do
       "((import (fetchTarball \"https://github.com/infinisil/all-hies/tarball/master\")\
           \ {}).selection { selector = p: { inherit (p) ghc865 ghc864; }; })"
   liftIO $ writeFile configurationNix newConfig2
-  consoleLog "Finished adding Haskell IDE Engine to configuration.nix"
+  log "Finished adding Haskell IDE Engine to configuration.nix"
 
-  consoleLog "Installing Haskell IDE Engine"
+  log "Installing Haskell IDE Engine"
   exitCode2 <- shell "nixos-rebuild switch" empty
   case exitCode2 of
     ExitSuccess -> return ()
     ExitFailure n ->
       die ("nixos-rebuild switch failed with exit code: " <> repr n)
-  consoleLog "Finished installing Haskell IDE Engine"
+  log "Finished installing Haskell IDE Engine"
 
   liftIO $ do
     installAtomPackage "nix"
