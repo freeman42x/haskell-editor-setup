@@ -28,15 +28,12 @@ nixOsAtom sink = do
   let log text = sink $ Append (text <> "\n")
       logStep text actions = do
         log $ "Begin : " <> text
-        actions
+        _ <- actions
         log $ "End   : " <> text
 
   logStep "Installing Haskell GHC" (do
     oldConfigurationNixText <- liftIO $ readFile configurationNixFile
-    let newConfigurationNixText = foldl
-          addPackageToSystemPackagesIfItDoesNotExist
-          oldConfigurationNixText
-          ["haskell.compiler.ghc865", "haskellPackages.cabal-install", "atom"]
+    let newConfigurationNixText = addPackageToSystemPackagesIfItDoesNotExist oldConfigurationNixText "haskell.compiler.ghc865"
     liftIO $ writeFile configurationNixFile newConfigurationNixText)
 
   -- TODO function for begin / end log blocks
