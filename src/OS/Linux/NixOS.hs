@@ -61,17 +61,17 @@ nixOsAtom sink = do
   --     die ("nixos-rebuild switch failed with exit code: " <> repr n)
   log "Finished installing Haskell IDE Engine"
 
-  liftIO $ do
-    installAtomPackage "nix"
-    installAtomPackage "atom-ide-ui"
-    installAtomPackage "autocomplete-haskell"
-    installAtomPackage "hasklig"
-    installAtomPackage "ide-haskell-cabal"
-    installAtomPackage "ide-haskell-hasktags"
-    installAtomPackage "ide-haskell-hie"
-    installAtomPackage "ide-haskell-hoogle"
-    installAtomPackage "ide-haskell-repl"
-    installAtomPackage "language-haskell"
+  -- liftIO $ do
+  --   installAtomPackage "nix"
+  --   installAtomPackage "atom-ide-ui"
+  --   installAtomPackage "autocomplete-haskell"
+  --   installAtomPackage "hasklig"
+  --   installAtomPackage "ide-haskell-cabal"
+  --   installAtomPackage "ide-haskell-hasktags"
+  --   installAtomPackage "ide-haskell-hie"
+  --   installAtomPackage "ide-haskell-hoogle"
+  --   installAtomPackage "ide-haskell-repl"
+  --   installAtomPackage "language-haskell"
 
 
 putStrLnGreen :: T.Text -> IO ()
