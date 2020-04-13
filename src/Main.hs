@@ -7,6 +7,7 @@ import           Control.Lens                   ( (.~)
                                                 , makeLenses
                                                 )
 import           Control.Monad.IO.Class         ( liftIO )
+import qualified Data.Text                     as T
 import           Miso
 import           Language.Javascript.JSaddle.WebKitGTK
                                                 ( run )
@@ -32,8 +33,9 @@ data EditorOrIde =
   deriving (Show, Eq)
 
 -- | Type synonym for an application model
-newtype Model = Model
-  { _editorOrIde :: EditorOrIde
+data Model = Model
+  { _editorOrIde :: EditorOrIde,
+    _log :: T.Text
   } deriving (Show, Eq)
 
 makeLenses ''Model
@@ -49,13 +51,13 @@ data Action
 main :: IO ()
 main = run $ startApp App { .. }
  where
-  initialAction = NoOp -- initial action to be executed on application load
-  model         = Model Atom           -- initial model
-  update        = updateModel          -- update function
-  view          = viewModel            -- view function
-  events        = defaultEvents        -- default delegated events
-  subs          = []                   -- empty subscription list
-  mountPoint    = Nothing              -- mount point for application (Nothing defaults to 'body')
+  initialAction = NoOp          -- initial action to be executed on application load
+  model         = Model Atom "" -- initial model
+  update        = updateModel   -- update function
+  view          = viewModel     -- view function
+  events        = defaultEvents -- default delegated events
+  subs          = []            -- empty subscription list
+  mountPoint    = Nothing       -- mount point for application (Nothing defaults to 'body')
 
 -- | Updates model, optionally introduces side effects
 updateModel :: Action -> Model -> Effect Action Model
