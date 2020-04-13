@@ -51,7 +51,8 @@ updateModel NoOp model = noEff model
 updateModel (SetChecked editorOrIde_ (Checked True)) model =
   noEff $ model & editorOrIde .~ editorOrIde_
 updateModel (SetChecked _ _) model = noEff model
-updateModel Install          model = effectSub model $ liftIO . nixOsAtom
+updateModel Install          model = undefined -- effectSub model $ liftIO . nixOsAtom
+updateModel (Append text)          = undefined
 
 -- nixOsAtom :: Sink Action -> IO ()
 
