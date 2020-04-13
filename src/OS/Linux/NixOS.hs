@@ -25,10 +25,13 @@ import           Turtle                         ( shell
                                                 , ExitCode(..)
                                                 )
 
+import           Types
+
+
 
 nixOsAtom :: Sink action -> IO ()
-nixOsAtom _ = flip runJSM undefined $ do
-  consoleLog "Adding Haskell GHC and cabal-install to configuration.nix"
+nixOsAtom sink = do
+  sink $ Append "Adding Haskell GHC and cabal-install to configuration.nix"
   config <- liftIO $ readFile configurationNix
   let newConfig = foldl
         addToConfigurationIfDoesNotExist

@@ -20,17 +20,10 @@ import           Prelude                        ( IO
                                                 , (.)
                                                 , (==)
                                                 )
+
 import           OS.Linux.NixOS                 ( nixOsAtom )
+import           Types
 
-
-
-data EditorOrIde =
-    Atom
-  | VisualStudioCode
-  | IntelliJIdeaCommunity
-  | SublimeText3
-  | Leksah
-  deriving (Show, Eq)
 
 -- | Type synonym for an application model
 data Model = Model
@@ -39,13 +32,6 @@ data Model = Model
   } deriving (Show, Eq)
 
 makeLenses ''Model
-
--- | Sum type for application events
-data Action
-  = NoOp
-  | SetChecked EditorOrIde Checked
-  | Install
-  deriving (Show, Eq)
 
 -- | Entry point for a miso application
 main :: IO ()
