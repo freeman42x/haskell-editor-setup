@@ -26,13 +26,14 @@ import           Types
 nixOsAtom :: Sink Action -> IO ()
 nixOsAtom sink = do
   let log s = sink $ Append (s <> "\n")
+  -- TODO function for begin / end log blocks
   log "Adding Haskell GHC and cabal-install to configuration.nix"
-  -- config <- liftIO $ readFile configurationNix
-  -- let newConfig = foldl
-  --       addToConfigurationIfDoesNotExist
-  --       config
-  --       ["haskell.compiler.ghc865", "haskellPackages.cabal-install", "atom"]
-  -- liftIO $ writeFile configurationNix newConfig
+  oldConfigurationNixText <- liftIO $ readFile configurationNixFile
+  let newConfigurationNixText = foldl
+        addPackageToSystemPackagesIfItDoesNotExist
+        oldConfigurationNixText
+        ["haskell.compiler.ghc865", "haskellPackages.cabal-install", "atom"]
+  liftIO $ writeFile configurationNixFile newConfigurationNixText
   log "Finished adding Haskell GHC and cabal-install to configuration.nix"
 
   log "Installing GHC, cabal-install and Atom"
@@ -44,13 +45,13 @@ nixOsAtom sink = do
   log "Finished installing GHC, cabal-install and Atom"
 
   log "Adding Haskell IDE Engine to configuration.nix"
-  -- config2 <- liftIO $ readFile configurationNix
+  -- config2 <- liftIO $ readFile configurationNixFile
   -- let
-  --   newConfig2 = addToConfigurationIfDoesNotExist
+  --   newConfig2 = addPackageToSystemPackagesIfItDoesNotExist
   --     config2
   --     "((import (fetchTarball \"https://github.com/infinisil/all-hies/tarball/master\")\
   --         \ {}).selection { selector = p: { inherit (p) ghc865 ghc864; }; })"
-  -- liftIO $ writeFile configurationNix newConfig2
+  -- liftIO $ writeFile configurationNixFile newConfig2
   log "Finished adding Haskell IDE Engine to configuration.nix"
 
   log "Installing Haskell IDE Engine"
@@ -77,21 +78,22 @@ nixOsAtom sink = do
 putStrLnGreen :: T.Text -> IO ()
 putStrLnGreen str = putStrLn $ "\x1b[32m" <> str <> "\x1b[0m"
 
-configurationNix :: String
-configurationNix = "/etc/nixos/configuration.nix"
+configurationNixFile :: String
+configurationNixFile = "/etc/nixos/configuration.nix"
 
 environmentSystemPackages :: T.Text
 environmentSystemPackages = "environment.systemPackages = with pkgs; ["
 
-addToConfigurationIfDoesNotExist :: T.Text -> T.Text -> T.Text
-addToConfigurationIfDoesNotExist configNix package = if isPackageInstalled
-  then configNix
-  else T.replace
-    environmentSystemPackages
-    (environmentSystemPackages <> "\n\
-         \    " <> package)
-    configNix
-  where isPackageInstalled = package `T.isInfixOf` configNix
+addPackageToSystemPackagesIfItDoesNotExist :: T.Text -> T.Text -> T.Text
+addPackageToSystemPackagesIfItDoesNotExist configurationNix package =
+  if isPackagePresent
+    then configurationNix
+    else T.replace
+      environmentSystemPackages
+      (environmentSystemPackages <> "\n\
+           \    " <> package)
+      configurationNix
+  where isPackagePresent = package `T.isInfixOf` configurationNix -- TODO
 
 installAtomPackage :: T.Text -> IO ()
 installAtomPackage package = do
