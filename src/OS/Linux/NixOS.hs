@@ -25,7 +25,12 @@ import           Types
 
 nixOsAtom :: Sink Action -> IO ()
 nixOsAtom sink = do
-  let log s = sink $ Append (s <> "\n")
+  let log text = sink $ Append (text <> "\n")
+      logStep text actions = do
+        log $ "Begin : " <> text
+        actions
+        log $ "End   : " <> text
+
   -- TODO function for begin / end log blocks
   log "Adding Haskell GHC and cabal-install to configuration.nix"
   oldConfigurationNixText <- liftIO $ readFile configurationNixFile
@@ -88,7 +93,7 @@ addPackageToSystemPackagesIfItDoesNotExist :: T.Text -> T.Text -> T.Text
 addPackageToSystemPackagesIfItDoesNotExist configurationNix package =
   if isPackagePresent
     then configurationNix
-    -- TODO HACK
+    -- FIXME
     else T.replace
       environmentSystemPackages
       (environmentSystemPackages <> "\n\
