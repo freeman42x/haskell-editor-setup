@@ -4,11 +4,12 @@ Developers
 * bredor / Bondarenko Daniil Evgenevich
 * freeman42x / Răzvan Flavius Panda
 
-Helped with development
+Helped with development via communication channels
 * benkolera from #qfpl IRC - nix, haskell
 * dmijo / David Johnson - miso, nix, haskell
 * dmj\` from #haskell IRC - miso, haskell
 * jackdk from #qfpl IRC - nix, haskell
+* maerwald from #haskell IRC - cabal
 
 Project management and scope
 * freeman42x / Răzvan Flavius Panda
