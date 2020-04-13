@@ -1,6 +1,6 @@
 module OS.Linux.NixOS where
 
-import           Control.Monad.IO.Class (liftIO)
+import           Control.Monad.IO.Class         ( liftIO )
 import           Miso.Effect
 import           Prelude                        ( IO
                                                 , String
