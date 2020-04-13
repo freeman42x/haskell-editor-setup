@@ -88,12 +88,13 @@ addPackageToSystemPackagesIfItDoesNotExist :: T.Text -> T.Text -> T.Text
 addPackageToSystemPackagesIfItDoesNotExist configurationNix package =
   if isPackagePresent
     then configurationNix
+    -- TODO HACK
     else T.replace
       environmentSystemPackages
       (environmentSystemPackages <> "\n\
            \    " <> package)
       configurationNix
-  where isPackagePresent = package `T.isInfixOf` configurationNix -- TODO
+  where isPackagePresent = package `T.isInfixOf` configurationNix -- TODO HACK
 
 installAtomPackage :: T.Text -> IO ()
 installAtomPackage package = do
