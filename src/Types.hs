@@ -1,7 +1,7 @@
 module Types where
 
-import qualified Data.Text                     as T
 import           Miso
+import qualified Miso.String                   as MS
 import           Prelude                        ( Show
                                                 , Eq
                                                 )
@@ -16,10 +16,9 @@ data EditorOrIde =
   | Leksah
   deriving (Show, Eq)
 
--- | Sum type for application events
 data Action
   = NoOp
   | SetChecked EditorOrIde Checked
   | Install
-  | Append T.Text
+  | Append MS.MisoString
   deriving (Show, Eq)

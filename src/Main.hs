@@ -7,8 +7,8 @@ import           Control.Lens                   ( (.~)
                                                 , makeLenses
                                                 )
 import           Control.Monad.IO.Class         ( liftIO )
-import qualified Data.Text                     as T
 import           Miso
+import qualified Miso.String                   as MS
 import           Language.Javascript.JSaddle.WebKitGTK
                                                 ( run )
 import           Prelude                        ( IO
@@ -26,27 +26,25 @@ import           OS.Linux.NixOS                 ( nixOsAtom )
 import           Types
 
 
--- | Type synonym for an application model
+
 data Model = Model
   { _editorOrIde :: EditorOrIde,
-    _log :: T.Text
+    _log :: MS.MisoString
   } deriving (Show, Eq)
 
 makeLenses ''Model
 
--- | Entry point for a miso application
 main :: IO ()
 main = run $ startApp App { .. }
  where
-  initialAction = NoOp          -- initial action to be executed on application load
-  model         = Model Atom "" -- initial model
-  update        = updateModel   -- update function
-  view          = viewModel     -- view function
-  events        = defaultEvents -- default delegated events
-  subs          = []            -- empty subscription list
-  mountPoint    = Nothing       -- mount point for application (Nothing defaults to 'body')
+  initialAction = NoOp
+  model         = Model Atom ""
+  update        = updateModel
+  view          = viewModel
+  events        = defaultEvents
+  subs          = []
+  mountPoint    = Nothing
 
--- | Updates model, optionally introduces side effects
 updateModel :: Action -> Model -> Effect Action Model
 updateModel NoOp model = noEff model
 updateModel (SetChecked editorOrIde_ (Checked True)) model = noEff $ model & editorOrIde .~ editorOrIde_
@@ -54,17 +52,11 @@ updateModel (SetChecked _ _) model = noEff model
 updateModel (Append appendText) model = noEff model {  _log = _log model <> appendText }
 updateModel Install model = effectSub model (liftIO . nixOsAtom)
 
--- updateModel Install          model = undefined -- effectSub model $ liftIO . nixOsAtom
--- updateModel (Append text)    model = undefined
-
--- nixOsAtom :: Sink Action -> IO ()
-
 clickHandler :: action -> Attribute action
 clickHandler action =
   onWithOptions (defaultOptions { preventDefault = True }) "click" emptyDecoder
     $ \() -> action
 
--- | Constructs a virtual DOM from a model
 viewModel :: Model -> View Action
 viewModel model = form_
   []
@@ -132,7 +124,7 @@ viewModel model = form_
       ]
     ]
   , br_ []
-  , textarea_ [rows_ "15", cols_ "80" ] [ "this is a test" ]
+  , textarea_ [rows_ "15", cols_ "80" ] [ text $ _log model ]
   , br_ []
   , button_ [clickHandler Install, class_ "button"] [text "Install"]
   ]
