@@ -124,7 +124,7 @@ viewModel model = form_
       ]
     ]
   , br_ []
-  , textarea_ [rows_ "15", cols_ "80" ] [ text $ _log model ]
+  , textarea_ [rows_ "15", cols_ "80", disabled_ True ] [ text $ _log model ]
   , br_ []
   , button_ [clickHandler Install, class_ "button"] [text "Install"]
   ]

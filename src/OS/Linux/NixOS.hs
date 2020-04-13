@@ -25,7 +25,7 @@ import           Types
 
 nixOsAtom :: Sink Action -> IO ()
 nixOsAtom sink = do
-  let log s = sink $ Append s
+  let log s = sink $ Append (s <> "\n")
   log "Adding Haskell GHC and cabal-install to configuration.nix"
   -- config <- liftIO $ readFile configurationNix
   -- let newConfig = foldl
