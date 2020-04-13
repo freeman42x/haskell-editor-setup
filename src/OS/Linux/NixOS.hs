@@ -31,15 +31,23 @@ nixOsAtom sink = do
         actions
         log $ "End   : " <> text
 
+  logStep "Installing Haskell GHC" (do
+    oldConfigurationNixText <- liftIO $ readFile configurationNixFile
+    let newConfigurationNixText = foldl
+          addPackageToSystemPackagesIfItDoesNotExist
+          oldConfigurationNixText
+          ["haskell.compiler.ghc865", "haskellPackages.cabal-install", "atom"]
+    liftIO $ writeFile configurationNixFile newConfigurationNixText)
+
   -- TODO function for begin / end log blocks
-  log "Adding Haskell GHC and cabal-install to configuration.nix"
-  oldConfigurationNixText <- liftIO $ readFile configurationNixFile
-  let newConfigurationNixText = foldl
-        addPackageToSystemPackagesIfItDoesNotExist
-        oldConfigurationNixText
-        ["haskell.compiler.ghc865", "haskellPackages.cabal-install", "atom"]
-  liftIO $ writeFile configurationNixFile newConfigurationNixText
-  log "Finished adding Haskell GHC and cabal-install to configuration.nix"
+  -- log "Adding Haskell GHC and cabal-install to configuration.nix"
+  -- oldConfigurationNixText <- liftIO $ readFile configurationNixFile
+  -- let newConfigurationNixText = foldl
+  --       addPackageToSystemPackagesIfItDoesNotExist
+  --       oldConfigurationNixText
+  --       ["haskell.compiler.ghc865", "haskellPackages.cabal-install", "atom"]
+  -- liftIO $ writeFile configurationNixFile newConfigurationNixText
+  -- log "Finished adding Haskell GHC and cabal-install to configuration.nix"
 
   log "Installing GHC, cabal-install and Atom"
   -- exitCode <- shell "nixos-rebuild switch" empty
