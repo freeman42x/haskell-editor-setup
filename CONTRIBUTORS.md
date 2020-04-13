@@ -7,6 +7,7 @@ Developers
 Helped with development
 * benkolera from #qfpl IRC - nix, haskell
 * dmijo / David Johnson - miso, nix, haskell
+* dmj\` from #haskell IRC - miso, haskell
 * jackdk from #qfpl IRC - nix, haskell
 
 Project management and scope

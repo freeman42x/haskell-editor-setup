@@ -27,38 +27,38 @@ nixOsAtom :: Sink Action -> IO ()
 nixOsAtom sink = do
   let log s = sink $ Append s
   log "Adding Haskell GHC and cabal-install to configuration.nix"
-  config <- liftIO $ readFile configurationNix
-  let newConfig = foldl
-        addToConfigurationIfDoesNotExist
-        config
-        ["haskell.compiler.ghc865", "haskellPackages.cabal-install", "atom"]
-  liftIO $ writeFile configurationNix newConfig
+  -- config <- liftIO $ readFile configurationNix
+  -- let newConfig = foldl
+  --       addToConfigurationIfDoesNotExist
+  --       config
+  --       ["haskell.compiler.ghc865", "haskellPackages.cabal-install", "atom"]
+  -- liftIO $ writeFile configurationNix newConfig
   log "Finished adding Haskell GHC and cabal-install to configuration.nix"
 
   log "Installing GHC, cabal-install and Atom"
-  exitCode <- shell "nixos-rebuild switch" empty
-  case exitCode of
-    ExitSuccess -> return ()
-    ExitFailure n ->
-      die ("nixos-rebuild switch failed with exit code: " <> repr n)
+  -- exitCode <- shell "nixos-rebuild switch" empty
+  -- case exitCode of
+  --   ExitSuccess -> return ()
+  --   ExitFailure n ->
+  --     die ("nixos-rebuild switch failed with exit code: " <> repr n)
   log "Finished installing GHC, cabal-install and Atom"
 
   log "Adding Haskell IDE Engine to configuration.nix"
-  config2 <- liftIO $ readFile configurationNix
-  let
-    newConfig2 = addToConfigurationIfDoesNotExist
-      config2
-      "((import (fetchTarball \"https://github.com/infinisil/all-hies/tarball/master\")\
-          \ {}).selection { selector = p: { inherit (p) ghc865 ghc864; }; })"
-  liftIO $ writeFile configurationNix newConfig2
+  -- config2 <- liftIO $ readFile configurationNix
+  -- let
+  --   newConfig2 = addToConfigurationIfDoesNotExist
+  --     config2
+  --     "((import (fetchTarball \"https://github.com/infinisil/all-hies/tarball/master\")\
+  --         \ {}).selection { selector = p: { inherit (p) ghc865 ghc864; }; })"
+  -- liftIO $ writeFile configurationNix newConfig2
   log "Finished adding Haskell IDE Engine to configuration.nix"
 
   log "Installing Haskell IDE Engine"
-  exitCode2 <- shell "nixos-rebuild switch" empty
-  case exitCode2 of
-    ExitSuccess -> return ()
-    ExitFailure n ->
-      die ("nixos-rebuild switch failed with exit code: " <> repr n)
+  -- exitCode2 <- shell "nixos-rebuild switch" empty
+  -- case exitCode2 of
+  --   ExitSuccess -> return ()
+  --   ExitFailure n ->
+  --     die ("nixos-rebuild switch failed with exit code: " <> repr n)
   log "Finished installing Haskell IDE Engine"
 
   liftIO $ do

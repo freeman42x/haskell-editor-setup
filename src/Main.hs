@@ -19,6 +19,7 @@ import           Prelude                        ( IO
                                                 , ($)
                                                 , (.)
                                                 , (==)
+                                                , (<>)
                                                 )
 
 import           OS.Linux.NixOS                 ( nixOsAtom )
@@ -48,11 +49,13 @@ main = run $ startApp App { .. }
 -- | Updates model, optionally introduces side effects
 updateModel :: Action -> Model -> Effect Action Model
 updateModel NoOp model = noEff model
-updateModel (SetChecked editorOrIde_ (Checked True)) model =
-  noEff $ model & editorOrIde .~ editorOrIde_
+updateModel (SetChecked editorOrIde_ (Checked True)) model = noEff $ model & editorOrIde .~ editorOrIde_
 updateModel (SetChecked _ _) model = noEff model
-updateModel Install          model = undefined -- effectSub model $ liftIO . nixOsAtom
-updateModel (Append text)    model = undefined
+updateModel (Append appendText) model = noEff model {  _log = _log model <> appendText }
+updateModel Install model = effectSub model (liftIO . nixOsAtom)
+
+-- updateModel Install          model = undefined -- effectSub model $ liftIO . nixOsAtom
+-- updateModel (Append text)    model = undefined
 
 -- nixOsAtom :: Sink Action -> IO ()
 
@@ -129,7 +132,7 @@ viewModel model = form_
       ]
     ]
   , br_ []
-  , textarea_ [rows_ "15", cols_ "80" ] [ {- View action -} ]
+  , textarea_ [rows_ "15", cols_ "80" ] [ "this is a test" ]
   , br_ []
   , button_ [clickHandler Install, class_ "button"] [text "Install"]
   ]
