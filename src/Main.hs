@@ -10,18 +10,15 @@ import           Control.Monad.IO.Class         ( liftIO )
 import           Miso
 import           Language.Javascript.JSaddle.WebKitGTK
                                                 ( run )
-
 import           Prelude                        ( IO
                                                 , Show
                                                 , Eq
                                                 , Maybe(..)
                                                 , Bool(..)
                                                 , ($)
+                                                , (.)
                                                 , (==)
-                                                , (>>)
-                                                , pure
                                                 )
-import           Data.Text.IO                   ( putStrLn )
 import           OS.Linux.NixOS                 ( nixOsAtom )
 
 
@@ -58,7 +55,7 @@ main = run $ startApp App { .. }
   view          = viewModel            -- view function
   events        = defaultEvents        -- default delegated events
   subs          = []                   -- empty subscription list
-  mountPoint    = Nothing          -- mount point for application (Nothing defaults to 'body')
+  mountPoint    = Nothing              -- mount point for application (Nothing defaults to 'body')
 
 -- | Updates model, optionally introduces side effects
 updateModel :: Action -> Model -> Effect Action Model
@@ -66,12 +63,7 @@ updateModel NoOp model = noEff model
 updateModel (SetChecked editorOrIde_ (Checked True)) model =
   noEff $ model & editorOrIde .~ editorOrIde_
 updateModel (SetChecked _ _) model = noEff model
-updateModel Install          model = model <# do
-  liftIO runSetup >> pure NoOp
- where
-  runSetup = case _editorOrIde model of
-    Atom -> nixOsAtom
-    _    -> putStrLn "Not implemented yet"
+updateModel Install          model = effectSub model $ liftIO . nixOsAtom
 
 clickHandler :: action -> Attribute action
 clickHandler action =

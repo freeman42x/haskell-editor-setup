@@ -1,7 +1,7 @@
 module OS.Linux.NixOS where
 
 import           Control.Monad.IO.Class (liftIO)
-import           Language.Javascript.JSaddle.Monad
+import           Language.Javascript.JSaddle.Monad (runJSM)
 import           Miso.Effect
 import           Miso
 import           Prelude                        ( IO
