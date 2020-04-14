@@ -3,12 +3,14 @@ module OS.Linux.NixOS where
 import           Control.Monad.IO.Class         ( liftIO )
 import           Prelude                        ( IO
                                                 , String
+                                                , Text
                                                 , return
                                                 , ($)
                                                 , (<>)
                                                 )
 import           Data.Bifoldable                ( bifold )
-import qualified Data.Text                     as T
+import           Data.Text                      ( replace
+                                                , isInfixOf)
 import           Data.Text.IO                   ( putStrLn
                                                 , readFile
                                                 , writeFile
@@ -97,28 +99,28 @@ nixOsAtom sink = do
   --   installAtomPackage "language-haskell"
 
 
-putStrLnGreen :: T.Text -> IO ()
+putStrLnGreen :: Text -> IO ()
 putStrLnGreen str = putStrLn $ "\x1b[32m" <> str <> "\x1b[0m"
 
 configurationNixFile :: String
 configurationNixFile = "/etc/nixos/configuration.nix"
 
-environmentSystemPackages :: T.Text
+environmentSystemPackages :: Text
 environmentSystemPackages = "environment.systemPackages = with pkgs; ["
 
-addPackageToSystemPackagesIfItDoesNotExist :: T.Text -> T.Text -> T.Text
+addPackageToSystemPackagesIfItDoesNotExist :: Text -> Text -> Text
 addPackageToSystemPackagesIfItDoesNotExist configurationNix package =
   if isPackagePresent
     then configurationNix
     -- FIXME
-    else T.replace
+    else replace
       environmentSystemPackages
       (environmentSystemPackages <> "\n\
            \    " <> package)
       configurationNix
-  where isPackagePresent = package `T.isInfixOf` configurationNix -- TODO HACK
+  where isPackagePresent = package `isInfixOf` configurationNix -- TODO HACK
 
-installAtomPackage :: T.Text -> IO ()
+installAtomPackage :: Text -> IO ()
 installAtomPackage package = do
   putStrLnGreen $ "Installing " <> package
   exitCode <- shell ("sudo -u $SUDO_USER apm install " <> package) empty
