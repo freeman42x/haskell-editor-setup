@@ -2,7 +2,6 @@ module OS.Linux.NixOS where
 
 import           Control.Monad.IO.Class         ( liftIO )
 import           Prelude                        ( IO
-                                                , return
                                                 , when
                                                 , ($)
                                                 , (<>)
@@ -16,13 +15,9 @@ import           Data.Text.IO                   ( readFile
                                                 )
 import           Miso.Effect
 import           Miso.String                    ( toMisoString )
-import           Turtle                         ( shell
-                                                , sh
+import           Turtle                         ( sh
                                                 , inshellWithErr
                                                 , empty
-                                                , die
-                                                , repr
-                                                , ExitCode(..)
                                                 )
 import           Turtle.Line                    ( lineToText )
 
@@ -59,13 +54,8 @@ nixOsAtom sink = do
 
       -- TODO install or update?
       installAtomPackage package = do
-        let installingPackage = " : Installing Atom package - " <> toMisoString package
-        log $ "BEGIN" <> installingPackage
-        exitCode <- shell ("sudo -u $SUDO_USER apm install " <> package) empty
-        case exitCode of
-          ExitSuccess   -> return ()
-          ExitFailure n -> die ("apm install failed with exit code: " <> repr n) -- FIXME
-        log $ "END  " <> installingPackage
+        let installingPackage = "Installing Atom package - " <> toMisoString package
+        logStep installingPackage $ runShellCommand ("sudo -u $SUDO_USER apm install " <> package)
 
   -- TODO join
   configureAndInstall "Haskell GHC" "haskell.compiler.ghc865"
