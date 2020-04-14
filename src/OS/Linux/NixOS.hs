@@ -2,8 +2,6 @@ module OS.Linux.NixOS where
 
 import           Control.Monad.IO.Class         ( liftIO )
 import           Prelude                        ( IO
-                                                , String
-                                                , Text
                                                 , return
                                                 , when
                                                 , ($)
@@ -13,8 +11,7 @@ import           Prelude                        ( IO
 import           Data.Bifoldable                ( bifold )
 import           Data.Text                      ( replace
                                                 , isInfixOf)
-import           Data.Text.IO                   ( putStrLn
-                                                , readFile
+import           Data.Text.IO                   ( readFile
                                                 , writeFile
                                                 )
 import           Miso.Effect
@@ -38,6 +35,8 @@ nixOsAtom sink = do
         log $ "BEGIN : " <> text
         _ <- actions
         log $ "END   : " <> text
+      configurationNixFile = "/etc/nixos/configuration.nix"
+      environmentSystemPackages = "environment.systemPackages = with pkgs; ["
       runShellCommand command = sh $ do
         out <- inshellWithErr command empty
         liftIO $ log $ toMisoString $ lineToText $ bifold out
@@ -58,6 +57,16 @@ nixOsAtom sink = do
           when (oldConfigurationNixText /= newConfigurationNixText) -- OPTIMIZE
             (logStep "Installing Haskell GHC" (runShellCommand "nixos-rebuild switch"))
 
+      -- TODO install or update?
+      installAtomPackage package = do
+        let installingPackage = " : Installing Atom package - " <> toMisoString package
+        log $ "BEGIN" <> installingPackage
+        exitCode <- shell ("sudo -u $SUDO_USER apm install " <> package) empty
+        case exitCode of
+          ExitSuccess   -> return ()
+          ExitFailure n -> die ("apm install failed with exit code: " <> repr n) -- FIXME
+        log $ "END  " <> installingPackage
+
   -- TODO join
   configureAndInstall "Haskell GHC" "haskell.compiler.ghc865"
   configureAndInstall "cabal-install" "haskellPackages.cabal-install"
@@ -66,33 +75,15 @@ nixOsAtom sink = do
       "((import (fetchTarball \"https://github.com/infinisil/all-hies/tarball/master\")\
           \ {}).selection { selector = p: { inherit (p) ghc865; }; })"
 
-  -- liftIO $ do
-  --   installAtomPackage "nix"
-  --   installAtomPackage "atom-ide-ui"
-  --   installAtomPackage "autocomplete-haskell"
-  --   installAtomPackage "hasklig"
-  --   installAtomPackage "ide-haskell-cabal"
-  --   installAtomPackage "ide-haskell-hasktags"
-  --   installAtomPackage "ide-haskell-hie"
-  --   installAtomPackage "ide-haskell-hoogle"
-  --   installAtomPackage "ide-haskell-repl"
-  --   installAtomPackage "language-haskell"
-
-
-putStrLnGreen :: Text -> IO ()
-putStrLnGreen str = putStrLn $ "\x1b[32m" <> str <> "\x1b[0m"
-
-configurationNixFile :: String
-configurationNixFile = "/etc/nixos/configuration.nix"
-
-environmentSystemPackages :: Text
-environmentSystemPackages = "environment.systemPackages = with pkgs; ["
-
-installAtomPackage :: Text -> IO ()
-installAtomPackage package = do
-  putStrLnGreen $ "Installing " <> package
-  exitCode <- shell ("sudo -u $SUDO_USER apm install " <> package) empty
-  case exitCode of
-    ExitSuccess   -> return ()
-    ExitFailure n -> die ("apm install failed with exit code: " <> repr n)
-  putStrLnGreen $ "Finished installing " <> package
+  -- TODO JOIN
+  liftIO $ do
+    installAtomPackage "nix"
+    installAtomPackage "atom-ide-ui"
+    installAtomPackage "autocomplete-haskell"
+    installAtomPackage "hasklig"
+    installAtomPackage "ide-haskell-cabal"
+    installAtomPackage "ide-haskell-hasktags"
+    installAtomPackage "ide-haskell-hie"
+    installAtomPackage "ide-haskell-hoogle"
+    installAtomPackage "ide-haskell-repl"
+    installAtomPackage "language-haskell"
