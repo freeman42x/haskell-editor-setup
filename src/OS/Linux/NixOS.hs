@@ -5,7 +5,7 @@ import           Prelude                        ( IO
                                                 , ($)
                                                 , (<>)
                                                 , (==)
-                                                , when
+                                                , mapM_
                                                 )
 import           Data.Bifoldable                ( bifold )
 import           Data.Text                      ( replace
@@ -77,7 +77,6 @@ nixOsAtom sink = do
         -- nix@2.1.0
         -- todo-show@2.3.2
 
-
   -- TODO join
   configureAndInstall "Haskell GHC" "haskell.compiler.ghc865"
   configureAndInstall "cabal-install" "haskellPackages.cabal-install"
@@ -86,15 +85,15 @@ nixOsAtom sink = do
       "((import (fetchTarball \"https://github.com/infinisil/all-hies/tarball/master\")\
           \ {}).selection { selector = p: { inherit (p) ghc865; }; })"
 
-  -- TODO join
   liftIO $ do
-    installAtomPackage "nix"
-    installAtomPackage "atom-ide-ui"
-    installAtomPackage "autocomplete-haskell"
-    installAtomPackage "hasklig"
-    installAtomPackage "ide-haskell-cabal"
-    installAtomPackage "ide-haskell-hasktags"
-    installAtomPackage "ide-haskell-hie"
-    installAtomPackage "ide-haskell-hoogle"
-    installAtomPackage "ide-haskell-repl"
-    installAtomPackage "language-haskell"
+    let extensions = [ "nix"
+                     , "atom-ide-ui"
+                     , "autocomplete-haskell"
+                     , "hasklig"
+                     , "ide-haskell-cabal"
+                     , "ide-haskell-hasktags"
+                     , "ide-haskell-hie"
+                     , "ide-haskell-hoogle"
+                     , "ide-haskell-repl"
+                     , "language-haskell" ]
+    mapM_ installAtomPackage extensions
