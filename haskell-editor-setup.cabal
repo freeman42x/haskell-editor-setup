@@ -7,7 +7,7 @@ license-file:        LICENSE
 author:              Răzvan Flavius Panda
 maintainer:          razvan.panda@gmail.com
 category:            Development
-extra-source-files:  CONTRIBUTORS.md, CHANGELOG.md, README.md
+extra-source-files:  CONTRIBUTING.md, CONTRIBUTORS.md, CHANGELOG.md, README.md
 
 executable haskell-editor-setup
   main-is:             Main.hs
