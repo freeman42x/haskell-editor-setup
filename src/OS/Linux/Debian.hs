@@ -16,10 +16,6 @@ import           Turtle                         ( home
                                                 , ExitCode(..)
                                                 , FilePath
                                                 )
-import           Control.Monad.Extra            ( whenM
-                                                , unless
-                                                , unlessM
-                                                )
 import           Util                           ( asUser
                                                 , installAtomExtension
                                                 )
