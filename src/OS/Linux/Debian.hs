@@ -7,6 +7,9 @@ import           Prelude                        ( IO
                                                 , (<>)
                                                 , (>>)
                                                 , mapM_
+                                                , whenM
+                                                , unless
+                                                , unlessM
                                                 )
 import qualified Data.Text                     as T
 import           Data.Text.IO                   ( putStrLn )
@@ -23,10 +26,6 @@ import           Turtle                         ( home
                                                 , writeTextFile
                                                 , ExitCode(..)
                                                 , FilePath
-                                                )
-import           Control.Monad.Extra            ( whenM
-                                                , unless
-                                                , unlessM
                                                 )
 import           Util                           ( asUser
                                                 , installAtomExtension
