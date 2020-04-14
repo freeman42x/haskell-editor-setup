@@ -5,8 +5,10 @@ import           Prelude                        ( IO
                                                 , String
                                                 , Text
                                                 , return
+                                                , when
                                                 , ($)
                                                 , (<>)
+                                                , (/=)
                                                 )
 import           Data.Bifoldable                ( bifold )
 import           Data.Text                      ( replace
@@ -39,16 +41,52 @@ nixOsAtom sink = do
       runShellCommand command = sh $ do
         out <- inshellWithErr command empty
         liftIO $ log $ toMisoString $ lineToText $ bifold out
+      -- configureAndInstall name package =
+
+
+
 
   logStep "Configuring Haskell GHC" $ do
     oldConfigurationNixText <- liftIO $ readFile configurationNixFile
-    let newConfigurationNixText = addPackageToSystemPackagesIfItDoesNotExist
-          oldConfigurationNixText
-          "haskell.compiler.ghc865"
+    let package = "haskell.compiler.ghc865"
+        newConfigurationNixText =
+          if isPackagePresent
+            then oldConfigurationNixText
+            -- FIXME
+            else replace
+              environmentSystemPackages
+              (environmentSystemPackages <> "\n\
+                   \    " <> package)
+              oldConfigurationNixText
+          where isPackagePresent = package `isInfixOf` oldConfigurationNixText -- TODO HACK
     liftIO $ writeFile configurationNixFile newConfigurationNixText
 
-  -- TODO run only if changed or new
-  logStep "Installing Haskell GHC" (runShellCommand "nixos-rebuild switch")
+    when (oldConfigurationNixText /= newConfigurationNixText) -- OPTIMIZE
+      (logStep "Installing Haskell GHC" (runShellCommand "nixos-rebuild switch"))
+
+
+    logStep "Configuring cabal-install" $ do
+      oldConfigurationNixText <- liftIO $ readFile configurationNixFile
+      let package = "haskell.compiler.ghc865"
+          newConfigurationNixText =
+            if isPackagePresent
+              then oldConfigurationNixText
+              -- FIXME
+              else replace
+                environmentSystemPackages
+                (environmentSystemPackages <> "\n\
+                     \    " <> package)
+                oldConfigurationNixText
+            where isPackagePresent = package `isInfixOf` oldConfigurationNixText -- TODO HACK
+      liftIO $ writeFile configurationNixFile newConfigurationNixText
+
+      when (oldConfigurationNixText /= newConfigurationNixText) -- OPTIMIZE
+        (logStep "Installing cabal-install" (runShellCommand "nixos-rebuild switch"))
+
+
+
+
+
 
   -- TODO function for begin / end log blocks
   -- log "Adding Haskell GHC and cabal-install to configuration.nix"
@@ -107,18 +145,6 @@ configurationNixFile = "/etc/nixos/configuration.nix"
 
 environmentSystemPackages :: Text
 environmentSystemPackages = "environment.systemPackages = with pkgs; ["
-
-addPackageToSystemPackagesIfItDoesNotExist :: Text -> Text -> Text
-addPackageToSystemPackagesIfItDoesNotExist configurationNix package =
-  if isPackagePresent
-    then configurationNix
-    -- FIXME
-    else replace
-      environmentSystemPackages
-      (environmentSystemPackages <> "\n\
-           \    " <> package)
-      configurationNix
-  where isPackagePresent = package `isInfixOf` configurationNix -- TODO HACK
 
 installAtomPackage :: Text -> IO ()
 installAtomPackage package = do
