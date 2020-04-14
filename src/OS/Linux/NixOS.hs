@@ -28,9 +28,8 @@ import           Turtle                         ( shell
                                                 , ExitCode(..)
                                                 )
 import           Turtle.Line                    ( lineToText )
-import           Util                           (installAtomExtension)
-import           Types
 
+import           Types
 
 nixOsAtom :: Sink Action -> IO ()
 nixOsAtom sink = do
@@ -42,47 +41,61 @@ nixOsAtom sink = do
       runShellCommand command = sh $ do
         out <- inshellWithErr command empty
         liftIO $ log $ toMisoString $ lineToText $ bifold out
-      -- configureAndInstall name package =
+      configureAndInstall name package =
+        logStep ("Configuring " <> name) $ do
+          oldConfigurationNixText <- liftIO $ readFile configurationNixFile
+          let newConfigurationNixText =
+                if isPackagePresent
+                  then oldConfigurationNixText
+                  -- FIXME
+                  else replace
+                    environmentSystemPackages
+                    (environmentSystemPackages <> "\n\
+                         \    " <> package)
+                    oldConfigurationNixText
+                where isPackagePresent = package `isInfixOf` oldConfigurationNixText -- HACK
+          liftIO $ writeFile configurationNixFile newConfigurationNixText
+          when (oldConfigurationNixText /= newConfigurationNixText) -- OPTIMIZE
+            (logStep "Installing Haskell GHC" (runShellCommand "nixos-rebuild switch"))
 
+  configureAndInstall "Haskell GHC" "haskell.compiler.ghc865"
 
-
-
-  logStep "Configuring Haskell GHC" $ do
-    oldConfigurationNixText <- liftIO $ readFile configurationNixFile
-    let package = "haskell.compiler.ghc865"
-        newConfigurationNixText =
-          if isPackagePresent
-            then oldConfigurationNixText
-            -- FIXME
-            else replace
-              environmentSystemPackages
-              (environmentSystemPackages <> "\n\
-                   \    " <> package)
-              oldConfigurationNixText
-          where isPackagePresent = package `isInfixOf` oldConfigurationNixText -- TODO HACK
-    liftIO $ writeFile configurationNixFile newConfigurationNixText
-
-    when (oldConfigurationNixText /= newConfigurationNixText) -- OPTIMIZE
-      (logStep "Installing Haskell GHC" (runShellCommand "nixos-rebuild switch"))
-
-
-    logStep "Configuring cabal-install" $ do
-      oldConfigurationNixText <- liftIO $ readFile configurationNixFile
-      let package = "haskell.compiler.ghc865"
-          newConfigurationNixText =
-            if isPackagePresent
-              then oldConfigurationNixText
-              -- FIXME
-              else replace
-                environmentSystemPackages
-                (environmentSystemPackages <> "\n\
-                     \    " <> package)
-                oldConfigurationNixText
-            where isPackagePresent = package `isInfixOf` oldConfigurationNixText -- TODO HACK
-      liftIO $ writeFile configurationNixFile newConfigurationNixText
-
-      when (oldConfigurationNixText /= newConfigurationNixText) -- OPTIMIZE
-        (logStep "Installing cabal-install" (runShellCommand "nixos-rebuild switch"))
+  -- logStep "Configuring Haskell GHC" $ do
+  --   oldConfigurationNixText <- liftIO $ readFile configurationNixFile
+  --   let package = "haskell.compiler.ghc865"
+  --       newConfigurationNixText =
+  --         if isPackagePresent
+  --           then oldConfigurationNixText
+  --           -- FIXME
+  --           else replace
+  --             environmentSystemPackages
+  --             (environmentSystemPackages <> "\n\
+  --                  \    " <> package)
+  --             oldConfigurationNixText
+  --         where isPackagePresent = package `isInfixOf` oldConfigurationNixText -- TODO HACK
+  --   liftIO $ writeFile configurationNixFile newConfigurationNixText
+  --
+  --   when (oldConfigurationNixText /= newConfigurationNixText) -- OPTIMIZE
+  --     (logStep "Installing Haskell GHC" (runShellCommand "nixos-rebuild switch"))
+  --
+  --
+  --   logStep "Configuring cabal-install" $ do
+  --     oldConfigurationNixText <- liftIO $ readFile configurationNixFile
+  --     let package = "haskell.compiler.ghc865"
+  --         newConfigurationNixText =
+  --           if isPackagePresent
+  --             then oldConfigurationNixText
+  --             -- FIXME
+  --             else replace
+  --               environmentSystemPackages
+  --               (environmentSystemPackages <> "\n\
+  --                    \    " <> package)
+  --               oldConfigurationNixText
+  --           where isPackagePresent = package `isInfixOf` oldConfigurationNixText -- TODO HACK
+  --     liftIO $ writeFile configurationNixFile newConfigurationNixText
+  --
+  --     when (oldConfigurationNixText /= newConfigurationNixText) -- OPTIMIZE
+  --       (logStep "Installing cabal-install" (runShellCommand "nixos-rebuild switch"))
 
 
 
@@ -147,14 +160,11 @@ configurationNixFile = "/etc/nixos/configuration.nix"
 environmentSystemPackages :: Text
 environmentSystemPackages = "environment.systemPackages = with pkgs; ["
 
-addPackageToSystemPackagesIfItDoesNotExist :: Text -> Text -> Text
-addPackageToSystemPackagesIfItDoesNotExist configurationNix package =
-  if isPackagePresent
-    then configurationNix
-    -- FIXME
-    else replace
-      environmentSystemPackages
-      (environmentSystemPackages <> "\n\
-           \    " <> package)
-      configurationNix
-  where isPackagePresent = package `isInfixOf` configurationNix -- TODO HACK
+installAtomPackage :: Text -> IO ()
+installAtomPackage package = do
+  putStrLnGreen $ "Installing " <> package
+  exitCode <- shell ("sudo -u $SUDO_USER apm install " <> package) empty
+  case exitCode of
+    ExitSuccess   -> return ()
+    ExitFailure n -> die ("apm install failed with exit code: " <> repr n)
+  putStrLnGreen $ "Finished installing " <> package
