@@ -28,6 +28,9 @@ import           Control.Monad.Extra            ( whenM
                                                 , unless
                                                 , unlessM
                                                 )
+import           Util                           ( asUser
+                                                , installAtomExtension
+                                                )
 
 
 debianAtom :: IO ()
@@ -102,9 +105,6 @@ debianAtom = do
   mapM_ installAtomExtension atomExtensions
 
 
-asUser :: T.Text -> T.Text
-asUser cmd = "su - $SUDO_USER -c '" <> cmd <> "'"
-
 installNix :: IO ()
 installNix =
   whenM (isNothing <$> which "nix")
@@ -121,14 +121,6 @@ installNix =
           ExitSuccess -> putStrLn "nix successfully installed"
           ExitFailure n ->
             die $ "nix installation failed with exit code: " <> repr n
-
-installAtomExtension :: T.Text -> IO ()
-installAtomExtension extension = do
-  putStrLn $ "Installing " <> extension <> " Atom extension"
-  shell (asUser $ "apt install " <> extension) empty >>= \case
-    ExitSuccess -> putStrLn $ extension <> " successfully installed"
-    ExitFailure n ->
-      die $ extension <> " installation failed with exit code: " <> repr n
 
 importNixpkgs :: FilePath -> IO ()
 importNixpkgs path = do
@@ -153,4 +145,3 @@ addToConfig path content = do
   unless (content `T.isInfixOf` config) $ do
     let w = "in\n{\n  "
     writeTextFile path $ T.replace w (w <> content) config
-
