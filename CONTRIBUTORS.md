@@ -8,6 +8,7 @@ Helped with development via communication channels
 * benkolera from #qfpl IRC - nix, haskell
 * dmijo / David Johnson - miso, nix, haskell
 * dmj\` from #haskell IRC - miso, haskell
+* dmwit from #haskell IRC - cabal, ghci
 * jackdk from #qfpl IRC - nix, haskell
 * maerwald from #haskell IRC - cabal
 

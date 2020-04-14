@@ -1,0 +1,2 @@
+:set prompt "%s\n\ESC[32m\STX>>>\ESC[0m\STX "
+:set prompt2 "\ESC[32m\STX...\ESC[0m\STX "
