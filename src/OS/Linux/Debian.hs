@@ -36,18 +36,16 @@ debianAtom :: IO ()
 debianAtom = do
   installNix
 
-  putStrLn $ T.intercalate
-    "\n"
-    [ "These packages will be added to nix configuration and installed:"
-    , "GHC"
-    , "cabal-install"
-    , "stack"
-    , "cabal2nix"
-    , "hoogle"
-    , "ghcid"
-    , "Atom"
-    , "HIE"
-    ]
+  putStrLn
+    "These packages will be added to nix configuration and installed:\n\
+    \  GHC                                                           \n\
+    \  cabal-install                                                 \n\
+    \  stack                                                         \n\
+    \  cabal2nix                                                     \n\
+    \  hoogle                                                        \n\
+    \  ghcid                                                         \n\
+    \  Atom                                                          \n\
+    \  HIE"
 
   nixConfig <- (<> fromText ".config/nixpkgs/config.nix") <$> home
   unlessM (testfile nixConfig) $ writeTextFile nixConfig "{\n  \n}"
@@ -59,49 +57,57 @@ debianAtom = do
 
   importNixpkgs nixConfig
 
-  addToConfig nixConfig "allowUnfree = true;\n\n"
-  addToConfig nixConfig $ T.intercalate
-    "\n"
-    [ "packageOverrides = pkgs: rec {"
-    , "  all = pkgs.buildEnv {"
-    , "    name = \"all\";"
-    , ""
-    , "    paths = ["
-    , "      haskell.compiler.ghc865"
-    , "      haskellPackages.cabal-install"
-    , "      unstable.haskellPackages.stack"
-    , "      unstable.haskellPackages.cabal2nix"
-    , "      haskellPackages.hoogle"
-    , "      haskellPackages.ghcid"
-    , "      atom"
-    , "      (all-hies.selection { selector = p: { inherit (p) ghc865; }; })"
-    , "    ];"
-    , "  };"
-    , "};"
-    ]
+  addToConfig
+    nixConfig
+    "allowUnfree = true;                                                  \n\
+    \                                                                     \n\
+    \packageOverrides = pkgs: rec {                                       \n\
+    \  all = pkgs.buildEnv {                                              \n\
+    \    name = \"all\";                                                  \n\
+    \                                                                     \n\
+    \    paths = [                                                        \n\
+    \      haskell.compiler.ghc865                                        \n\
+    \      haskellPackages.cabal-install                                  \n\
+    \      unstable.haskellPackages.stack                                 \n\
+    \      unstable.haskellPackages.cabal2nix                             \n\ 
+    \      haskellPackages.hoogle                                         \n\
+    \      haskellPackages.ghcid                                          \n\
+    \      atom                                                           \n\
+    \      (all-hies.selection { selector = p: { inherit (p) ghc865; }; })\n\
+    \    ];                                                               \n\
+    \  };                                                                 \n\
+    \};"
 
   shell (asUser "nix-env -i all") empty >>= \case
     ExitSuccess   -> putStrLn "Installation complete"
     ExitFailure n -> die $ "Installation failed with exit code: " <> repr n
 
-  let atomExtensions =
-        [ "nix"
-        , "atom-ide-ui"
-        , "autocomplete-haskell"
-        , "hasklig"
-        , "ide-haskell-cabal"
-        , "ide-haskell-hasktags"
-        , "ide-haskell-hie"
-        , "ide-haskell-hoogle"
-        , "ide-haskell-repl"
-        , "language-haskell"
-        ]
-
   putStrLn
-    $  "These Atom extensions will be installed:\n"
-    <> T.intercalate "\n" atomExtensions
+    "These Atom extensions will be installed:\n\
+    \  nix                                   \n\
+    \  atom-ide-ui                           \n\
+    \  autocomplete-haskell                  \n\
+    \  hasklig                               \n\
+    \  ide-haskell-cabal                     \n\
+    \  ide-haskell-hasktags                  \n\
+    \  ide-haskell-hie                       \n\
+    \  ide-haskell-hoogle                    \n\
+    \  ide-haskell-repl                      \n\
+    \  language-haskell"
 
-  mapM_ installAtomExtension atomExtensions
+  mapM_
+    installAtomExtension
+    [ "nix"
+    , "atom-ide-ui"
+    , "autocomplete-haskell"
+    , "hasklig"
+    , "ide-haskell-cabal"
+    , "ide-haskell-hasktags"
+    , "ide-haskell-hie"
+    , "ide-haskell-hoogle"
+    , "ide-haskell-repl"
+    , "language-haskell"
+    ]
 
 
 installNix :: IO ()
