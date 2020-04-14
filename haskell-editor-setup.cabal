@@ -34,6 +34,8 @@ executable haskell-editor-setup
   default-extensions:  OverloadedStrings
                      , RecordWildCards
                      , NoImplicitPrelude
+                     , LambdaCase
+                     , TemplateHaskell
 
   mixins:              base hiding (Prelude)
                      , relude (Relude as Prelude)
