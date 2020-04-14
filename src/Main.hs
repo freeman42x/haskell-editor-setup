@@ -8,6 +8,7 @@ import           Control.Lens                   ( (.~)
                                                 )
 import           Control.Monad.IO.Class         ( liftIO )
 import           Miso
+import qualified Miso.String                   as MS
 import           Language.Javascript.JSaddle.WebKitGTK
                                                 ( run )
 import           Prelude                        ( IO
@@ -18,59 +19,44 @@ import           Prelude                        ( IO
                                                 , ($)
                                                 , (.)
                                                 , (==)
+                                                , (<>)
                                                 )
+
 import           OS.Linux.NixOS                 ( nixOsAtom )
+import           Types
 
 
 
-data EditorOrIde =
-    Atom
-  | VisualStudioCode
-  | IntelliJIdeaCommunity
-  | SublimeText3
-  | Leksah
-  deriving (Show, Eq)
-
--- | Type synonym for an application model
-newtype Model = Model
-  { _editorOrIde :: EditorOrIde
+data Model = Model
+  { _editorOrIde :: EditorOrIde,
+    _log :: MS.MisoString
   } deriving (Show, Eq)
 
 makeLenses ''Model
 
--- | Sum type for application events
-data Action
-  = NoOp
-  | SetChecked EditorOrIde Checked
-  | Install
-  deriving (Show, Eq)
-
--- | Entry point for a miso application
 main :: IO ()
 main = run $ startApp App { .. }
  where
-  initialAction = NoOp -- initial action to be executed on application load
-  model         = Model Atom           -- initial model
-  update        = updateModel          -- update function
-  view          = viewModel            -- view function
-  events        = defaultEvents        -- default delegated events
-  subs          = []                   -- empty subscription list
-  mountPoint    = Nothing              -- mount point for application (Nothing defaults to 'body')
+  initialAction = NoOp
+  model         = Model Atom ""
+  update        = updateModel
+  view          = viewModel
+  events        = defaultEvents
+  subs          = []
+  mountPoint    = Nothing
 
--- | Updates model, optionally introduces side effects
 updateModel :: Action -> Model -> Effect Action Model
 updateModel NoOp model = noEff model
-updateModel (SetChecked editorOrIde_ (Checked True)) model =
-  noEff $ model & editorOrIde .~ editorOrIde_
+updateModel (SetChecked editorOrIde_ (Checked True)) model = noEff $ model & editorOrIde .~ editorOrIde_
 updateModel (SetChecked _ _) model = noEff model
-updateModel Install          model = effectSub model $ liftIO . nixOsAtom
+updateModel (Append appendText) model = noEff model {  _log = _log model <> appendText }
+updateModel Install model = effectSub model (liftIO . nixOsAtom)
 
 clickHandler :: action -> Attribute action
 clickHandler action =
   onWithOptions (defaultOptions { preventDefault = True }) "click" emptyDecoder
     $ \() -> action
 
--- | Constructs a virtual DOM from a model
 viewModel :: Model -> View Action
 viewModel model = form_
   []
@@ -138,7 +124,7 @@ viewModel model = form_
       ]
     ]
   , br_ []
-  , textarea_ [rows_ "15", cols_ "80" ] [ {- View action -} ]
+  , textarea_ [rows_ "15", cols_ "80", disabled_ True ] [ text $ _log model ]
   , br_ []
   , button_ [clickHandler Install, class_ "button"] [text "Install"]
   ]

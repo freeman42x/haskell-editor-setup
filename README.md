@@ -1,8 +1,21 @@
-# Haskell editor / IDE setup
+# Haskell Editor / IDE Setup
 
-Instructions for setting up Haskell editors/IDE
+#### Notes on Haskell Editor Setup GUI program
+
+Work on creating a Haskell Editor Setup GUI program is in process, you can track progress here: [HES Project Kanban](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/projects/1)
+
+How Haskell Editor Setup works:
+
+1. choose which to install: GHC, cabal, stack, nix, git, hie
+2. choose which editors / IDEs to install
+3. choose which editor / IDE extensions to install
+4. press a button and your system will be updated to have installed / set up all the things you selected
+
+The goal of this software is mainly to allow easy editor / IDE setup for whoever tries Haskell for the first time. Being automated it should save time
 
 "Everything that can be automated should be automated" - Future Robot Overlords
+
+#### Instructions for setting up Haskell editors/IDE
 
 HIE together with compatible plugins usually offers more features than the average Haskell multi-feature plugin + compatible plugins. Some exceptions are: IntelliJ IDEA which has a very good set of features (and HIE does not have an IDEA plugin yet) and Leksah (which also does not have a HIE plugin but offers quite a lot of features itself).
 
