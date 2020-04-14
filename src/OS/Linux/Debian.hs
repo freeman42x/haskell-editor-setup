@@ -71,32 +71,24 @@ debianAtom = do
     ExitSuccess   -> putStrLn "Installation complete"
     ExitFailure n -> die $ "Installation failed with exit code: " <> repr n
 
-  putStrLn
-    "These Atom extensions will be installed:\n\
-    \  nix                                   \n\
-    \  atom-ide-ui                           \n\
-    \  autocomplete-haskell                  \n\
-    \  hasklig                               \n\
-    \  ide-haskell-cabal                     \n\
-    \  ide-haskell-hasktags                  \n\
-    \  ide-haskell-hie                       \n\
-    \  ide-haskell-hoogle                    \n\
-    \  ide-haskell-repl                      \n\
-    \  language-haskell"
+  let atomExtensions =
+        [ "nix"
+        , "atom-ide-ui"
+        , "autocomplete-haskell"
+        , "hasklig"
+        , "ide-haskell-cabal"
+        , "ide-haskell-hasktags"
+        , "ide-haskell-hie"
+        , "ide-haskell-hoogle"
+        , "ide-haskell-repl"
+        , "language-haskell"
+        ]
 
-  mapM_
-    installAtomExtension
-    [ "nix"
-    , "atom-ide-ui"
-    , "autocomplete-haskell"
-    , "hasklig"
-    , "ide-haskell-cabal"
-    , "ide-haskell-hasktags"
-    , "ide-haskell-hie"
-    , "ide-haskell-hoogle"
-    , "ide-haskell-repl"
-    , "language-haskell"
-    ]
+  putStrLn
+    $  "These Atom extensions will be installed:\n"
+    <> T.intercalate "\n" atomExtensions
+
+  mapM_ installAtomExtension atomExtensions
 
 
 installNix :: IO ()
