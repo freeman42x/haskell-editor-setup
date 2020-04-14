@@ -38,22 +38,26 @@ nixOsAtom sink = do
       configureAndInstall name package =
         logStep ("Configuring " <> name) $ do
           oldConfigurationNixText <- liftIO $ readFile configurationNixFile
+
+          -- FIXME vvv requires Nix parsing using HNIX
           let newConfigurationNixText =
                 if isPackagePresent
                   then oldConfigurationNixText
-                  -- FIXME
+
                   else replace
                     environmentSystemPackages
                     (environmentSystemPackages <> "\n\
                          \    " <> package)
                     oldConfigurationNixText
-                where isPackagePresent = package `isInfixOf` oldConfigurationNixText -- HACK
+                where isPackagePresent = package `isInfixOf` oldConfigurationNixText
+          -- ^^^
+
           liftIO $ writeFile configurationNixFile newConfigurationNixText
           if oldConfigurationNixText == newConfigurationNixText -- OPTIMIZE
             then log "Nix package already installed"
             else logStep (toMisoString package) (runShellCommand "nixos-rebuild switch")
 
-      -- TODO install or update? or message
+      -- TODO install or update? extension or log message
       -- TODO ensure extensions are enabled if not enable them
       installAtomPackage package = do
         let installingPackage = "Installing Atom package - " <> toMisoString package
