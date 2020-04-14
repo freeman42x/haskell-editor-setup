@@ -58,67 +58,10 @@ nixOsAtom sink = do
           when (oldConfigurationNixText /= newConfigurationNixText) -- OPTIMIZE
             (logStep "Installing Haskell GHC" (runShellCommand "nixos-rebuild switch"))
 
+  -- TODO join
   configureAndInstall "Haskell GHC" "haskell.compiler.ghc865"
-
-  -- logStep "Configuring Haskell GHC" $ do
-  --   oldConfigurationNixText <- liftIO $ readFile configurationNixFile
-  --   let package = "haskell.compiler.ghc865"
-  --       newConfigurationNixText =
-  --         if isPackagePresent
-  --           then oldConfigurationNixText
-  --           -- FIXME
-  --           else replace
-  --             environmentSystemPackages
-  --             (environmentSystemPackages <> "\n\
-  --                  \    " <> package)
-  --             oldConfigurationNixText
-  --         where isPackagePresent = package `isInfixOf` oldConfigurationNixText -- TODO HACK
-  --   liftIO $ writeFile configurationNixFile newConfigurationNixText
-  --
-  --   when (oldConfigurationNixText /= newConfigurationNixText) -- OPTIMIZE
-  --     (logStep "Installing Haskell GHC" (runShellCommand "nixos-rebuild switch"))
-  --
-  --
-  --   logStep "Configuring cabal-install" $ do
-  --     oldConfigurationNixText <- liftIO $ readFile configurationNixFile
-  --     let package = "haskell.compiler.ghc865"
-  --         newConfigurationNixText =
-  --           if isPackagePresent
-  --             then oldConfigurationNixText
-  --             -- FIXME
-  --             else replace
-  --               environmentSystemPackages
-  --               (environmentSystemPackages <> "\n\
-  --                    \    " <> package)
-  --               oldConfigurationNixText
-  --           where isPackagePresent = package `isInfixOf` oldConfigurationNixText -- TODO HACK
-  --     liftIO $ writeFile configurationNixFile newConfigurationNixText
-  --
-  --     when (oldConfigurationNixText /= newConfigurationNixText) -- OPTIMIZE
-  --       (logStep "Installing cabal-install" (runShellCommand "nixos-rebuild switch"))
-
-
-
-
-
-
-  -- TODO function for begin / end log blocks
-  -- log "Adding Haskell GHC and cabal-install to configuration.nix"
-  -- oldConfigurationNixText <- liftIO $ readFile configurationNixFile
-  -- let newConfigurationNixText = foldl
-  --       addPackageToSystemPackagesIfItDoesNotExist
-  --       oldConfigurationNixText
-  --       ["haskell.compiler.ghc865", "haskellPackages.cabal-install", "atom"]
-  -- liftIO $ writeFile configurationNixFile newConfigurationNixText
-  -- log "Finished adding Haskell GHC and cabal-install to configuration.nix"
-
-  log "Installing GHC, cabal-install and Atom"
-  -- exitCode <- shell "nixos-rebuild switch" empty
-  -- case exitCode of
-  --   ExitSuccess -> return ()
-  --   ExitFailure n ->
-  --     die ("nixos-rebuild switch failed with exit code: " <> repr n)
-  log "Finished installing GHC, cabal-install and Atom"
+  configureAndInstall "cabal-install" "haskellPackages.cabal-install"
+  configureAndInstall "atom" "atom"
 
   log "Adding Haskell IDE Engine to configuration.nix"
   -- config2 <- liftIO $ readFile configurationNixFile
