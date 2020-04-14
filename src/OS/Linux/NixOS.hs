@@ -49,10 +49,11 @@ nixOsAtom sink = do
                     oldConfigurationNixText
                 where isPackagePresent = package `isInfixOf` oldConfigurationNixText -- HACK
           liftIO $ writeFile configurationNixFile newConfigurationNixText
+          -- TODO ELSE message
           when (oldConfigurationNixText /= newConfigurationNixText) -- OPTIMIZE
             (logStep "Installing Haskell GHC" (runShellCommand "nixos-rebuild switch"))
 
-      -- TODO install or update?
+      -- TODO install or update? or message
       installAtomPackage package = do
         let installingPackage = "Installing Atom package - " <> toMisoString package
         logStep installingPackage $ runShellCommand ("sudo -u $SUDO_USER apm install " <> package)
@@ -65,7 +66,7 @@ nixOsAtom sink = do
       "((import (fetchTarball \"https://github.com/infinisil/all-hies/tarball/master\")\
           \ {}).selection { selector = p: { inherit (p) ghc865; }; })"
 
-  -- TODO JOIN
+  -- TODO join
   liftIO $ do
     installAtomPackage "nix"
     installAtomPackage "atom-ide-ui"
