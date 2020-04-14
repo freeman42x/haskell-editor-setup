@@ -28,6 +28,7 @@ executable haskell-editor-setup
   other-modules:       OS.Linux.NixOS
                        OS.Linux.Debian
                        Types
+                       Util
 
   hs-source-dirs:      src
 
