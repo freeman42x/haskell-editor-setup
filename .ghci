@@ -1,3 +1,5 @@
+:module +Prelude
+
 :set prompt "%s\n\ESC[32m\STX>>>\ESC[0m\STX "
 :set prompt2 "\ESC[32m\STX...\ESC[0m\STX "
-:! clear
+:def rr const $ return $ Data.List.unlines [":reload", ":main"]
