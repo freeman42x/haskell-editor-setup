@@ -35,6 +35,7 @@ executable haskell-editor-setup
                      , RecordWildCards
                      , NoImplicitPrelude
                      , LambdaCase
+                     , TemplateHaskell
 
   mixins:              base hiding (Prelude)
                      , relude (Relude as Prelude)
