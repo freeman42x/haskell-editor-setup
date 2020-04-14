@@ -61,25 +61,10 @@ nixOsAtom sink = do
   -- TODO join
   configureAndInstall "Haskell GHC" "haskell.compiler.ghc865"
   configureAndInstall "cabal-install" "haskellPackages.cabal-install"
-  configureAndInstall "atom" "atom"
-
-  log "Adding Haskell IDE Engine to configuration.nix"
-  -- config2 <- liftIO $ readFile configurationNixFile
-  -- let
-  --   newConfig2 = addPackageToSystemPackagesIfItDoesNotExist
-  --     config2
-  --     "((import (fetchTarball \"https://github.com/infinisil/all-hies/tarball/master\")\
-  --         \ {}).selection { selector = p: { inherit (p) ghc865 ghc864; }; })"
-  -- liftIO $ writeFile configurationNixFile newConfig2
-  log "Finished adding Haskell IDE Engine to configuration.nix"
-
-  log "Installing Haskell IDE Engine"
-  -- exitCode2 <- shell "nixos-rebuild switch" empty
-  -- case exitCode2 of
-  --   ExitSuccess -> return ()
-  --   ExitFailure n ->
-  --     die ("nixos-rebuild switch failed with exit code: " <> repr n)
-  log "Finished installing Haskell IDE Engine"
+  configureAndInstall "Atom" "atom"
+  configureAndInstall "Haskell IDE Engine"
+      "((import (fetchTarball \"https://github.com/infinisil/all-hies/tarball/master\")\
+          \ {}).selection { selector = p: { inherit (p) ghc865; }; })"
 
   -- liftIO $ do
   --   installAtomPackage "nix"
