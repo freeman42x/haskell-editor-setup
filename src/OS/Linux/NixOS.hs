@@ -26,8 +26,9 @@ import           Turtle                         ( shell
                                                 , ExitCode(..)
                                                 )
 import           Turtle.Line                    ( lineToText )
-
+import           Util                           (installAtomExtension)
 import           Types
+
 
 nixOsAtom :: Sink Action -> IO ()
 nixOsAtom sink = do
@@ -119,12 +120,3 @@ addPackageToSystemPackagesIfItDoesNotExist configurationNix package =
            \    " <> package)
       configurationNix
   where isPackagePresent = package `isInfixOf` configurationNix -- TODO HACK
-
-installAtomPackage :: Text -> IO ()
-installAtomPackage package = do
-  putStrLnGreen $ "Installing " <> package
-  exitCode <- shell ("sudo -u $SUDO_USER apm install " <> package) empty
-  case exitCode of
-    ExitSuccess   -> return ()
-    ExitFailure n -> die ("apm install failed with exit code: " <> repr n)
-  putStrLnGreen $ "Finished installing " <> package
