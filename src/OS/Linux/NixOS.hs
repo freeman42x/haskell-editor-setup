@@ -1,25 +1,29 @@
 module OS.Linux.NixOS where
 
 import           Control.Monad.IO.Class         ( liftIO )
-import           Miso.Effect
 import           Prelude                        ( IO
                                                 , String
-                                                , foldl
                                                 , return
                                                 , ($)
                                                 , (<>)
                                                 )
+import           Data.Bifoldable                ( bifold )
 import qualified Data.Text                     as T
 import           Data.Text.IO                   ( putStrLn
                                                 , readFile
                                                 , writeFile
                                                 )
+import           Miso.Effect
+import           Miso.String                    ( toMisoString )
 import           Turtle                         ( shell
+                                                , sh
+                                                , inshellWithErr
                                                 , empty
                                                 , die
                                                 , repr
                                                 , ExitCode(..)
                                                 )
+import           Turtle.Line                    ( lineToText )
 
 import           Types
 
@@ -27,14 +31,22 @@ nixOsAtom :: Sink Action -> IO ()
 nixOsAtom sink = do
   let log text = sink $ Append (text <> "\n")
       logStep text actions = do
-        log $ "Begin : " <> text
+        log $ "BEGIN : " <> text
         _ <- actions
-        log $ "End   : " <> text
+        log $ "END   : " <> text
+      runShellCommand command = sh $ do
+        out <- inshellWithErr command empty
+        liftIO $ log $ toMisoString $ lineToText $ bifold out
 
-  logStep "Installing Haskell GHC" (do
+  logStep "Configuring Haskell GHC" $ do
     oldConfigurationNixText <- liftIO $ readFile configurationNixFile
-    let newConfigurationNixText = addPackageToSystemPackagesIfItDoesNotExist oldConfigurationNixText "haskell.compiler.ghc865"
-    liftIO $ writeFile configurationNixFile newConfigurationNixText)
+    let newConfigurationNixText = addPackageToSystemPackagesIfItDoesNotExist
+          oldConfigurationNixText
+          "haskell.compiler.ghc865"
+    liftIO $ writeFile configurationNixFile newConfigurationNixText
+
+  -- TODO run only if changed or new
+  logStep "Installing Haskell GHC" (runShellCommand "nixos-rebuild switch")
 
   -- TODO function for begin / end log blocks
   -- log "Adding Haskell GHC and cabal-install to configuration.nix"
