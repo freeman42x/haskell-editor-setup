@@ -85,15 +85,13 @@ nixOsAtom sink = do
       "((import (fetchTarball \"https://github.com/infinisil/all-hies/tarball/master\")\
           \ {}).selection { selector = p: { inherit (p) ghc865; }; })"
 
-  liftIO $ do
-    let extensions = [ "nix"
-                     , "atom-ide-ui"
-                     , "autocomplete-haskell"
-                     , "hasklig"
-                     , "ide-haskell-cabal"
-                     , "ide-haskell-hasktags"
-                     , "ide-haskell-hie"
-                     , "ide-haskell-hoogle"
-                     , "ide-haskell-repl"
-                     , "language-haskell" ]
-    mapM_ installAtomPackage extensions
+  mapM_ installAtomPackage [ "nix"
+                           , "atom-ide-ui"
+                           , "autocomplete-haskell"
+                           , "hasklig"
+                           , "ide-haskell-cabal"
+                           , "ide-haskell-hasktags"
+                           , "ide-haskell-hie"
+                           , "ide-haskell-hoogle"
+                           , "ide-haskell-repl"
+                           , "language-haskell" ]
