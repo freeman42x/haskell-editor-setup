@@ -43,7 +43,7 @@ isAtomPackageInstalled name = do
   -- todo-show@2.3.2
 
 runAsUser :: Text -> Text
-runAsUser cmd = "su - $SUDO_USER -c '" <> cmd <> "'"
+runAsUser cmd = "sudo -u $SUDO_USER " <> cmd
 
 installAtomExtension :: Text -> IO ()
 installAtomExtension extension = do
