@@ -3,6 +3,7 @@ module Util where
 import           Prelude                        ( (<>)
                                                 , (>>=)
                                                 , ($)
+                                                , undefined
                                                 , Bool
                                                 , IO
                                                 )
@@ -16,10 +17,9 @@ import           Data.Text                      ( Text )
 import           Data.Text.IO                   ( putStrLn )
 
 
+
 isAtomPackageInstalled :: Text -> Bool
-isAtomPackageInstalled name = do
-  --
-  _
+isAtomPackageInstalled name = undefined
 
   -- [neo@nixos:~]$ apm list --installed --bare
   -- atom-ide-ui@0.13.0
