@@ -1,9 +1,11 @@
 module Util where
 
+import           Data.Text                      ( Text )
+import           Data.Text.IO                   ( putStrLn )
+import           Development.Placeholders
 import           Prelude                        ( (<>)
                                                 , (>>=)
                                                 , ($)
-                                                , undefined
                                                 , Bool
                                                 , IO
                                                 )
@@ -13,13 +15,11 @@ import           Turtle                         ( shell
                                                 , repr
                                                 , ExitCode(..)
                                                 )
-import           Data.Text                      ( Text )
-import           Data.Text.IO                   ( putStrLn )
 
 
 
 isAtomPackageInstalled :: Text -> Bool
-isAtomPackageInstalled name = undefined
+isAtomPackageInstalled name = $notImplemented
 
   -- [neo@nixos:~]$ apm list --installed --bare
   -- atom-ide-ui@0.13.0
