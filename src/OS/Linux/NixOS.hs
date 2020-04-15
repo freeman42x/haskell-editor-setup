@@ -65,11 +65,9 @@ nixOsAtom sink = do
 
       -- TODO install or update? extension or log message
       -- TODO ensure extensions are enabled if not enable them
-      -- BUG outputs: `Installing language-haskell to /home/neo/.atom/packages [32m✓
-      --[39m`
       installAtomPackage package = do
         let installingPackage = "Installing Atom package - " <> toMisoString package
-        logStep installingPackage $ runShellCommand ("sudo -u $SUDO_USER apm install " <> package)
+        logStep installingPackage $ runShellCommand ("sudo -u $SUDO_USER apm install --color false " <> package)
 
         -- [neo@nixos:~]$ apm list --installed --bare
         -- atom-ide-ui@0.13.0
