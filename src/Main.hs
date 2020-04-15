@@ -48,7 +48,7 @@ updateModel NoOp model = noEff model
 updateModel (SetChecked editorOrIde_ (Checked True)) model = noEff $ model & editorOrIde .~ editorOrIde_
 updateModel (SetChecked _ _) model = noEff model
 updateModel (Append appendText) model = noEff model {  _log = _log model <> appendText }
-updateModel Install model = effectSub model (liftIO . nixOsAtom)
+updateModel Install model = effectSub model (liftIO . nixOsAtom) -- TODO log SETUP BEING / END
 
 clickHandler :: action -> Attribute action
 clickHandler action =
