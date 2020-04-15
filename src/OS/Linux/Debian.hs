@@ -27,7 +27,7 @@ import           Turtle                         ( home
                                                 , ExitCode(..)
                                                 , FilePath
                                                 )
-import           Util                           ( asUser
+import           Util                           ( runAsUser
                                                 , installAtomExtension
                                                 )
 
@@ -69,7 +69,7 @@ debianAtom = do
     \      haskell.compiler.ghc865                                        \n\
     \      haskellPackages.cabal-install                                  \n\
     \      unstable.haskellPackages.stack                                 \n\
-    \      unstable.haskellPackages.cabal2nix                             \n\ 
+    \      unstable.haskellPackages.cabal2nix                             \n\
     \      haskellPackages.hoogle                                         \n\
     \      haskellPackages.ghcid                                          \n\
     \      atom                                                           \n\
@@ -78,7 +78,7 @@ debianAtom = do
     \  };                                                                 \n\
     \};"
 
-  shell (asUser "nix-env -i all") empty >>= \case
+  shell (runAsUser "nix-env -i all") empty >>= \case
     ExitSuccess   -> putStrLn "Installation complete"
     ExitFailure n -> die $ "Installation failed with exit code: " <> repr n
 
@@ -110,7 +110,7 @@ installNix =
           (T.intercalate
             " && "
             [ "install -d -m755 -o $(id -u) -g $(id -g) /nix"
-            , asUser "curl https://nixos.org/nix/install | sh"
+            , runAsUser "curl https://nixos.org/nix/install | sh"
             ]
           )
           empty

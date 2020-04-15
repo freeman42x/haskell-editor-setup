@@ -19,7 +19,14 @@ import           Turtle                         ( shell
 
 
 isAtomPackageInstalled :: Text -> Bool
-isAtomPackageInstalled name = $notImplemented
+isAtomPackageInstalled name = do
+  -- run apm list
+  -- project it to structured package data
+  -- check if the package is in the list
+  $notImplemented
+
+
+  -- runShellCommand ("sudo -u $SUDO_USER apm install --color false " <> package)
 
   -- [neo@nixos:~]$ apm list --installed --bare
   -- atom-ide-ui@0.13.0
@@ -35,13 +42,13 @@ isAtomPackageInstalled name = $notImplemented
   -- nix@2.1.0
   -- todo-show@2.3.2
 
-asUser :: Text -> Text
-asUser cmd = "su - $SUDO_USER -c '" <> cmd <> "'"
+runAsUser :: Text -> Text
+runAsUser cmd = "su - $SUDO_USER -c '" <> cmd <> "'"
 
 installAtomExtension :: Text -> IO ()
 installAtomExtension extension = do
   putStrLn $ "Installing " <> extension <> " Atom extension"
-  shell (asUser $ "apt install " <> extension) empty >>= \case
+  shell (runAsUser $ "apt install " <> extension) empty >>= \case
     ExitSuccess -> putStrLn $ extension <> " successfully installed"
     ExitFailure n ->
       die $ extension <> " installation failed with exit code: " <> repr n
