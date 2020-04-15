@@ -65,23 +65,15 @@ nixOsAtom sink = do
 
       -- TODO install or update? extension or log message
       -- TODO ensure extensions are enabled if not enable them
-      installAtomPackage package = do
-        let installingPackage = "Installing Atom package - " <> toMisoString package
-        logStep installingPackage $ runShellCommand ("sudo -u $SUDO_USER apm install --color false " <> package)
+      configureAtomPackage package = do
+        -- wrap in logStep
+        --   check if package isAtomPackageInstalled
+        --   install if not installed
+        --   update if installed
 
-        -- [neo@nixos:~]$ apm list --installed --bare
-        -- atom-ide-ui@0.13.0
-        -- autocomplete-haskell@1.0.1
-        -- hasklig@0.4.0
-        -- ide-haskell@2.4.1
-        -- ide-haskell-cabal@2.5.0
-        -- ide-haskell-hasktags@0.0.17
-        -- ide-haskell-hie@0.12.0
-        -- ide-haskell-hoogle@0.1.2
-        -- ide-haskell-repl@0.9.5
-        -- language-haskell@1.19.4
-        -- nix@2.1.0
-        -- todo-show@2.3.2
+        let installingPackage = "Installing Atom package - " <> toMisoString package
+        logStep installingPackage $
+          runShellCommand ("sudo -u $SUDO_USER apm install --color false " <> package)
 
   mapM_ configureAndInstall $ uncurry ExtensionInfo <$>
     [ ("Haskell GHC", "haskell.compiler.ghc865")
@@ -90,13 +82,13 @@ nixOsAtom sink = do
     , ("Haskell IDE Engine", "((import (fetchTarball \"https://github.com/infinisil/all-hies/tarball/master\")\
     \ {}).selection { selector = p: { inherit (p) ghc865; }; })") ]
 
-  mapM_ installAtomPackage [ "nix"
-                           , "atom-ide-ui"
-                           , "autocomplete-haskell"
-                           , "hasklig"
-                           , "ide-haskell-cabal"
-                           , "ide-haskell-hasktags"
-                           , "ide-haskell-hie"
-                           , "ide-haskell-hoogle"
-                           , "ide-haskell-repl"
-                           , "language-haskell" ]
+  mapM_ configureAtomPackage [ "nix"
+                              , "atom-ide-ui"
+                              , "autocomplete-haskell"
+                              , "hasklig"
+                              , "ide-haskell-cabal"
+                              , "ide-haskell-hasktags"
+                              , "ide-haskell-hie"
+                              , "ide-haskell-hoogle"
+                              , "ide-haskell-repl"
+                              , "language-haskell" ]
