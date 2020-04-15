@@ -2,10 +2,14 @@ module OS.Linux.NixOS where
 
 import           Control.Monad.IO.Class         ( liftIO )
 import           Prelude                        ( IO
+                                                , (<$>)
+                                                , (<*>)
                                                 , ($)
                                                 , (<>)
                                                 , (==)
                                                 , mapM_
+                                                , Text
+                                                , uncurry
                                                 )
 import           Data.Bifoldable                ( bifold )
 import           Data.Text                      ( replace
@@ -14,7 +18,8 @@ import           Data.Text.IO                   ( readFile
                                                 , writeFile
                                                 )
 import           Miso.Effect
-import           Miso.String                    ( toMisoString )
+import           Miso.String                    ( toMisoString
+                                                , MisoString)
 import           Turtle                         ( sh
                                                 , inshellWithErr
                                                 , empty
@@ -22,6 +27,8 @@ import           Turtle                         ( sh
 import           Turtle.Line                    ( lineToText )
 
 import           Types
+
+data ExtensionInfo = ExtensionInfo MisoString Text
 
 nixOsAtom :: Sink Action -> IO ()
 nixOsAtom sink = do
@@ -35,7 +42,7 @@ nixOsAtom sink = do
       runShellCommand command = sh $ do
         out <- inshellWithErr command empty
         liftIO $ log $ toMisoString $ lineToText $ bifold out
-      configureAndInstall name package =
+      configureAndInstall (ExtensionInfo name package) =
         logStep ("Configuring " <> name) $ do
           oldConfigurationNixText <- liftIO $ readFile configurationNixFile
 
@@ -77,13 +84,12 @@ nixOsAtom sink = do
         -- nix@2.1.0
         -- todo-show@2.3.2
 
-  -- TODO join
-  configureAndInstall "Haskell GHC" "haskell.compiler.ghc865"
-  configureAndInstall "cabal-install" "haskellPackages.cabal-install"
-  configureAndInstall "Atom" "atom"
-  configureAndInstall "Haskell IDE Engine"
-      "((import (fetchTarball \"https://github.com/infinisil/all-hies/tarball/master\")\
-          \ {}).selection { selector = p: { inherit (p) ghc865; }; })"
+  mapM_ configureAndInstall $ uncurry ExtensionInfo <$>
+    [ ("Haskell GHC", "haskell.compiler.ghc865")
+    , ("cabal-install", "haskellPackages.cabal-install")
+    , ("Atom", "atom")
+    , ("Haskell IDE Engine", "((import (fetchTarball \"https://github.com/infinisil/all-hies/tarball/master\")\
+    \ {}).selection { selector = p: { inherit (p) ghc865; }; })") ]
 
   mapM_ installAtomPackage [ "nix"
                            , "atom-ide-ui"
