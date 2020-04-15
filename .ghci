@@ -1,5 +1,7 @@
 :module +Prelude
 
+:set -Wno-unused-imports
+:set -Wno-unused-matches
+
 :set prompt "%s\n\ESC[32m\STX>>>\ESC[0m\STX "
-:set prompt2 "\ESC[32m\STX...\ESC[0m\STX "
 :def rr const $ return $ Data.List.unlines [":reload", ":main"]
