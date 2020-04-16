@@ -31,16 +31,22 @@ data ExtensionInfo = ExtensionInfo MisoString Text
 
 nixOsAtom :: Sink Action -> IO ()
 nixOsAtom sink = do
+  -- TODO move to utils
   let log text = sink $ Append (text <> "\n")
+      -- TODO move to utils
       logStep text actions = do
         log $ "BEGIN : " <> text
         _ <- actions
         log $ "END   : " <> text
+      -- TODO move to utils
       configurationNixFile = "/etc/nixos/configuration.nix"
+      -- TODO move to utils
       environmentSystemPackages = "environment.systemPackages = with pkgs; ["
+      -- TODO move to utils
       runShellCommand command = sh $ do
         out <- inshellWithErr command empty
         liftIO $ log $ toMisoString $ lineToText $ bifold out
+      -- TODO move to utils
       configureAndInstall (ExtensionInfo name package) =
         logStep ("Configuring " <> name) $ do
           oldConfigurationNixText <- liftIO $ readFile configurationNixFile
@@ -63,6 +69,7 @@ nixOsAtom sink = do
             then log "Nix package already installed"
             else logStep (toMisoString package) (runShellCommand "nixos-rebuild switch")
 
+      -- TODO move to utils
       -- TODO install or update? extension or log message
       -- TODO ensure extensions are enabled if not enable them
       configureAtomPackage package = do
