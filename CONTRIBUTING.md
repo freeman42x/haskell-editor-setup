@@ -7,7 +7,13 @@ Environment setup:
 
 Project setup:
 
+0. install the Nix package `nwjs-sdk`
 1. git clone this repository
-2. git clone https://github.com/fairy-tale-agi-solutions/miso in same folder as the git clone from previous step
-3. git checkout `fix` branch of previous repository
-4. you can then execute `cabal run` in `haskell-editor-setup` folder to start the program
+2. git clone https://github.com/fairy-tale-agi-solutions/miso in same folder as the git clone from previous step (HES folder and Miso folder should be in same folder)
+3. git checkout `fix` branch of Miso repository
+4. `cd` to haskell editor setup folder
+5. run `nix-shell`
+6. run `cabal install --dependencies only`
+7. open another console window in same folder
+8. run `cabal run` in one window to start the server
+9. run `nw .` in another window to run the GUI
