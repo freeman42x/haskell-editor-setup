@@ -3,7 +3,9 @@
 Environment setup:
 
 1. Follow [Instructions for setting up Haskell Editors / IDE](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/blob/master/README.md#instructions-for-setting-up-haskell-editorside)
-2. Install [lorri](https://github.com/target/lorri) and [direnv](https://github.com/direnv/direnv)
+2. OPTIONAL - Install ONLY if you know what you are doing:
+    * [lorri](https://github.com/target/lorri)
+    * [direnv](https://github.com/direnv/direnv)
 
 Project setup:
 
