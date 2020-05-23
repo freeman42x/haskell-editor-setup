@@ -1,5 +1,7 @@
 ### Build instructions
 
+## Linux
+
 Environment setup:
 
 1. Follow [Instructions for setting up Haskell Editors / IDE](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/blob/master/README.md#instructions-for-setting-up-haskell-editorside)
@@ -15,6 +17,21 @@ Project setup:
 3. git checkout `fix` branch of Miso repository
 4. `cd` to haskell editor setup folder
 5. run `nix-shell`
+6. run `cabal install --dependencies only`
+7. open another console window in same folder
+8. run `cabal run` in one window to start the server
+9. run `nw .` in another window to run the GUI
+
+## Windows
+
+Project setup:
+
+0. Install nwjs sdk for your specific Windows version: https://nwjs.io/downloads/
+1. Follow [Instructions for setting up Haskell Editors / IDE](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup#windows)
+2. git clone this repository
+3. git clone https://github.com/fairy-tale-agi-solutions/miso in same folder as the git clone from previous step (HES folder and Miso folder should be in same folder)
+4. git checkout `fix` branch of Miso repository
+5. `cd` to haskell editor setup folder
 6. run `cabal install --dependencies only`
 7. open another console window in same folder
 8. run `cabal run` in one window to start the server
