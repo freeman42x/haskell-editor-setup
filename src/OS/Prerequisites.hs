@@ -11,11 +11,16 @@ import Data.Maybe (isJust)
 import Data.List (isPrefixOf)
 import Control.Monad (filterM)
 
-isGhcInstalled = fmap isJust $ findExecutable "ghc"
+isExecutableInstalled name = fmap isJust $ findExecutable name
 
-isCabalInstalled = fmap isJust $ findExecutable "cabal"
+isGhcInstalled :: IO Bool
+isGhcInstalled = isExecutableInstalled "ghc"
 
-isStackInstalled = fmap isJust $ findExecutable "stack"
+isCabalInstalled :: IO Bool
+isCabalInstalled = isExecutableInstalled "cabal"
+
+isStackInstalled :: IO Bool
+isStackInstalled = isExecutableInstalled "stack"
 
 data NixConfiguration
   = System    -- system nix config
