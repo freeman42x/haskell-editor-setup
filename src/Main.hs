@@ -9,16 +9,17 @@ module Main where
 -- | Miso framework import
 import Control.Lens ((.~), (&), makeLenses)
 import Control.Monad.IO.Class (liftIO)
+import Control.Concurrent (forkIO)
 import Miso
 import Language.Javascript.JSaddle.Warp as JSaddle
 
 import Control.Monad (unless)
 import Data.Maybe (isNothing, Maybe(..))
-import Data.Text (Text, replace, isInfixOf)
+import Data.Text (Text, pack, replace, isInfixOf)
 import Data.Text.IO (putStrLn, readFile, writeFile)
-import Prelude(IO, String, Show, Eq, Bool(..), pure, foldl, return, ($), (<>), (==), (>>))
+import Prelude (IO, String, Show, Eq, Bool(..), pure, foldl, return, userError, ioError, show, ($), (<>), (==), (>>))
 import System.Directory (findExecutable)
-import Turtle (shell, empty, die, repr, ExitCode(..))
+import Turtle (proc, shell, empty, die, repr, ExitCode(..))
 
 -- | Type synonym for an application model
 newtype Model = Model
@@ -44,7 +45,14 @@ data Action
 
 -- | Entry point for a miso application
 main :: IO ()
-main = JSaddle.run 8080 $ startApp App {..}
+main = do
+  -- TODO: can leak resources if JSaddle does something special
+  -- better to use @Control.Concurrent.Async.race@ maybe?
+  forkIO $ JSaddle.run 8080 $ startApp App {..}
+  nwExitStatus <- proc "nw" ["."] empty
+  case nwExitStatus of
+    ExitSuccess -> return ()
+    (ExitFailure n) -> ioError $ userError $ "NW app got exit code " <> (show n)
   where
     initialAction = NoOp -- initial action to be executed on application load
     model  = Model Atom           -- initial model
