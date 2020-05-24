@@ -15,7 +15,7 @@ import Language.Javascript.JSaddle.Warp as JSaddle
 
 import Control.Monad (unless)
 import Data.Maybe (isNothing, Maybe(..))
-import Data.Text (Text, pack, replace, isInfixOf)
+import Data.Text (Text, replace, isInfixOf)
 import Data.Text.IO (putStrLn, readFile, writeFile)
 import Prelude (IO, String, Show, Eq, Bool(..), pure, foldl, return, userError, ioError, show, ($), (<>), (==), (>>))
 import System.Directory (findExecutable)
@@ -48,11 +48,11 @@ main :: IO ()
 main = do
   -- TODO: can leak resources if JSaddle does something special
   -- better to use @Control.Concurrent.Async.race@ maybe?
-  forkIO $ JSaddle.run 8080 $ startApp App {..}
+  _ <- forkIO $ JSaddle.run 8080 $ startApp App {..}
   nwExitStatus <- proc "nw" ["."] empty
   case nwExitStatus of
     ExitSuccess -> return ()
-    (ExitFailure n) -> ioError $ userError $ "NW app got exit code " <> (show n)
+    (ExitFailure n) -> ioError $ userError $ "NW app got exit code " <> show n
   where
     initialAction = NoOp -- initial action to be executed on application load
     model  = Model Atom           -- initial model
