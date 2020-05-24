@@ -20,10 +20,9 @@ Project setup:
 3. git checkout `fix` branch of Miso repository
 4. `cd` to haskell editor setup folder
 5. run `nix-shell`
-6. run `cabal install --dependencies only`
-7. open another console window in same folder
-8. run `cabal run` in one window to start the server
-9. run `nw .` in another window to run the GUI
+6. run `cabal update`
+7. run `cabal install --dependencies only`
+8. run `cabal run` to start the GUI
 
 ## Windows
 
@@ -35,7 +34,6 @@ Project setup:
 3. git clone https://github.com/fairy-tale-agi-solutions/miso in same folder as the git clone from previous step (HES folder and Miso folder should be in same folder)
 4. git checkout `fix` branch of Miso repository
 5. `cd` to haskell editor setup folder
-6. run `cabal install --dependencies only`
-7. open another console window in same folder
-8. run `cabal run` in one window to start the server
-9. run `nw .` in another window to run the GUI
+6. run `cabal update`
+7. run `cabal install --dependencies only`
+8. run `cabal run` to start the GUI
