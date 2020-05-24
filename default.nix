@@ -8,8 +8,17 @@ in
 
 with misoPkgs.pkgs;
 with haskell.packages."${ghcVersion}";
-let app = callCabal2nix "haskell-editor-setup" ./. { miso = miso-jsaddle; };
-in  app.overrideAttrs (old: {
+let runtimeDeps = [ nwjs ];
+    app = callCabal2nix "haskell-editor-setup" ./. { miso = miso-jsaddle; };
+in
+
+app.overrideAttrs (old: {
   miso = miso-jsaddle;
-  buildInputs = old.buildInputs ++ [ nwjs-sdk ];
+  # needs nw in RPATH in order to use propagatedBuildInputs -> useless for runtime
+  buildInputs = old.buildInputs ++ [ binutils makeWrapper ];
+  postFixup = ''
+    mv $out/bin/haskell-editor-setup $out/bin/.haskell-editor-setup-wrapped
+    makeWrapper $out/bin/.haskell-editor-setup-wrapped $out/bin/haskell-editor-setup \
+                --prefix PATH : ${lib.makeBinPath runtimeDeps}
+  '';
 })
