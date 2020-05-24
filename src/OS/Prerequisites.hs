@@ -11,6 +11,7 @@ import Data.Maybe (isJust)
 import Data.List (isPrefixOf)
 import Control.Monad (filterM)
 
+isExecutableInstalled :: String -> IO Bool
 isExecutableInstalled name = fmap isJust $ findExecutable name
 
 isGhcInstalled :: IO Bool
@@ -22,12 +23,14 @@ isCabalInstalled = isExecutableInstalled "cabal"
 isStackInstalled :: IO Bool
 isStackInstalled = isExecutableInstalled "stack"
 
+-- see Research/nix configuration files.md
 data NixConfiguration
-  = System    -- system nix config
-  | User      -- user nix config
-  | Nixos     -- nixos config
-  | Packages  -- nix packages config
-  | Home      -- optional home.nix
+  = System
+  | User
+  | Nixos
+  | Packages
+  | Home
+  | Overlays
   deriving (Show)
 
 doesFileExist' :: FilePath -> IO Bool
@@ -43,4 +46,5 @@ getExistingNixConfigurations = fmap (map fst)
                                             (User,     "~/.config/nix/nix.conf"),
                                             (Nixos,    "/etc/nixos/configuration.nix"),
                                             (Packages, "~/.config/nixpkgs/config.nix"),
-                                            (Home,     "~/.config/nixpkgs/home.nix")  ]
+                                            (Home,     "~/.config/nixpkgs/home.nix"),
+                                            (Overlays, "~/.config/nixpkgs/overlays.nix")  ]
