@@ -1,1 +1,2 @@
+#!/run/current-system/sw/bin/bash
 cabal new-exec --verbose=0 --offline sh -- -c 'sudo haskell-editor-setup'
