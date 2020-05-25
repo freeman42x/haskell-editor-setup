@@ -15,7 +15,7 @@ Environment setup:
 Project setup:
 
 * Run `./setup` to setup the project
-* Run `./hes` to start the application
+* Run `nix-shell` and in it run `./hes` to start the application
 
 ## Getting HIE to work
 
