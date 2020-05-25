@@ -1,6 +1,6 @@
 # Haskell Editor / IDE Setup
 
-#### Notes on Haskell Editor Setup GUI program
+## Automated: Haskell Editor Setup GUI program
 
 Work on creating a Haskell Editor Setup GUI program is in process, you can track progress here: [HES Project Kanban](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/projects/1)
 
@@ -15,7 +15,19 @@ The goal of this software is mainly to allow easy editor / IDE setup for whoever
 
 "Everything that can be automated should be automated" - Future Robot Overlords
 
-#### Instructions for setting up Haskell editors/IDE
+### Implementation progress for Atom editor:
+
+| **OS / Distribution** | **Implemented** | **Packaged** |
+| --- | --- | --- |
+| Linux - NixOS | ✔️ | ❌ |
+| Linux - Linux Mint | ❌ | ❌ |
+| Linux - Ubuntu | ❌ | ❌ |
+| Linux - Debian | ✔️ | ❌ |
+| Linux - Arch | ❌ | ❌ |
+| MacOS X | ❌ | ❌ |
+| Windows 10 | ❌ | ❌ |
+
+## Manual instructions for setting up Haskell editors / IDE
 
 HIE together with compatible plugins usually offers more features than the average Haskell multi-feature plugin + compatible plugins. Some exceptions are: IntelliJ IDEA which has a very good set of features (and HIE does not have an IDEA plugin yet) and Leksah (which also does not have a HIE plugin but offers quite a lot of features itself).
 
