@@ -1,2 +1,11 @@
 #!/run/current-system/sw/bin/bash
-cabal new-exec --verbose=0 --offline sh -- -c 'sudo haskell-editor-setup'
+
+cd ..
+git clone https://github.com/fairy-tale-agi-solutions/miso
+cd miso
+git checkout fix
+cd ../haskell-editor-setup
+nix-shell --run '
+  cabal update ;
+  cabal install --dependencies only ;
+  cabal new-exec --verbose=0 --offline sh -- -c "sudo haskell-editor-setup"'
