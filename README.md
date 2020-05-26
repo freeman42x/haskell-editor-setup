@@ -27,6 +27,29 @@ The goal of this software is mainly to allow easy editor / IDE setup for whoever
 | MacOS X | ❌ | ❌ |
 | Windows 10 | ❌ | ❌ |
 
+### Bounties
+
+This project can be sponsored using: https://opencollective.com/fairy-tale-agi-solutions
+
+All the incoming and outgoing expenses for the organization can be seen at the page above.
+
+And bounties will be paid for any tickets labeled `bounty`.
+
+After your PR has been merged: to claim a bounty reward, submit an expense using the OpenCollective link above and mention the issue number in the description.
+
+We will start by paying developers symbolic amounts for their work on issues:
+
+* 5 Euro for first 1 hour task they would work on
+* 3 Euro for successive 1 hour task they would work on
+* 1.5 Euro per hour for all other cases
+
+Over time as this project becomes more successful and money starts flowing in through donations we will increase the pay / hour a lot:
+
+| **Begin date** | **Pay: Euro / hour**|
+| --- | --- |
+|26-05-2020|1.5|
+|01-06-2020|?|
+
 ## Manual instructions for setting up Haskell editors / IDE
 
 HIE together with compatible plugins usually offers more features than the average Haskell multi-feature plugin + compatible plugins. Some exceptions are: IntelliJ IDEA which has a very good set of features (and HIE does not have an IDEA plugin yet) and Leksah (which also does not have a HIE plugin but offers quite a lot of features itself).
