@@ -1,4 +1,4 @@
-#!/run/current-system/sw/bin/bash
+#!/usr/bin/env bash
 
 cd ..
 git clone https://github.com/fairy-tale-agi-solutions/miso
@@ -7,4 +7,4 @@ git checkout fix
 cd ../haskell-editor-setup
 nix-shell --run '
   cabal update ;
-  cabal install --dependencies only'
+  cabal install --dependencies-only'
