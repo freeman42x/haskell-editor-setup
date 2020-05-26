@@ -1,1 +1,1 @@
-(import ./default.nix).env
+let pkgs = import <nixpkgs> {}; in (import ./.).env.overrideAttrs (_: { shellHook = ''PATH="$PATH:${pkgs.ghc}/bin:${pkgs.cabal-install}/bin"''; })
