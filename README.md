@@ -27,23 +27,37 @@ The goal of this software is mainly to allow easy editor / IDE setup for whoever
 | MacOS X | ❌ | ❌ |
 | Windows 10 | ❌ | ❌ |
 
-### Bounties
+### Donations
 
-This project can be sponsored using: https://opencollective.com/fairy-tale-agi-solutions
+You can donate to support work on Haskell Editor Setup using: https://opencollective.com/fairy-tale-agi-solutions
 
 All the incoming and outgoing expenses for the organization can be seen at the page above.
 
-And bounties will be paid for any tickets labeled `bounty`.
+The donation money will be used for funding the payment for the bounties for tickets on this project.
 
-After your PR has been merged: to claim a bounty reward, submit an expense using the OpenCollective link above and mention the issue number in the description.
+### Bounties
 
-We will start by paying developers symbolic amounts for their work on issues:
+A bounty is a sum of money which will be rewarded on succesful completion of an issue.
+
+The bounty issues are marked with `bounty` label and will contain somewhre in the issue the bounty reward.
+
+After your PR has been merged to claim a bounty reward, submit an expense using the OpenCollective link above and mention:
+
+1. `Haskell Edito Setup Bounty` for expense name
+2. issue number and title in the line item description
+
+See [this expense](https://opencollective.com/fairy-tale-agi-solutions/expenses/19020) as an example.
+
+I will start by paying developers the following amounts for their work on issues:
 
 * 5 Euro for first 1 hour task they would work on
 * 3 Euro for successive 1 hour task they would work on
 * 1.5 Euro per hour for all other cases
+* for special cases I can pay bigger bounties, this depends on the person taking the task, the task, etc.
 
-Over time as this project becomes more successful and money starts flowing in through donations we will increase the pay / hour a lot:
+At the beginning the payments will be mainly symbolic for the developed countries yet better than average pay for non-developed ones.
+
+Over time as this project becomes more successful and money starts flowing in through donations we will increase the pay / hour a lot and record the progress here:
 
 | **Begin date** | **Pay: Euro / hour**|
 | --- | --- |
