@@ -8,7 +8,7 @@
 
 ### Progress Tracking
 [![Open Issues](https://img.shields.io/github/issues-raw/fairy-tale-agi-solutions/haskell-editor-setup?style=flatsquare&label=Open%20Issues)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/projects/1)
-[![good first issues open](https://img.shields.io/github/issues/fairy-tale-agi-solutions/haskell-editor-setup/help%20wanted.svg)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/issues?q=is%3Aopen+is%3Aissue+label%3A"help+wanted")
+[![good first issues open](https://img.shields.io/github/issues/fairy-tale-agi-solutions/haskell-editor-setup/help%20wanted.svg?color=Red)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/issues?q=is%3Aopen+is%3Aissue+label%3A"help+wanted")
 [![Closed Issues](https://img.shields.io/github/issues-closed-raw/fairy-tale-agi-solutions/haskell-editor-setup?color=green&label=Closed%20Issues)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/projects/1)
 
 ### Contributors
