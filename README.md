@@ -17,15 +17,15 @@ The goal of this software is mainly to allow easy editor / IDE setup for whoever
 
 ### Implementation progress for Atom editor:
 
-| **OS / Distribution** | **Implemented** | **Packaged** |
-| --- | --- | --- |
-| Linux - NixOS | ✔️ | ❌ |
-| Linux - Linux Mint | ❌ | ❌ |
-| Linux - Ubuntu | ❌ | ❌ |
-| Linux - Debian | ✔️ | ❌ |
-| Linux - Arch | ❌ | ❌ |
-| MacOS X | ❌ | ❌ |
-| Windows 10 | ❌ | ❌ |
+| **OS / Distribution** | **Implemented** | **Packaged** | **Published** |
+| --- | --- | --- | --- |
+| Linux - NixOS | ✔️ | ❌ | ❌ |
+| Linux - Linux Mint | ❌ | ❌ | ❌ |
+| Linux - Ubuntu | ❌ | ❌ | ❌ |
+| Linux - Debian | ✔️ | ❌ | ❌ |
+| Linux - Arch | ❌ | ❌ | ❌ |
+| MacOS X | ❌ | ❌ | ❌ |
+| Windows 10 | ❌ | ❌ | ❌ |
 
 ### Donations
 
