@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# add cachix to configuration.nix
+# do a rebuild
+
+# add ./cachix.nix
+# do a rebuild
+
 cd ..
 git clone https://github.com/fairy-tale-agi-solutions/miso
 cd miso
