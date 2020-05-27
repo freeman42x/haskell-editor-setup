@@ -1,5 +1,9 @@
 ### Build instructions
 
+Editor setup:
+
+Install in your editor any required [editorconfig](https://editorconfig.org/) extension so that we will have consistent coding style practices.
+
 ## Linux
 
 Environment setup:
