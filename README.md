@@ -4,14 +4,22 @@
 
 Work on creating a Haskell Editor Setup GUI program is in process, you can track progress here: [HES Project Kanban](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/projects/1)
 
-How Haskell Editor Setup works:
+How Haskell Editor Setup will work - One click install:
 
-1. choose which to install: GHC, cabal, stack, nix, git, hie
-2. choose which editors / IDEs to install
-3. choose which editor / IDE extensions to install
-4. press a button and your system will be updated to have installed / set up all the things you selected
+1. (optional) choose which to install: GHC, cabal, stack, nix, git, hie
+2. (optional) choose which editors / IDEs to install
+3. (optional) choose which editor / IDE extensions to install
+4. Click `Configure` button and your system will be configured to have installed / set up all the things you chose. If all of them are defaults you will get everything recommended: editor, extensions etc.
 
-The goal of this software is mainly to allow easy editor / IDE setup for whoever tries Haskell for the first time. Being automated it should save time
+The goal of this software is mainly to allow easy editor / IDE setup for whoever tries Haskell for the first time.
+
+Usefulness and features of the project
+
+* one click install or pick your own
+* customizable settings with persistent settings
+* notify via: sounds, toast messages, etc.
+* hours saved: in the order of millions
+* great UX for new Haskell learners mainly because of f
 
 "Everything that can be automated should be automated" - Future Robot Overlords
 
