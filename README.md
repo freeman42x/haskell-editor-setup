@@ -1,18 +1,29 @@
 # Haskell Editor / IDE Setup
 
-[![Opencollective](https://img.shields.io/badge/Official.Page-Opencollective-blue)](https://opencollective.com/fairy-tale-agi-solutions/)
 
-#### Community Links
+### Community Links
 [![Discord](https://img.shields.io/discord/510467626246471690.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/9J496Nn)
 [![Twitch](https://shields.cdn.bka.li/twitch/status/freeman42x?color=blueviolet&logoColor=blueviolet&style=flatsquare)](https://www.twitch.tv/freeman42x)
 [![Blog](https://img.shields.io/badge/Blog-RazvanFlaviusPanda-red)](https://razvan-flavius-panda.github.io/blog/)
 
-#### Progress Tracking
+### Progress Tracking
 [![Open Issues](https://img.shields.io/github/issues-raw/fairy-tale-agi-solutions/haskell-editor-setup?style=flatsquare&label=Open%20Issues)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/projects/1)
 [![good first issues open](https://img.shields.io/github/issues/fairy-tale-agi-solutions/haskell-editor-setup/help%20wanted.svg)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/issues?q=is%3Aopen+is%3Aissue+label%3A"help+wanted")
 [![Closed Issues](https://img.shields.io/github/issues-closed-raw/fairy-tale-agi-solutions/haskell-editor-setup?color=green&label=Closed%20Issues)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/projects/1)
 
-#### Notes on Haskell Editor Setup GUI program
+### Contributors
+[![Opencollective](https://img.shields.io/badge/Official.Page-Opencollective-blue)](https://opencollective.com/fairy-tale-agi-solutions/)
+
+![Opencollective-backers](https://img.shields.io/opencollective/backers/fairy-tale-agi-solutions)
+![Opencollective-sponsors](https://img.shields.io/opencollective/sponsors/fairy-tale-agi-solutions)
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/remarkablemark/fairy-tale-agi-solutions/graphs/contributors">
+
+<img src="https://opencollective.com/fairy-tale-agi-solutions/tiers/backers.svg?avatarHeight=36">
+</a>
+
+# Notes on Haskell Editor Setup GUI program
 
 Work on creating a Haskell Editor Setup GUI program is in process, you can track progress here: [HES Project Kanban](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/projects/1)
 
@@ -325,14 +336,3 @@ Alternatives to HIE:
 
 * SublimeHaskell
 * dariusf/sublime-intero
-
-## Contributors
-
-![Opencollective-backers](https://img.shields.io/opencollective/backers/fairy-tale-agi-solutions)
-![Opencollective-sponsors](https://img.shields.io/opencollective/sponsors/fairy-tale-agi-solutions)
-
-This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
-<a href="https://github.com/remarkablemark/fairy-tale-agi-solutions/graphs/contributors">
-
-<img src="https://opencollective.com/fairy-tale-agi-solutions/tiers/backers.svg?avatarHeight=36">
-</a>
