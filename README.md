@@ -15,11 +15,11 @@ The goal of this software is mainly to allow easy editor / IDE setup for whoever
 
 Usefulness and features of the project
 
-* one click install or pick your own
-* customizable settings with persistent settings
-* notify via: sounds, toast messages, etc.
-* hours saved: in the order of millions
-* great UX for new Haskell learners mainly because of f
+* one click install for Atom and extensions or pick your own editor and extensions
+* customizable settings that persist across runs
+* notify via: sounds, toast messages, etc. so that you know when system was updated
+* hours saved by using this project: in the order of millions
+* great UX for new Haskell learners mainly because of One Click Configuration of Atom, which is a great editor for Haskell code
 
 "Everything that can be automated should be automated" - Future Robot Overlords
 
