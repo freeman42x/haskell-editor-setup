@@ -15,7 +15,8 @@ The goal of this software is mainly to allow easy editor / IDE setup for whoever
 
 Usefulness and features of the project
 
-* one click install for Atom and extensions or pick your own editor and extensions
+* **One Click Install** for recommended Atom and recommended extensions for it
+* **Two Click Install** for picking your editor and recommended extensions for it
 * customizable settings that persist across runs
 * notify via: sounds, toast messages, etc. so that you know when system was updated
 * hours saved by using this project: in the order of millions
