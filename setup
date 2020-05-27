@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
+# TODO vvv
 # add cachix to configuration.nix
+sudo sed -i 's/.\/hardware-configuration.nix/.\/hardware-configuration.nix\n      .\/cachix.nix/g' /etc/nixos/configuration.nix
 # do a rebuild
-
 # add ./cachix.nix
 # do a rebuild
+# ^^^
 
 cd ..
 git clone https://github.com/fairy-tale-agi-solutions/miso
