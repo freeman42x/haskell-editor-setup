@@ -1,8 +1,9 @@
 # Haskell Editor / IDE Setup
 
-[![Haskell](https://images-ext-1.discordapp.net/external/llqNEiuAVxjieU3s4AZv9KHMPsz_4MjeBCxK9il3uRs/https/upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Haskell-Logo.svg/1200px-Haskell-Logo.svg.png?width=95&height=67)](https://www.haskell.org/)
-
-[![Nix](https://www.vectorlogo.zone/logos/nixos/nixos-ar21.svg?width=95&height=67)](https://nixos.org/)
+### Technology used
+[![Haskell](https://badgen.net/badge/icon/Haskell?icon=haskell&label&color=brightgreen)](https://www.haskell.org/)
+[![Nix](https://img.shields.io/badge/Nix-OS-black)](https://nixos.org/)
+[![Miso](https://img.shields.io/badge/Miso-FrontEndFramework-black)](https://nixos.org/)
 
 
 ### Community Links
@@ -12,10 +13,11 @@
 
 ### Progress Tracking
 
-![Commit-Activity](https://img.shields.io/github/commit-activity/m/fairy-tale-agi-solutions/haskell-editor-setup?label=Commit%20Activity%20Last%20Month)
+![Commit-Activity](https://img.shields.io/github/commit-activity/m/fairy-tale-agi-solutions/haskell-editor-setup?label=Last%20Month%20commit%20activity&style=for-the-badge)
 
-[![Open Issues](https://img.shields.io/github/issues-raw/fairy-tale-agi-solutions/haskell-editor-setup?style=flatsquare&label=Open%20Issues)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/projects/1)
-[![Help Wanted](https://img.shields.io/github/issues/fairy-tale-agi-solutions/haskell-editor-setup/help%20wanted.svg?color=Red)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/issues?q=is%3Aopen+is%3Aissue+label%3A"help+wanted")
+[![Open Issues](https://img.shields.io/github/issues-raw/fairy-tale-agi-solutions/haskell-editor-setup?style=flatsquare&label=Open%20Issues&style=for-the-badge)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/projects/1)
+[![Help Wanted](https://img.shields.io/github/issues/fairy-tale-agi-solutions/haskell-editor-setup/help%20wanted.svg?color=Red)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/issues?q=is%3Aopen+is%3Aissue+label%3A"help+wanted") 
+[![Bounty](https://img.shields.io/github/issues/fairy-tale-agi-solutions/haskell-editor-setup/bounty.svg?color=blueviolet)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/issues?q=is%3Aopen+is%3Aissue+label%3A"bounty") 
 [![Closed Issues](https://img.shields.io/github/issues-closed-raw/fairy-tale-agi-solutions/haskell-editor-setup?color=green&label=Closed%20Issues)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/projects/1)
 
 ### Contributors
