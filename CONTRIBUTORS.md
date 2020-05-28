@@ -11,6 +11,8 @@ Helped with development via communication channels
 * dmwit from #haskell IRC - cabal, ghci
 * jackdk from #qfpl IRC - nix, haskell
 * maerwald from #haskell IRC - cabal
+* sclv from #haskell IRC - cabal
+* solonarv from #haskell IRC - cabal
 
 Project management and scope
 * freeman42x / Răzvan Flavius Panda
