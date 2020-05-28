@@ -9,7 +9,7 @@
 [![Discord](https://img.shields.io/discord/510467626246471690.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/9J496Nn)
 [![Blog](https://img.shields.io/badge/Blog-RazvanFlaviusPanda-red?color=orange)](https://razvan-flavius-panda.github.io/blog/) 
 [![Twitch](https://img.shields.io/badge/TwitchTV-freeman42x-b?color=blueviolet)](https://nixos.org/)
-[![TwitchStatus](https://shields.cdn.bka.li/twitch/status/freeman42x?color=blueviolet&logoColor=blueviolet&style=flatsquare&label)](https://www.twitch.tv/freeman42x)
+[![](https://shields.cdn.bka.li/twitch/status/freeman42x?color=blueviolet&logoColor=blueviolet&style=flatsquare&label)](https://www.twitch.tv/freeman42x)
 
 ### Progress Tracking
 ![Commit-Activity](https://img.shields.io/github/commit-activity/m/fairy-tale-agi-solutions/haskell-editor-setup?label=Last%20Month%20commit%20activity&style=for-the-badge)
