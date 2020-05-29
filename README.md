@@ -7,7 +7,7 @@
 
 ### Community Links
 [![Discord](https://img.shields.io/discord/510467626246471690.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/9J496Nn)
-[![Blog](https://img.shields.io/badge/Blog-RazvanFlaviusPanda-red?color=orange)](https://razvan-flavius-panda.github.io/blog/) 
+[![Blog](https://img.shields.io/badge/Blog-RazvanFlaviusPanda-red?color=orange)](https://razvan-flavius-panda.github.io/blog/)
 [![Twitch](https://img.shields.io/badge/TwitchTV-freeman42x-b?color=blueviolet)](https://www.twitch.tv/freeman42x/)
 [![](https://shields.cdn.bka.li/twitch/status/freeman42x?color=blueviolet&logoColor=blueviolet&style=flatsquare&label)](https://www.twitch.tv/freeman42x)
 
@@ -15,8 +15,8 @@
 [![Commit-Activity](https://img.shields.io/github/commit-activity/m/fairy-tale-agi-solutions/haskell-editor-setup?label=Last%20Month%20commit%20activity&style=for-the-badge)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/graphs/contributors)
 
 [![Project Kanban Board](https://img.shields.io/github/issues-raw/fairy-tale-agi-solutions/haskell-editor-setup?style=flatsquare&label=Project%20Kanban%20Board&style=for-the-badge)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/projects/1)
-[![Help Wanted](https://img.shields.io/github/issues/fairy-tale-agi-solutions/haskell-editor-setup/help%20wanted.svg?color=Red)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/issues?q=is%3Aopen+is%3Aissue+label%3A"help+wanted") 
-[![Bounty](https://img.shields.io/github/issues/fairy-tale-agi-solutions/haskell-editor-setup/bounty.svg?color=blueviolet)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/issues?q=is%3Aopen+is%3Aissue+label%3A"bounty") 
+[![Help Wanted](https://img.shields.io/github/issues/fairy-tale-agi-solutions/haskell-editor-setup/help%20wanted.svg?color=Red)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/issues?q=is%3Aopen+is%3Aissue+label%3A"help+wanted")
+[![Bounty](https://img.shields.io/github/issues/fairy-tale-agi-solutions/haskell-editor-setup/bounty.svg?color=blueviolet)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/issues?q=is%3Aopen+is%3Aissue+label%3A"bounty")
 [![Closed Issues](https://img.shields.io/github/issues-closed-raw/fairy-tale-agi-solutions/haskell-editor-setup?color=green&label=Closed%20Issues)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/issues?q=is%3Aclosed+is%3Aissue)
 
 ### Contributors
@@ -30,23 +30,80 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 <img src="https://opencollective.com/fairy-tale-agi-solutions/tiers/backers.svg?avatarHeight=36">
 </a>
 
-
-# Notes on Haskell Editor Setup GUI program
+## Automated: Haskell Editor Setup GUI program
 
 Work on creating a Haskell Editor Setup GUI program is in process, you can track progress here: [HES Project Kanban](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/projects/1)
 
-How Haskell Editor Setup works:
+How Haskell Editor Setup will work - One click install:
 
-1. choose which to install: GHC, cabal, stack, nix, git, hie
-2. choose which editors / IDEs to install
-3. choose which editor / IDE extensions to install
-4. press a button and your system will be updated to have installed / set up all the things you selected
+1. (optional) choose which to install: GHC, cabal, stack, nix, git, hie
+2. (optional) choose which editors / IDEs to install
+3. (optional) choose which editor / IDE extensions to install
+4. Click `Configure` button and your system will be configured to have installed / set up all the things you chose. If all of them are defaults you will get everything recommended: editor, extensions etc.
 
-The goal of this software is mainly to allow easy editor / IDE setup for whoever tries Haskell for the first time. Being automated it should save time
+The goal of this software is mainly to allow easy editor / IDE setup for whoever tries Haskell for the first time.
+
+Usefulness and features of the project
+
+* **One Click Install** for recommended Atom and recommended extensions for it
+* **Two Click Install** for picking your editor and recommended extensions for it
+* customizable settings that persist across runs
+* notify via: sounds, toast messages, etc. so that you know when system was updated
+* hours saved by using this project: in the order of millions
+* great UX for new Haskell learners mainly because of One Click Configuration of Atom, which is a great editor for Haskell code
 
 "Everything that can be automated should be automated" - Future Robot Overlords
 
-#### Instructions for setting up Haskell editors/IDE
+### Implementation progress for Atom editor:
+
+| **OS / Distribution** | **Implemented** | **Packaged** | **Published** |
+| --- | --- | --- | --- |
+| Linux - NixOS | ✔️ | ❌ | ❌ |
+| Linux - Linux Mint | ❌ | ❌ | ❌ |
+| Linux - Ubuntu | ❌ | ❌ | ❌ |
+| Linux - Debian | ✔️ | ❌ | ❌ |
+| Linux - Arch | ❌ | ❌ | ❌ |
+| MacOS X | ❌ | ❌ | ❌ |
+| Windows 10 | ❌ | ❌ | ❌ |
+
+### Donations
+
+You can donate to support work on Haskell Editor Setup using: https://opencollective.com/fairy-tale-agi-solutions
+
+All the incoming and outgoing expenses for the organization can be seen at the page above.
+
+The donation money will be used for funding the payment for the bounties for tickets on this project.
+
+### Bounties
+
+A bounty is a sum of money which will be rewarded on succesful completion of an issue.
+
+The bounty issues are marked with `bounty` label and will contain somewhre in the issue the bounty reward.
+
+After your PR has been merged to claim a bounty reward, submit an expense using the OpenCollective link above and mention:
+
+1. `Haskell Edito Setup Bounty` for expense name
+2. issue number and title in the line item description
+
+See [this expense](https://opencollective.com/fairy-tale-agi-solutions/expenses/19020) as an example.
+
+I will start by paying developers the following amounts for their work on issues:
+
+* 5 Euro for first 1 hour task they would work on
+* 3 Euro for successive 1 hour task they would work on
+* 1.5 Euro per hour for all other cases
+* for special cases I can pay bigger bounties, this depends on the person taking the task, the task, etc.
+
+At the beginning the payments will be mainly symbolic for the developed countries yet better than average pay for non-developed ones.
+
+Over time as this project becomes more successful and money starts flowing in through donations we will increase the pay / hour a lot and record the progress here:
+
+| **Begin date** | **Pay: Euro / hour**|
+| --- | --- |
+|26-05-2020|1.5|
+|01-06-2020|?|
+
+## Manual instructions for setting up Haskell editors / IDE
 
 HIE together with compatible plugins usually offers more features than the average Haskell multi-feature plugin + compatible plugins. Some exceptions are: IntelliJ IDEA which has a very good set of features (and HIE does not have an IDEA plugin yet) and Leksah (which also does not have a HIE plugin but offers quite a lot of features itself).
 
