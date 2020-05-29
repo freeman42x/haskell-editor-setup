@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-# TODO fix vvv, getting error:
-# sed: -e expression #1, char 39: unterminated `s' command
-sudo sed -i 's/with pkgs; [/with pkgs; [\n  cachix/g' /etc/nixos/configuration.nix
+# new error:
+# sed: -e expression #1, char 29: unterminated address regex
+sudo sed -i '/with pkgs; \\[/a\\    cachix' configuration.nix
 sudo nixos-rebuild switch
 sudo cachix use fairy-tale-agi-solutions
 sudo sed -i 's/.\/hardware-configuration.nix/.\/hardware-configuration.nix\n      .\/cachix.nix/g' /etc/nixos/configuration.nix
