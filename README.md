@@ -3,12 +3,12 @@
 ### Technologies used
 [![Haskell](https://badgen.net/badge/icon/Haskell?icon=haskell&label&color=brightgreen)](https://www.haskell.org/)
 [![Nix](https://img.shields.io/badge/Nix-OS-black)](https://nixos.org/)
-[![Miso](https://img.shields.io/badge/Miso-FrontEndFramework-black)](https://nixos.org/)
+[![Miso](https://img.shields.io/badge/Miso-FrontEndFramework-black)](https://haskell-miso.org/)
 
 ### Community Links
 [![Discord](https://img.shields.io/discord/510467626246471690.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/9J496Nn)
 [![Blog](https://img.shields.io/badge/Blog-RazvanFlaviusPanda-red?color=orange)](https://razvan-flavius-panda.github.io/blog/) 
-[![Twitch](https://img.shields.io/badge/TwitchTV-freeman42x-b?color=blueviolet)](https://nixos.org/)
+[![Twitch](https://img.shields.io/badge/TwitchTV-freeman42x-b?color=blueviolet)](https://www.twitch.tv/freeman42x/)
 [![](https://shields.cdn.bka.li/twitch/status/freeman42x?color=blueviolet&logoColor=blueviolet&style=flatsquare&label)](https://www.twitch.tv/freeman42x)
 
 ### Progress Tracking
@@ -17,7 +17,7 @@
 [![Open Issues](https://img.shields.io/github/issues-raw/fairy-tale-agi-solutions/haskell-editor-setup?style=flatsquare&label=Open%20Issues&style=for-the-badge)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/projects/1)
 [![Help Wanted](https://img.shields.io/github/issues/fairy-tale-agi-solutions/haskell-editor-setup/help%20wanted.svg?color=Red)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/issues?q=is%3Aopen+is%3Aissue+label%3A"help+wanted") 
 [![Bounty](https://img.shields.io/github/issues/fairy-tale-agi-solutions/haskell-editor-setup/bounty.svg?color=blueviolet)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/issues?q=is%3Aopen+is%3Aissue+label%3A"bounty") 
-[![Closed Issues](https://img.shields.io/github/issues-closed-raw/fairy-tale-agi-solutions/haskell-editor-setup?color=green&label=Closed%20Issues)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/projects/1)
+[![Closed Issues](https://img.shields.io/github/issues-closed-raw/fairy-tale-agi-solutions/haskell-editor-setup?color=green&label=Closed%20Issues)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/issues?q=is%3Aclosed+is%3Aissue)
 
 ### Contributors
 [![Opencollective](https://img.shields.io/badge/Official.Page-OpenCollective-blue)](https://opencollective.com/fairy-tale-agi-solutions/)
@@ -25,7 +25,7 @@
 ![Opencollective-sponsors](https://img.shields.io/opencollective/sponsors/fairy-tale-agi-solutions)
 
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
-<a href="https://github.com/remarkablemark/fairy-tale-agi-solutions/graphs/contributors">
+<a href="https://opencollective.com/fairy-tale-agi-solutions/">
 
 <img src="https://opencollective.com/fairy-tale-agi-solutions/tiers/backers.svg?avatarHeight=36">
 </a>
