@@ -14,7 +14,7 @@
 ### Progress Tracking
 [![Commit-Activity](https://img.shields.io/github/commit-activity/m/fairy-tale-agi-solutions/haskell-editor-setup?label=Last%20Month%20commit%20activity&style=for-the-badge)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/graphs/contributors)
 
-[![Open Issues](https://img.shields.io/github/issues-raw/fairy-tale-agi-solutions/haskell-editor-setup?style=flatsquare&label=Open%20Issues&style=for-the-badge)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/projects/1)
+[![Project Kanban Board](https://img.shields.io/github/issues-raw/fairy-tale-agi-solutions/haskell-editor-setup?style=flatsquare&label=Project%20Kanban%20Board&style=for-the-badge)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/projects/1)
 [![Help Wanted](https://img.shields.io/github/issues/fairy-tale-agi-solutions/haskell-editor-setup/help%20wanted.svg?color=Red)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/issues?q=is%3Aopen+is%3Aissue+label%3A"help+wanted") 
 [![Bounty](https://img.shields.io/github/issues/fairy-tale-agi-solutions/haskell-editor-setup/bounty.svg?color=blueviolet)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/issues?q=is%3Aopen+is%3Aissue+label%3A"bounty") 
 [![Closed Issues](https://img.shields.io/github/issues-closed-raw/fairy-tale-agi-solutions/haskell-editor-setup?color=green&label=Closed%20Issues)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/issues?q=is%3Aclosed+is%3Aissue)
