@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-# TODO fix vvv
+# TODO fix vvv, getting error:
+# sed: -e expression #1, char 39: unterminated `s' command
 sudo sed -i 's/with pkgs; [/with pkgs; [\n  cachix/g' /etc/nixos/configuration.nix
 sudo nixos-rebuild switch
 sudo cachix use fairy-tale-agi-solutions
