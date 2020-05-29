@@ -1,8 +1,15 @@
 #!/usr/bin/env bash
 
-# new error:
-# sed: -e expression #1, char 29: unterminated address regex
-sudo sed -i '/with pkgs; \\[/a\\    cachix' configuration.nix
+# errors:
+# neo@nixos ~/P/haskell-editor-setup> ./setup
+# ./setup: line 3: /etc/nixos/configuration_updated.nix: Permission denied
+# [sudo] password for neo:
+# mv: cannot stat '/etc/nixos/configuration_updated.nix': No such file or directory
+# building Nix...
+# building the system configuration...
+
+sudo sed $'/with pkgs; \\[/a\\    cachix' /etc/nixos/configuration.nix > /etc/nixos/configuration_updated.nix
+sudo mv /etc/nixos/configuration_updated.nix /etc/nixos/configuration.nix
 sudo nixos-rebuild switch
 sudo cachix use fairy-tale-agi-solutions
 sudo sed -i 's/.\/hardware-configuration.nix/.\/hardware-configuration.nix\n      .\/cachix.nix/g' /etc/nixos/configuration.nix
