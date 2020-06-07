@@ -1,4 +1,4 @@
-#!/usr/bin/env stack
+#!/usr/bin/env cabal
 {- stack
   runghc
   --stack-yaml=install/shake.yaml
