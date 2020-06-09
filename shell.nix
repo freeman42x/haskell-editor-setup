@@ -10,11 +10,10 @@
 with nixpkgs;
 let
   drv = import ./. { inherit ghcVersion;};
-  hie = 
-    ((import (fetchTarball "https://github.com/infinisil/all-hies/tarball/master") {})
+  hie =
+    ((import (fetchTarball "https://github.com/infinisil/all-hies/tarball/4b6aab017cdf96a90641dc287437685675d598da") {})
     .selection { selector = p: { ${ghcVersion} = p.${ghcVersion}; }; });
-
-in 
+in
 drv.env.overrideAttrs (shellEnv: {
   buildInputs = shellEnv.buildInputs ++ [
     cabal2nix
