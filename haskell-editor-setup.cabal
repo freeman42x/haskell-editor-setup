@@ -11,7 +11,15 @@ extra-source-files:  CHANGELOG.md, README.md
 
 executable haskell-editor-setup
   main-is:             Main.hs
+  other-modules:
+                       OS.Linux.Debian,
+                       OS.Linux.NixOS,
+                       OS.Linux.Debian,
+                       OS.Prerequisites,
+                       Types,
+                       Util
   build-depends:       base        ^>= 4.12.0.0
+                     , relude       == 0.4.0
                      , miso         == 1.3.0.0
                      , jsaddle-warp == 0.9.6.0
                      , ghcjs-dom    == 0.9.4.0
@@ -20,9 +28,18 @@ executable haskell-editor-setup
                      , text         == 1.2.3.1
                      , turtle       == 1.5.14
                      , lens         == 4.17.1
+                     , placeholders == 0.1
+
+  mixins:   base hiding (Prelude)
+          , relude (Relude as Prelude
+                  , Relude.Unsafe)
 
   hs-source-dirs:      src
 
   default-language:    Haskell2010
 
   ghc-options: -threaded -Wall
+
+  default-extensions: OverloadedStrings,
+                      LambdaCase,
+                      TemplateHaskell

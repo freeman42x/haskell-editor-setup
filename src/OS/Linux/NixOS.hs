@@ -7,12 +7,12 @@ import           Prelude                        ( IO
                                                 , (<>)
                                                 , (==)
                                                 , mapM_
-                                                , Text
                                                 , uncurry
                                                 )
 import           Data.Bifoldable                ( bifold )
 import           Data.Text                      ( replace
-                                                , isInfixOf)
+                                                , isInfixOf
+                                                , Text)
 import           Data.Text.IO                   ( readFile
                                                 , writeFile
                                                 )

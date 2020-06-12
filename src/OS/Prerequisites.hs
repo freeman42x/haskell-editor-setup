@@ -6,6 +6,7 @@ module OS.Prerequisites
   , getExistingNixConfigurations
   ) where
 
+import qualified Relude.Unsafe as RU
 import System.Directory (findExecutable, doesFileExist, getHomeDirectory)
 import Data.Maybe (isJust)
 import Data.List (isPrefixOf)
@@ -37,12 +38,15 @@ doesFileExist' :: FilePath -> IO Bool
 doesFileExist' path
   | "~" `isPrefixOf` path = do
     homepath <- getHomeDirectory
-    doesFileExist $ homepath ++ tail path
+    doesFileExist $ homepath ++ pathTail
   | otherwise = doesFileExist path
+  where
+    pathTail = tail $ RU.fromJust $ nonEmpty path -- TODO
+
 
 getExistingNixConfigurations :: IO [NixConfiguration]
 getExistingNixConfigurations = fmap (map fst)
-  $ filterM (\(t, f) -> doesFileExist' f) [ (System,   "/etc/nix/nix.conf"),
+  $ filterM (\(_, f) -> doesFileExist' f) [ (System,   "/etc/nix/nix.conf"),
                                             (User,     "~/.config/nix/nix.conf"),
                                             (Nixos,    "/etc/nixos/configuration.nix"),
                                             (Packages, "~/.config/nixpkgs/config.nix"),

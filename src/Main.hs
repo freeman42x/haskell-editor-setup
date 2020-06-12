@@ -17,7 +17,8 @@ import Control.Monad (unless)
 import Data.Maybe (isNothing, Maybe(..))
 import Data.Text (Text, replace, isInfixOf)
 import Data.Text.IO (putStrLn, readFile, writeFile)
-import Prelude (IO, String, Show, Eq, Bool(..), pure, foldl, return, userError, ioError, show, ($), (<>), (==), (>>))
+import Prelude (IO, String, Show, Eq, Bool(..), foldl', pure, return, ($), (<>), (==), (>>))
+-- , userError, ioError,
 import System.Directory (findExecutable)
 import Turtle (proc, shell, empty, die, repr, ExitCode(..))
 
@@ -49,10 +50,8 @@ main = do
   -- TODO: can leak resources if JSaddle does something special
   -- better to use @Control.Concurrent.Async.race@ maybe?
   _ <- forkIO $ JSaddle.run 8080 $ startApp App {..}
-  nwExitStatus <- proc "nw" ["."] empty
-  case nwExitStatus of
-    ExitSuccess -> return ()
-    (ExitFailure n) -> ioError $ userError $ "NW app got exit code " <> show n
+  _ <- proc "nw" ["."] empty
+  return ()
   where
     initialAction = NoOp -- initial action to be executed on application load
     model  = Model Atom           -- initial model
@@ -121,7 +120,7 @@ nixOsAtom = do
   unless (isNothing maybeFilePath) $ do
     putStrLnGreen "Adding Haskell GHC and cabal-install to configuration.nix"
     config <- readFile configurationNix
-    let newConfig = foldl addToConfigurationIfDoesNotExist config ["haskell.compiler.ghc865", "haskellPackages.cabal-install", "atom"]
+    let newConfig = foldl' addToConfigurationIfDoesNotExist config ["haskell.compiler.ghc865", "haskellPackages.cabal-install", "atom"]
     writeFile configurationNix newConfig
     putStrLnGreen "Finished adding Haskell GHC and cabal-install to configuration.nix"
 
