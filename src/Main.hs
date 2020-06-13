@@ -47,7 +47,7 @@ updateModel NoOp m = noEff m
 updateModel (SetChecked editorOrIde_ (Checked True)) m =
   noEff $ m & editorOrIde .~ editorOrIde_
 updateModel (SetChecked _ _) m = noEff m
-updateModel (Append _      ) m = noEff m -- TODO
+updateModel (Append _      ) m = noEff m -- TODO needs to send log to UI
 updateModel Install          m = m <# do
   liftIO runSetup >> pure NoOp
  where

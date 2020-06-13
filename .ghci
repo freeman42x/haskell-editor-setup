@@ -2,6 +2,7 @@
 
 :set -Wno-unused-imports
 :set -Wno-unused-matches
+:set -Wno-missing-home-modules
 
 :set prompt "%s\n\ESC[32m\STX>>>\ESC[0m\STX "
 :def rr const $ return $ Data.List.unlines [":reload", ":main"]
