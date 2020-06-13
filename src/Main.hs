@@ -1,6 +1,6 @@
 module Main where
 
-import Control.Lens ((.~), (&), makeLenses)
+import Control.Lens ((.~), (&))
 import Control.Monad.IO.Class (liftIO)
 import Control.Concurrent (forkIO)
 import Miso
@@ -14,30 +14,8 @@ import System.Directory (findExecutable)
 import Turtle (proc, shell, empty, die, repr, ExitCode(..))
 
 import OS.Linux
+import Types
 
--- | Type synonym for an application model
-newtype Model = Model
-  { _editorOrIde :: EditorOrIde
-  } deriving (Show, Eq)
-
-data EditorOrIde =
-    Atom
-  | VisualStudioCode
-  | IntelliJIdeaCommunity
-  | SublimeText3
-  | Leksah
-  deriving (Show, Eq)
-
-makeLenses ''Model
-
--- | Sum type for application events
-data Action
-  = NoOp
-  | SetChecked EditorOrIde Checked
-  | Install
-  deriving (Show, Eq)
-
--- | Entry point for a miso application
 main :: IO ()
 main = do
   -- TODO: can leak resources if JSaddle does something special
