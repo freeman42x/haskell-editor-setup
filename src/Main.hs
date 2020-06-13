@@ -19,15 +19,20 @@ import           Types
 import           View
 
 main :: IO ()
-main = run $ startApp App { .. }
- where
-  initialAction = NoOp
-  model         = Model Atom ""
-  update        = updateModel
-  view          = viewModel
-  events        = defaultEvents
-  subs          = []
-  mountPoint    = Nothing
+main = do
+  -- TODO: can leak resources if JSaddle does something special
+  -- better to use @Control.Concurrent.Async.race@ maybe?
+  _ <- forkIO $ JSaddle.run 8080 $ startApp App {..}
+  _ <- proc "nw" ["."] empty
+  return ()
+  where
+    initialAction = NoOp   -- initial action to be executed on application load
+    model  = Model Atom "" -- initial model
+    update = updateModel   -- update function
+    view   = viewModel     -- view function
+    events = defaultEvents -- default delegated events
+    subs   = []            -- empty subscription list
+    mountPoint = Nothing   -- mount point for application (Nothing defaults to 'body')
 
 -- | Updates model, optionally introduces side effects
 updateModel :: Action -> Model -> Effect Action Model
