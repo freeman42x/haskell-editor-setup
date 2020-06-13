@@ -1,5 +1,3 @@
--- {-# LANGUAGE RecordWildCards #-}
-
 module Main where
 
 import Control.Lens ((.~), (&), makeLenses)
@@ -7,15 +5,15 @@ import Control.Monad.IO.Class (liftIO)
 import Control.Concurrent (forkIO)
 import Miso
 import Language.Javascript.JSaddle.Warp as JSaddle
-
 import Control.Monad (unless)
 import Data.Maybe (isNothing, Maybe(..))
 import Data.Text (Text, replace, isInfixOf)
 import Data.Text.IO (putStrLn, readFile, writeFile)
 import Prelude (IO, String, Show, Eq, Bool(..), foldl', pure, return, ($), (<>), (==), (>>))
--- , userError, ioError,
 import System.Directory (findExecutable)
 import Turtle (proc, shell, empty, die, repr, ExitCode(..))
+
+import OS.Linux
 
 -- | Type synonym for an application model
 newtype Model = Model
@@ -48,13 +46,13 @@ main = do
   _ <- proc "nw" ["."] empty
   return ()
   where
-    initialAction = NoOp -- initial action to be executed on application load
-    model  = Model Atom           -- initial model
-    update = updateModel          -- update function
-    view   = viewModel            -- view function
-    events = defaultEvents        -- default delegated events
-    subs   = []                   -- empty subscription list
-    mountPoint = Nothing          -- mount point for application (Nothing defaults to 'body')
+    initialAction = NoOp   -- initial action to be executed on application load
+    model  = Model Atom    -- initial model
+    update = updateModel   -- update function
+    view   = viewModel     -- view function
+    events = defaultEvents -- default delegated events
+    subs   = []            -- empty subscription list
+    mountPoint = Nothing   -- mount point for application (Nothing defaults to 'body')
 
 -- | Updates model, optionally introduces side effects
 updateModel :: Action -> Model -> Effect Action Model
