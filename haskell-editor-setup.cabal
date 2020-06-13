@@ -13,8 +13,6 @@ executable haskell-editor-setup
   main-is:             Main.hs
   other-modules:       OS.Linux
                        OS.Linux.Debian,
-                       OS.Linux.NixOS,
-                       OS.Linux.Debian,
                        OS.Prerequisites,
                        Types,
                        Util
@@ -40,6 +38,7 @@ executable haskell-editor-setup
 
   ghc-options: -threaded -Wall
 
-  default-extensions: OverloadedStrings,
-                      LambdaCase,
+  default-extensions: LambdaCase,
+                      OverloadedStrings,
+                      RecordWildCards,
                       TemplateHaskell
