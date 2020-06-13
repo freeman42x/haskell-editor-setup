@@ -22,8 +22,9 @@ data Action
   | Append MS.MisoString
   deriving (Show, Eq)
 
-newtype Model = Model
-  { _editorOrIde :: EditorOrIde
+data Model = Model
+  { _editorOrIde :: EditorOrIde,
+    _log :: MS.MisoString
   } deriving (Show, Eq)
 
 makeLenses ''Model

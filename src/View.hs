@@ -4,7 +4,7 @@ import           Miso
 import           Types
 
 viewModel :: Model -> View Action
-viewModel m = form_
+viewModel model = form_
   []
   [ link_
     [ rel_ "stylesheet"
@@ -20,7 +20,7 @@ viewModel m = form_
       [ input_
         [ type_ "radio"
         , name_ "editor"
-        , checked_ (_editorOrIde m == Atom)
+        , checked_ (_editorOrIde model == Atom)
         , onChecked (SetChecked Atom)
         ]
       , "Atom"
@@ -30,7 +30,7 @@ viewModel m = form_
       [ input_
         [ type_ "radio"
         , name_ "editor"
-        , checked_ (_editorOrIde m == VisualStudioCode)
+        , checked_ (_editorOrIde model == VisualStudioCode)
         , onChecked (SetChecked VisualStudioCode)
         ]
       , "Visual Studio Code"
@@ -40,7 +40,7 @@ viewModel m = form_
       [ input_
         [ type_ "radio"
         , name_ "editor"
-        , checked_ (_editorOrIde m == IntelliJIdeaCommunity)
+        , checked_ (_editorOrIde model == IntelliJIdeaCommunity)
         , onChecked (SetChecked IntelliJIdeaCommunity)
         , disabled_ True
         ]
@@ -51,7 +51,7 @@ viewModel m = form_
       [ input_
         [ type_ "radio"
         , name_ "editor"
-        , checked_ (_editorOrIde m == SublimeText3)
+        , checked_ (_editorOrIde model == SublimeText3)
         , onChecked (SetChecked SublimeText3)
         , disabled_ True
         ]
@@ -62,13 +62,15 @@ viewModel m = form_
       [ input_
         [ type_ "radio"
         , name_ "editor"
-        , checked_ (_editorOrIde m == Leksah)
+        , checked_ (_editorOrIde model == Leksah)
         , onChecked (SetChecked Leksah)
         , disabled_ True
         ]
       , "Leksah"
       ]
     ]
+  , br_ []
+  , textarea_ [rows_ "15", cols_ "80", disabled_ True ] [ text $ _log model ]
   , br_ []
   , button_ [clickHandler Install, class_ "button"] [text "Install"]
   ]
