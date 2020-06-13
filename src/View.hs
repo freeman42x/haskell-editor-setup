@@ -32,6 +32,7 @@ viewModel model = form_
         , name_ "editor"
         , checked_ (_editorOrIde model == VisualStudioCode)
         , onChecked (SetChecked VisualStudioCode)
+        , disabled_ True
         ]
       , "Visual Studio Code"
       ]

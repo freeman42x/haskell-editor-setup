@@ -41,5 +41,4 @@ executable haskell-editor-setup
 
   default-extensions: LambdaCase,
                       OverloadedStrings,
-                      RecordWildCards,
                       TemplateHaskell
