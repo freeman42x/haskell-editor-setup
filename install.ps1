@@ -42,7 +42,7 @@ if([string]::IsNullOrEmpty($NwjsPath)){
   $NwjsPath = "$env:APPDATA\NWJS\"
 }
 if([string]::IsNullOrEmpty($DownloadPath)){
-  $DownloadPath="C:\Temp"
+  $DownloadPath=$env:TEMP
 }
 
 # install nwjs
