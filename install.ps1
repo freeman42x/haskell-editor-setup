@@ -55,7 +55,7 @@ if($Arch -eq [Arch]::x64){
 }
 Log "downloading nwjs..."
 if(!($WhatIf)){
-  curl -o "$DownloadPath\nwjs.zip" 
+  curl -o "$DownloadPath\nwjs.zip" $nwjs
 }
 Log "nwjs downloaded in $DownloadPath"
 Log "unzipping nwjs"
