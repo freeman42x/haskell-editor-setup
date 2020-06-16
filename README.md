@@ -76,9 +76,9 @@ The donation money will be used for funding the payment for the bounties for tic
 
 ### Bounties
 
-A bounty is a sum of money which will be rewarded on succesful completion of an issue.
+A bounty is a sum of money which will be rewarded on successful completion of an issue.
 
-The bounty issues are marked with `bounty` label and will contain somewhre in the issue the bounty reward.
+The bounty issues are marked with `bounty` label and will contain in the issue title the bounty award.
 
 After your PR has been merged to claim a bounty reward, submit an expense using the OpenCollective link above and mention:
 
@@ -86,6 +86,7 @@ After your PR has been merged to claim a bounty reward, submit an expense using 
 2. issue number and title in the line item description
 
 Very important is to attach an invoice to the expense. Send me an email at razvan.panda@gmail.com and I will give you the details you need to fill in the invoice. Make sure to specify in the email for which pull request the invoice is.
+Use an invoice generator for example to create the invoice. Make sure you are following all the laws in your country regarding emitting invoices.
 
 I will start by paying developers the following amounts for their work on issues:
 
@@ -96,14 +97,9 @@ I will start by paying developers the following amounts for their work on issues
 
 At the beginning the payments will be mainly symbolic for the developed countries yet better than average pay for non-developed ones.
 
-Important note: Because of transfer fees it is possible that the sum received will be smaller than the one specified in the ticket.
+Important note: Because of transfer fees and VAT it is probable that the sum received will be smaller than the one specified in the ticket.
 
-Over time as this project becomes more successful and money starts flowing in through donations we will increase the pay / hour and record the progress here:
-
-| **Begin date** | **Pay: Euro / hour**|
-| --- | --- |
-|26-05-2020|1.5|
-|xx-xx-2020|?|
+Over time as this project becomes more successful and money starts flowing in through donations we will increase the pay / hour to further accelerate the pace of progress and make bounties more attractive for everyone.
 
 ## Manual instructions for setting up Haskell editors / IDE
 
