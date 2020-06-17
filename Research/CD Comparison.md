@@ -2,7 +2,7 @@
 
 | **Solution** | **Github Actions** | **TravisCI** | **Jenkins** |
 | --- | --- | --- | --- |
-| Setup | Create conf and go | Create conf and go | Hard&Elaborate setup (hosted internally)
+| Setup | Create conf and go | Create conf and go | Hard&Elaborate setup (hosted internally - takes from 2/3h to days depending on needs)
 | Free plan for opensource | ✔️ | ✔️ | Free
 | Documentation | ✔️ | ✔️ | ✔️ |
 | Additional documentation (Community driven tools/ Plugins) | ✔️ | **X** | Many more than rest
@@ -16,9 +16,6 @@
 | Integration possibility? | ✔️ | ✔️ | ✔️ |
 | API |**?**| ✔️(powerful) | ✔️(powerful) |
 
-
-
-![](compare.png)
 
 ### Unique Feature
 - Github Actions - best Github integration
@@ -87,7 +84,7 @@
 - TravisCI Strong support for 3rd party tools like Coveralls, BrowserStack, etc.
 - Jenkins Heh
 
-### API (By "powerful" I want to say that it is able to use the api to start/cancel test)
+### API (By "powerful" I want to say that it is able to use the api to start/cancel any process)
 
 - GitHub Actions - will be integrated with the GitHub GraphQL API (one of the more mature GraphQL API implementations available). Haven't found something concrete yet.
 - TravisCI - Offers a feature-rich API that allows both reading data, as well as triggering or cancelling builds.
