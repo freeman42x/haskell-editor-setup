@@ -82,7 +82,7 @@
 
 - Github Actions AWS, Azure, Zeit, Kubernetes and many more
 - TravisCI Strong support for 3rd party tools like Coveralls, BrowserStack, etc.
-- Jenkins Heh
+- Jenkins Super strong support for 3rd party tools
 
 ### API (By "powerful" I want to say that it is able to use the api to start/cancel any process)
 
