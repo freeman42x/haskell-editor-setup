@@ -63,7 +63,7 @@
 
 ### CD Pipelines = A continuous delivery pipeline is a description of the process that the software goes through from a new code commit, through testing and other statical analysis steps all the way to the end-users of the product.
 
-- "Github Actions Workflows", they are defined in separate Docker containers, using the YAML syntax (they used to support HCL, but they're migrating away from that)
+- "Github Actions Workflows" are defined in separate Docker containers, using the YAML syntax (they used to support HCL, but they're migrating away from that)
 - TravisCI - Not available, because it is specifically built around GitHub pull requests. Pipelines can be defined, but parts of the process need to be implemented separatelly in GitHub.
 - Jenkins - fully configurable
 
