@@ -7,6 +7,33 @@
 
 ### Community Links
 [![Discord](https://img.shields.io/discord/510467626246471690.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/9J496Nn)
+[![Blog](https://img.shields.io/badge/Blog-RazvanFlaviusPanda-red?color=orange)](https://razvan-flavius-panda.github.io/blog/)
+[![Twitch](https://img.shields.io/badge/TwitchTV-freeman42x-b?color=blueviolet)](https://www.twitch.tv/freeman42x/)
+[![](https://shields.cdn.bka.li/twitch/status/freeman42x?color=blueviolet&logoColor=blueviolet&style=flatsquare&label)](https://www.twitch.tv/freeman42x)
+
+### Progress Tracking
+[![Commit-Activity](https://img.shields.io/github/commit-activity/m/fairy-tale-agi-solutions/haskell-editor-setup?label=Last%20Month%20commit%20activity&style=for-the-badge)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/graphs/contributors)
+
+[![Project Kanban Board](https://img.shields.io/github/issues-raw/fairy-tale-agi-solutions/haskell-editor-setup?style=flatsquare&label=Project%20Kanban%20Board&style=for-the-badge)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/projects/1)
+[![Help Wanted](https://img.shields.io/github/issues/fairy-tale-agi-solutions/haskell-editor-setup/help%20wanted.svg?color=Red)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/issues?q=is%3Aopen+is%3Aissue+label%3A"help+wanted")
+[![Bounty](https://img.shields.io/github/issues/fairy-tale-agi-solutions/haskell-editor-setup/bounty.svg?color=blueviolet)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/issues?q=is%3Aopen+is%3Aissue+label%3A"bounty")
+[![Closed Issues](https://img.shields.io/github/issues-closed-raw/fairy-tale-agi-solutions/haskell-editor-setup?color=green&label=Closed%20Issues)](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/issues?q=is%3Aclosed+is%3Aissue)
+
+### Contributors
+[![Opencollective](https://img.shields.io/badge/Official.Page-OpenCollective-blue)](https://opencollective.com/fairy-tale-agi-solutions/)
+[![Opencollective-backers](https://img.shields.io/opencollective/backers/fairy-tale-agi-solutions)](https://opencollective.com/fairy-tale-agi-solutions/)
+[![Opencollective-sponsors](https://img.shields.io/opencollective/sponsors/fairy-tale-agi-solutions)](https://opencollective.com/fairy-tale-agi-solutions/)
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://opencollective.com/fairy-tale-agi-solutions/">
+
+<img src="https://opencollective.com/fairy-tale-agi-solutions/tiers/backers.svg?avatarHeight=36">
+</a>
+
+## Automated: Haskell Editor Setup GUI program
+
+### Community Links
+[![Discord](https://img.shields.io/discord/510467626246471690.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/9J496Nn)
 [![Blog](https://img.shields.io/badge/Blog-RazvanFlaviusPanda-red?color=orange)](https://razvan-flavius-panda.github.io/blog/) 
 [![Twitch](https://img.shields.io/badge/TwitchTV-freeman42x-b?color=blueviolet)](https://www.twitch.tv/freeman42x/)
 [![](https://shields.cdn.bka.li/twitch/status/freeman42x?color=blueviolet&logoColor=blueviolet&style=flatsquare&label)](https://www.twitch.tv/freeman42x)
@@ -33,7 +60,23 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 
 # Notes on Haskell Editor Setup GUI program
 
+<<<<<<< HEAD
 Work on creating a Haskell Editor Setup GUI program is in process, you can track progress here: [HES Project Kanban](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/projects/1)
+=======
+A bounty is a sum of money which will be rewarded on successful completion of an issue.
+
+The bounty issues are marked with `bounty` label and will contain in the issue title the bounty award.
+
+After your PR has been merged to claim a bounty reward, submit an expense using the OpenCollective link above and mention:
+
+1. `Haskell Editor Setup Bounty` for expense name
+2. issue number and title in the line item description
+
+Very important is to attach an invoice to the expense. Send me an email at razvan.panda@gmail.com and I will give you the details you need to fill in the invoice. Make sure to specify in the email for which pull request the invoice is.
+Use an invoice generator for example to create the invoice. Make sure you are following all the laws in your country regarding emitting invoices.
+
+I will start by paying developers the following amounts for their work on issues:
+>>>>>>> 90d307e317a057cc58777cca11765dccdb951237
 
 How Haskell Editor Setup works:
 
@@ -42,9 +85,15 @@ How Haskell Editor Setup works:
 3. choose which editor / IDE extensions to install
 4. press a button and your system will be updated to have installed / set up all the things you selected
 
+<<<<<<< HEAD
 The goal of this software is mainly to allow easy editor / IDE setup for whoever tries Haskell for the first time. Being automated it should save time
 
 "Everything that can be automated should be automated" - Future Robot Overlords
+=======
+Important note: Because of transfer fees and VAT it is probable that the sum received will be smaller than the one specified in the ticket.
+
+Over time as this project becomes more successful and money starts flowing in through donations we will increase the pay / hour to further accelerate the pace of progress and make bounties more attractive for everyone.
+>>>>>>> 90d307e317a057cc58777cca11765dccdb951237
 
 #### Instructions for setting up Haskell editors/IDE
 

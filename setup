@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# TODO fix vvv
-sudo sed -i 's/with pkgs; [/with pkgs; [\n  cachix/g' /etc/nixos/configuration.nix
+sudo bash -c 'sudo sed $"/with pkgs; \\[/a\\    cachix" /etc/nixos/configuration.nix > /etc/nixos/configuration_updated.nix'
+sudo mv /etc/nixos/configuration_updated.nix /etc/nixos/configuration.nix
 sudo nixos-rebuild switch
 sudo cachix use fairy-tale-agi-solutions
 sudo sed -i 's/.\/hardware-configuration.nix/.\/hardware-configuration.nix\n      .\/cachix.nix/g' /etc/nixos/configuration.nix

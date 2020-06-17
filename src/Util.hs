@@ -1,6 +1,5 @@
 module Util where
 
-import           Data.Bifoldable                ( bifold )
 import           Data.Text                      ( Text )
 import           Data.Text.IO                   ( putStrLn )
 import           Development.Placeholders
@@ -9,17 +8,13 @@ import           Prelude                        ( (<>)
                                                 , ($)
                                                 , Bool
                                                 , IO
-                                                , pure
                                                 )
-import           Turtle                         ( inshellWithErr
-                                                , sh
-                                                , shell
+import           Turtle                         ( shell
                                                 , empty
                                                 , die
                                                 , repr
                                                 , ExitCode(..)
                                                 )
-import           Turtle.Line                    ( lineToText )
 
 
 
@@ -29,7 +24,7 @@ import           Turtle.Line                    ( lineToText )
 --   lineToText $ bifold out
 
 isAtomPackageInstalled :: Text -> Bool
-isAtomPackageInstalled name = do
+isAtomPackageInstalled _name = $notImplemented
   -- run apm list
   -- project it to structured package data
   -- check if the package is in the list
@@ -37,7 +32,7 @@ isAtomPackageInstalled name = do
   -- runAsUserPrefix "apm list --installed --bare"
 
 
-  $notImplemented
+
 
 
   -- runShellCommand ("sudo -u $SUDO_USER apm install --color false " <> package)

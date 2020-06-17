@@ -22,3 +22,7 @@ cabal.project.local~
 .HTF/
 .ghc.environment.*
 .directory
+.vscode-exts/
+.vscode-globalUserData/
+.vscode/
+mutable-extensions.nix

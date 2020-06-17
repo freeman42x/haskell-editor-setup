@@ -1,4 +1,4 @@
-module OS.Linux.NixOS where
+module OS.Linux where
 
 import           Control.Monad.IO.Class         ( liftIO )
 import           Prelude                        ( IO
@@ -7,12 +7,12 @@ import           Prelude                        ( IO
                                                 , (<>)
                                                 , (==)
                                                 , mapM_
-                                                , Text
                                                 , uncurry
                                                 )
 import           Data.Bifoldable                ( bifold )
 import           Data.Text                      ( replace
-                                                , isInfixOf)
+                                                , isInfixOf
+                                                , Text)
 import           Data.Text.IO                   ( readFile
                                                 , writeFile
                                                 )
