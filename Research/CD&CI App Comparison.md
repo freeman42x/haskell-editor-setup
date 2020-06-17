@@ -2,8 +2,8 @@
 
 | **Solution** | **Github Actions** | **TravisCI** | **Jenkins** |
 | --- | --- | --- | --- |
-| Setup | Create conf and go | Create conf and go | Hard&Elaborate setup (hosted internally - takes from 2/3h to days depending on needs)
-| Free plan for opensource | ✔️ | ✔️ | Free
+| Setup | Fastest | Fast | Hard&Elaborate setup (hosted internally - takes from 2/3h to days depending on needs)
+| Free plan for opensource | ✔️ | ✔️ | Free (opensource tool)
 | Documentation | ✔️ | ✔️ | ✔️ |
 | Additional documentation (Community driven tools/ Plugins) | ✔️ | **X** | Many more than rest
 | Github Usage | Best | Satisfying | Just good
