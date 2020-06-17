@@ -2,7 +2,7 @@
 
 | **Solution** | **Github Actions** | **TravisCI** | **Jenkins** |
 | --- | --- | --- | --- |
-| Setup | Fastest | Fast | Hard&Elaborate setup (hosted internally - takes from 2/3h to days depending on needs)
+| Setup | Fastest | Fast | Hard&Elaborate setup (hosted internally - takes from 2/3h to days depending on needs) 
 | Free plan for opensource | ✔️ | ✔️ | Free (opensource tool)
 | Documentation | ✔️ | ✔️ | ✔️ |
 | Additional documentation (Community driven tools/ Plugins) | ✔️ | **X** | Many more than rest
