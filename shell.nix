@@ -45,7 +45,7 @@ drv.env.overrideAttrs (shellEnv: {
       # keybindings ={};
     })
   ];
-
+  STACK_IN_NIX_SHELL = true;
   shellHook = ''
   '';
 })

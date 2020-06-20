@@ -197,7 +197,10 @@ allow-newer: true
 # Allow a newer minor version of GHC than the snapshot specifies
 # compiler-check: newer-minor
 
-# nix:
-#   enable: true
-#   pure: true
-#   shell-file: "shell.nix"
+nix:
+  enable: true
+  pure: false
+  # shell-file: "shell.nix"
+  packages:
+  - zlib.dev
+  - zlib.out
