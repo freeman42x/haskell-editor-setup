@@ -1,5 +1,9 @@
 module OS.Linux.Debian where
 
+import           OS.Common
+import qualified Data.Text                     as T
+import           Data.Text.IO                   ( putStrLn )
+import           Data.Maybe                     ( isNothing )
 import           Prelude                        ( IO
                                                 , (<$>)
                                                 , ($)
@@ -11,9 +15,6 @@ import           Prelude                        ( IO
                                                 , unless
                                                 , unlessM
                                                 )
-import qualified Data.Text                     as T
-import           Data.Text.IO                   ( putStrLn )
-import           Data.Maybe                     ( isNothing )
 import           Turtle                         ( home
                                                 , which
                                                 , shell
@@ -27,10 +28,6 @@ import           Turtle                         ( home
                                                 , ExitCode(..)
                                                 , FilePath
                                                 )
-import           Util                           ( runAsUserPrefix
-                                                , installAtomExtension
-                                                )
-
 
 debianAtom :: IO ()
 debianAtom = do
