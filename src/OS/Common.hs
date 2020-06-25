@@ -5,18 +5,15 @@ import           Data.List                      ( isPrefixOf )
 import           Data.Text.IO
 import           Development.Placeholders
 import           Control.Monad                  ( filterM )
-import           Prelude                 hiding ( die, putStrLn )
+import           Prelude                 hiding ( die
+                                                , putStrLn
+                                                )
 import qualified Relude.Unsafe                 as RU
 import           System.Directory               ( findExecutable
                                                 , doesFileExist
                                                 , getHomeDirectory
                                                 )
-import           Turtle                         ( shell
-                                                , empty
-                                                , die
-                                                , repr
-                                                , ExitCode(..)
-                                                )
+import           Turtle                  hiding ( FilePath )
 
 isExecutableInstalled :: String -> IO Bool
 isExecutableInstalled name = isJust <$> findExecutable name
@@ -57,10 +54,10 @@ getExistingNixConfigurations = map fst <$> filterM
   , (Overlays   , "~/.config/nixpkgs/overlays.nix")
   ]
 
--- runShellCommand :: Text -> IO Text
--- runShellCommand command = sh $ do
---   out <- inshellWithErr command empty
---   lineToText $ bifold out
+runShellCommand :: Text -> IO Text
+runShellCommand command = sh $ do
+  out <- inshellWithErr command empty
+  liftIO $ lineToText $ bifold out
 
 isAtomPackageInstalled :: Text -> Bool
 isAtomPackageInstalled _name = $notImplemented
