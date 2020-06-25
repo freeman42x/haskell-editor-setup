@@ -13,7 +13,7 @@ import Data.List (isPrefixOf)
 import Control.Monad (filterM)
 
 isExecutableInstalled :: String -> IO Bool
-isExecutableInstalled name = fmap isJust $ findExecutable name
+isExecutableInstalled name = isJust <$> findExecutable name
 
 isGhcInstalled :: IO Bool
 isGhcInstalled = isExecutableInstalled "ghc"
@@ -43,12 +43,12 @@ doesFileExist' path
   where
     pathTail = tail $ RU.fromJust $ nonEmpty path -- TODO
 
-
 getExistingNixConfigurations :: IO [NixConfiguration]
-getExistingNixConfigurations = fmap (map fst)
-  $ filterM (\(_, f) -> doesFileExist' f) [ (System,   "/etc/nix/nix.conf"),
-                                            (User,     "~/.config/nix/nix.conf"),
-                                            (Nixos,    "/etc/nixos/configuration.nix"),
-                                            (Packages, "~/.config/nixpkgs/config.nix"),
-                                            (Home,     "~/.config/nixpkgs/home.nix"),
-                                            (Overlays, "~/.config/nixpkgs/overlays.nix")  ]
+getExistingNixConfigurations = map fst
+  <$> filterM (\(_, f) -> doesFileExist' f)
+    [ (System,   "/etc/nix/nix.conf")
+    , (User,     "~/.config/nix/nix.conf")
+    , (Nixos,    "/etc/nixos/configuration.nix")
+    , (Packages, "~/.config/nixpkgs/config.nix")
+    , (Home,     "~/.config/nixpkgs/home.nix")
+    , (Overlays, "~/.config/nixpkgs/overlays.nix")]

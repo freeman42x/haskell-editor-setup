@@ -40,5 +40,5 @@ updateModel NoOp m = noEff m
 updateModel (SetChecked editorOrIde_ (Checked True)) m =
   noEff $ m & editorOrIde .~ editorOrIde_
 updateModel (SetChecked _ _) m = noEff m
-updateModel (Append appendText) model = noEff model {  _log = _log model <> appendText }
-updateModel Install model = effectSub model (liftIO . nixOsAtom)
+updateModel (Append appendText) m = noEff m {  _log = _log m <> appendText }
+updateModel Install m = effectSub m (liftIO . nixOsAtom)
