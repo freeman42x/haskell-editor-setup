@@ -13,7 +13,7 @@ executable haskell-editor-setup
   main-is:             Main.hs
   other-modules:       OS.Linux,
                        OS.Linux.Debian,
-                       OS.Prerequisites,
+                       OS.Common,
                        Types,
                        Util,
                        View

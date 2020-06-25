@@ -1,4 +1,4 @@
-module OS.Prerequisites
+module OS.Common
   ( NixConfiguration (..)
   , isGhcInstalled
   , isCabalInstalled
