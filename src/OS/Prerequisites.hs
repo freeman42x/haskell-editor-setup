@@ -30,7 +30,7 @@ data NixConfiguration
   | User
   | Nixos
   | Packages
-  | Home
+  | HomeManager
   | Overlays
   deriving (Show)
 
@@ -46,9 +46,9 @@ doesFileExist' path
 getExistingNixConfigurations :: IO [NixConfiguration]
 getExistingNixConfigurations = map fst
   <$> filterM (\(_, f) -> doesFileExist' f)
-    [ (System,   "/etc/nix/nix.conf")
-    , (User,     "~/.config/nix/nix.conf")
-    , (Nixos,    "/etc/nixos/configuration.nix")
-    , (Packages, "~/.config/nixpkgs/config.nix")
-    , (Home,     "~/.config/nixpkgs/home.nix")
-    , (Overlays, "~/.config/nixpkgs/overlays.nix")]
+    [ (System,      "/etc/nix/nix.conf")
+    , (User,        "~/.config/nix/nix.conf")
+    , (Nixos,       "/etc/nixos/configuration.nix")
+    , (Packages,    "~/.config/nixpkgs/config.nix")
+    , (HomeManager, "~/.config/nixpkgs/home.nix")
+    , (Overlays,    "~/.config/nixpkgs/overlays.nix")]

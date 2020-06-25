@@ -19,7 +19,7 @@ There are two files
 
 The file `~/etc/nixos/configuration.nix` contains the system level packages
 
-### NixOs user package configuration
+### Nix user package configuration
 
 [source](https://nixos.org/nixpkgs/manual/#chap-packageconfig)
 
@@ -40,4 +40,3 @@ The file `~/.config/nixpkgs/home.nix` contains the configuration for the Home Ma
 Overlays are a way to extend and change nixpkgs.
 
 The file `~/.config/nixpkgs/overlays.nix` contains the configuration for Overlays 
-
