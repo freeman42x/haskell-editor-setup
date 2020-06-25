@@ -24,7 +24,6 @@ isCabalInstalled = isExecutableInstalled "cabal"
 isStackInstalled :: IO Bool
 isStackInstalled = isExecutableInstalled "stack"
 
--- see Research/nix configuration files.md
 data NixConfiguration
   = System
   | User
@@ -38,10 +37,8 @@ doesFileExist' :: FilePath -> IO Bool
 doesFileExist' path
   | "~" `isPrefixOf` path = do
     homepath <- getHomeDirectory
-    doesFileExist $ homepath ++ pathTail
+    doesFileExist $ homepath ++ RU.tail path
   | otherwise = doesFileExist path
-  where
-    pathTail = tail $ RU.fromJust $ nonEmpty path -- TODO
 
 getExistingNixConfigurations :: IO [NixConfiguration]
 getExistingNixConfigurations = map fst
