@@ -13,7 +13,8 @@ import           System.Directory               ( findExecutable
                                                 , doesFileExist
                                                 , getHomeDirectory
                                                 )
-import           Turtle                  hiding ( FilePath )
+import qualified Turtle                        as T
+                                         hiding ( FilePath )
 
 isExecutableInstalled :: String -> IO Bool
 isExecutableInstalled name = isJust <$> findExecutable name
@@ -45,7 +46,7 @@ doesFileExist' path
 
 getExistingNixConfigurations :: IO [NixConfiguration]
 getExistingNixConfigurations = map fst <$> filterM
-  (\(_, f) -> doesFileExist' f)
+  (\(_, filePath) -> doesFileExist' filePath)
   [ (System     , "/etc/nix/nix.conf")
   , (User       , "~/.config/nix/nix.conf")
   , (Nixos      , "/etc/nixos/configuration.nix")
@@ -54,10 +55,10 @@ getExistingNixConfigurations = map fst <$> filterM
   , (Overlays   , "~/.config/nixpkgs/overlays.nix")
   ]
 
-runShellCommand :: Text -> IO Text
-runShellCommand command = sh $ do
-  out <- inshellWithErr command empty
-  liftIO $ lineToText $ bifold out
+runShellCommand :: Text -> IO [Text]
+runShellCommand command = T.sortOn (const 42:: a -> Int) $ do
+  out <- T.inshellWithErr command empty
+  return $ T.lineToText $ bifold out
 
 isAtomPackageInstalled :: Text -> Bool
 isAtomPackageInstalled _name = $notImplemented
@@ -87,10 +88,10 @@ isAtomPackageInstalled _name = $notImplemented
 runAsUserPrefix :: Text -> Text
 runAsUserPrefix cmd = "sudo -u $SUDO_USER " <> cmd
 
-installAtomExtension :: Text -> IO ()
-installAtomExtension extension = do
-  putStrLn $ "Installing " <> extension <> " Atom extension"
-  shell (runAsUserPrefix $ "apt install " <> extension) empty >>= \case
-    ExitSuccess -> putStrLn $ extension <> " successfully installed"
-    ExitFailure n ->
-      die $ extension <> " installation failed with exit code: " <> repr n
+installAtomatomExtension :: Text -> IO ()
+installAtomatomExtension atomExtension = do
+  putStrLn $ "Installing " <> atomExtension <> " Atom atomExtension"
+  T.shell (runAsUserPrefix $ "apt install " <> atomExtension) empty >>= \case
+    T.ExitSuccess -> putStrLn $ atomExtension <> " successfully installed"
+    T.ExitFailure n ->
+      T.die $ atomExtension <> " installation failed with exit code: " <> T.repr n
