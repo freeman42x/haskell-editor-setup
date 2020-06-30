@@ -9,7 +9,6 @@ import           Prelude                        ( IO
                                                 , mapM_
                                                 , uncurry
                                                 )
-import           Data.Bifoldable                ( bifold )
 import           Data.Text                      ( replace
                                                 , isInfixOf
                                                 , Text)
@@ -19,11 +18,6 @@ import           Data.Text.IO                   ( readFile
 import           Miso.Effect
 import           Miso.String                    ( toMisoString
                                                 , MisoString)
-import           Turtle                         ( sh
-                                                , inshellWithErr
-                                                , empty
-                                                )
-import           Turtle.Line                    ( lineToText )
 
 import           Types
 import           OS.Common
@@ -37,17 +31,14 @@ nixOsAtom sink = do
         appendLog $ "BEGIN : " <> text
         _ <- actions
         appendLog $ "END   : " <> text
-      configurationNixFile = "/etc/nixos/configuration.nix"
-      environmentSystemPackages = "environment.systemPackages = with pkgs; ["
-      runShellCommand command = sh $ do
-        out <- inshellWithErr command empty
-        liftIO $ appendLog $ toMisoString $ lineToText $ bifold out
       configureAndInstall (ExtensionInfo name package) =
         logStep ("Configuring " <> name) $ do
+          let configurationNixFile = "/etc/nixos/configuration.nix"
           oldConfigurationNixText <- liftIO $ readFile configurationNixFile
 
           -- FIXME vvv requires Nix parsing using HNIX
-          let newConfigurationNixText =
+          let environmentSystemPackages = "environment.systemPackages = with pkgs; ["
+              newConfigurationNixText =
                 if isPackagePresent
                   then oldConfigurationNixText
 
