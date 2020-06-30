@@ -26,46 +26,8 @@ data ExtensionInfo = ExtensionInfo MisoString Text
 
 nixOsAtom :: Sink Action -> IO ()
 nixOsAtom sink = do
-  let appendLog text = sink $ Append (text <> "\n")
-      logStep text actions = do
-        appendLog $ "BEGIN : " <> text
-        _ <- actions
-        appendLog $ "END   : " <> text
-      configureAndInstall (ExtensionInfo name package) =
-        logStep ("Configuring " <> name) $ do
-          let configurationNixFile = "/etc/nixos/configuration.nix"
-          oldConfigurationNixText <- liftIO $ readFile configurationNixFile
-
-          -- FIXME vvv requires Nix parsing using HNIX
-          let environmentSystemPackages = "environment.systemPackages = with pkgs; ["
-              newConfigurationNixText =
-                if isPackagePresent
-                  then oldConfigurationNixText
-
-                  else replace
-                    environmentSystemPackages
-                    (environmentSystemPackages <> "\n\
-                         \    " <> package)
-                    oldConfigurationNixText
-                where isPackagePresent = package `isInfixOf` oldConfigurationNixText
-          -- ^^^
-
-          liftIO $ writeFile configurationNixFile newConfigurationNixText
-          if oldConfigurationNixText == newConfigurationNixText -- OPTIMIZE
-            then appendLog "Nix package already installed"
-            else logStep (toMisoString package) (runShellCommand "nixos-rebuild switch")
-
-      -- TODO install or update? extension or log message
-      -- TODO ensure extensions are enabled if not enable them
-      configureAtomPackage package = do
-        --   check if package isAtomPackageInstalled
-        --   install if not installed
-        --   update if installed
-        let installingPackage = "Installing Atom package - " <> toMisoString package
-        logStep installingPackage $
-          installAtomPackage package
-
-  mapM_ configureAndInstall $ uncurry ExtensionInfo <$>
+  
+  mapM_ configureNixPackage $ uncurry ExtensionInfo <$>
     [ ("Haskell GHC", "haskell.compiler.ghc865")
     , ("cabal-install", "haskellPackages.cabal-install")
     , ("Atom", "atom")
@@ -82,3 +44,43 @@ nixOsAtom sink = do
                              , "ide-haskell-hoogle"
                              , "ide-haskell-repl"
                              , "language-haskell" ]
+    
+   where                     
+     appendLog text = sink $ Append (text <> "\n")
+     logStep text actions = do
+       appendLog $ "BEGIN : " <> text
+       _ <- actions
+       appendLog $ "END   : " <> text
+     configureNixPackage (ExtensionInfo name package) =
+       logStep ("Configuring " <> name) $ do
+         let configurationNixFile = "/etc/nixos/configuration.nix"
+         oldConfigurationNixText <- liftIO $ readFile configurationNixFile
+
+         -- FIXME vvv requires Nix parsing using HNIX
+         let environmentSystemPackages = "environment.systemPackages = with pkgs; ["
+             newConfigurationNixText =
+               if isPackagePresent
+                 then oldConfigurationNixText
+
+                 else replace
+                   environmentSystemPackages
+                   (environmentSystemPackages <> "\n\
+                        \    " <> package)
+                   oldConfigurationNixText
+               where isPackagePresent = package `isInfixOf` oldConfigurationNixText
+         -- ^^^
+
+         liftIO $ writeFile configurationNixFile newConfigurationNixText
+         if oldConfigurationNixText == newConfigurationNixText -- OPTIMIZE
+           then appendLog "Nix package already installed"
+           else logStep (toMisoString package) (runShellCommand "nixos-rebuild switch")
+
+     -- TODO install or update? extension or log message
+     -- TODO ensure extensions are enabled if not enable them
+     configureAtomPackage package = do
+       --   check if package isAtomPackageInstalled
+       --   install if not installed
+       --   update if installed
+       let installingPackage = "Installing Atom package - " <> toMisoString package
+       logStep installingPackage $
+         installAtomPackage package
