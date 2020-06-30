@@ -72,7 +72,7 @@ isAtomPackageInstalled _name = do
 installAtomPackage :: Text -> IO ()
 installAtomPackage atomPackage = do
   putStrLn $ "Installing " <> atomPackage <> " Atom atomPackage"
-  T.shell (runAsUserPrefix $ "apt install " <> atomPackage) empty >>= \case
+  T.shell (runAsUserPrefix $ "apt install --color false " <> atomPackage) empty >>= \case
     T.ExitSuccess -> putStrLn $ atomPackage <> " successfully installed"
     T.ExitFailure n ->
       T.die $ atomPackage <> " installation failed with exit code: " <> T.repr n
