@@ -2,8 +2,8 @@ module OS.Common where
 
 import           Data.Maybe                     ( isJust )
 import           Data.List                      ( isPrefixOf )
+import           Data.Text                      ( splitOn )
 import           Data.Text.IO
-import           Development.Placeholders
 import           Control.Monad                  ( filterM )
 import           Prelude                 hiding ( die
                                                 , putStrLn
@@ -55,43 +55,24 @@ getExistingNixConfigurations = map fst <$> filterM
   , (Overlays   , "~/.config/nixpkgs/overlays.nix")
   ]
 
-runShellCommand :: Text -> IO [Text]
-runShellCommand command = T.sortOn (const 42:: a -> Int) $ do
-  out <- T.inshellWithErr command empty
-  return $ T.lineToText $ bifold out
-
-isAtomPackageInstalled :: Text -> Bool
-isAtomPackageInstalled _name = $notImplemented
-  -- run apm list
-  -- project it to structured package data
-  -- check if the package is in the list
-
-  -- runAsUserPrefix "apm list --installed --bare"
-
-
-  -- runShellCommand ("sudo -u $SUDO_USER apm install --color false " <> package)
-
-  -- [neo@nixos:~]$ apm list --installed --bare
-  -- atom-ide-ui@0.13.0
-  -- autocomplete-haskell@1.0.1
-  -- hasklig@0.4.0
-  -- ide-haskell@2.4.1
-  -- ide-haskell-cabal@2.5.0
-  -- ide-haskell-hasktags@0.0.17
-  -- ide-haskell-hie@0.12.0
-  -- ide-haskell-hoogle@0.1.2
-  -- ide-haskell-repl@0.9.5
-  -- language-haskell@1.19.4
-  -- nix@2.1.0
-  -- todo-show@2.3.2
+runShellCommand :: Text -> IO Text
+runShellCommand command =
+  fmap unlines $ T.sortOn (const 42:: a -> Int) $ do
+    out <- T.inshellWithErr command empty
+    return $ T.lineToText $ bifold out
 
 runAsUserPrefix :: Text -> Text
 runAsUserPrefix cmd = "sudo -u $SUDO_USER " <> cmd
 
-installAtomatomExtension :: Text -> IO ()
-installAtomatomExtension atomExtension = do
-  putStrLn $ "Installing " <> atomExtension <> " Atom atomExtension"
-  T.shell (runAsUserPrefix $ "apt install " <> atomExtension) empty >>= \case
-    T.ExitSuccess -> putStrLn $ atomExtension <> " successfully installed"
+isAtomPackageInstalled :: Text -> IO Bool
+isAtomPackageInstalled _name = do
+  list <- runShellCommand "apm list --installed --bare --color false"
+  return $ _name `elem` map (RU.head . splitOn "@") (lines list)
+
+installAtomPackage :: Text -> IO ()
+installAtomPackage atomPackage = do
+  putStrLn $ "Installing " <> atomPackage <> " Atom atomPackage"
+  T.shell (runAsUserPrefix $ "apt install " <> atomPackage) empty >>= \case
+    T.ExitSuccess -> putStrLn $ atomPackage <> " successfully installed"
     T.ExitFailure n ->
-      T.die $ atomExtension <> " installation failed with exit code: " <> T.repr n
+      T.die $ atomPackage <> " installation failed with exit code: " <> T.repr n

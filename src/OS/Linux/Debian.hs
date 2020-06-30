@@ -96,7 +96,7 @@ debianAtom = do
     $  "These Atom extensions will be installed:\n"
     <> T.intercalate "\n" atomExtensions
 
-  mapM_ installAtomExtension atomExtensions
+  mapM_ installAtomPackage atomExtensions
 
 
 installNix :: IO ()
