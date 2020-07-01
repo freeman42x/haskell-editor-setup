@@ -4,6 +4,7 @@ import           OS.Common
 import qualified Data.Text                     as T
 import           Data.Text.IO                   ( putStrLn )
 import           Data.Maybe                     ( isNothing )
+import           NeatInterpolation
 import           Prelude                        ( IO
                                                 , (<$>)
                                                 , ($)
@@ -12,7 +13,6 @@ import           Prelude                        ( IO
                                                 , (>>)
                                                 , mapM_
                                                 , whenM
-                                                , unless
                                                 , unlessM
                                                 )
 import           Turtle                         ( home
@@ -23,10 +23,8 @@ import           Turtle                         ( home
                                                 , repr
                                                 , testfile
                                                 , fromText
-                                                , readTextFile
                                                 , writeTextFile
                                                 , ExitCode(..)
-                                                , FilePath
                                                 )
 
 debianAtom :: IO ()
@@ -34,26 +32,8 @@ debianAtom = do
   installNix
 
   nixConfigFilePath <- (<> fromText ".config/nixpkgs/config.nix") <$> home
-  unlessM (testfile nixConfigFilePath) $ writeTextFile nixConfigFilePath "{\n  \n}"
+  unlessM (testfile nixConfigFilePath) $ writeTextFile nixConfigFilePath configNixContent
 
-  addToConfig
-    nixConfigFilePath
-    "allowUnfree = true;                                                  \n\
-    \                                                                     \n\
-    \packageOverrides = pkgs: rec {                                       \n\
-    \  all = pkgs.buildEnv {                                              \n\
-    \    name = \"all\";                                                  \n\
-    \                                                                     \n\
-    \    paths = [                                                        \n\
-    \      haskell.compiler.ghc865                                        \n\
-    \      haskellPackages.cabal-install                                  \n\
-    \      haskellPackages.hoogle                                         \n\
-    \      atom                                                           \n\
-    \      ((import (fetchTarball \"https://github.com/infinisil/all-hies/tarball/master\") {}).selection { selector = p: { inherit (p) ghc865; }; })\n\
-    \    ];                                                               \n\
-    \  };                                                                 \n\
-    \};"
-    
   shell (runAsUserPrefix "nix-env -i all") empty >>= \case
     ExitSuccess   -> putStrLn "Installation complete"
     ExitFailure n -> die $ "Installation failed with exit code: " <> repr n
@@ -92,9 +72,26 @@ installNix =
           ExitFailure n ->
             die $ "nix installation failed with exit code: " <> repr n
 
-addToConfig :: FilePath -> T.Text -> IO ()
-addToConfig path content = do
-  config <- readTextFile path
-  unless (content `T.isInfixOf` config) $ do
-    let w = "in\n{\n  "
-    writeTextFile path $ T.replace w (w <> content) config
+configNixContent :: T.Text
+configNixContent =
+  [text|
+    with import <nixpkgs> {};
+
+    {
+      allowUnfree = true;
+
+      packageOverrides = pkgs: rec {
+        all = pkgs.buildEnv {
+          name = "all";
+
+          paths = [
+            haskell.compiler.ghc865
+            haskellPackages.cabal-install
+            ((import (fetchTarball \"https://github.com/infinisil/all-hies/tarball/master\") {}).selection { selector = p: { inherit (p) ghc865; }; })
+            haskellPackages.hoogle
+            atom
+          ];
+        };
+      };
+    }
+  |]
