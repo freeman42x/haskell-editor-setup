@@ -19,26 +19,26 @@ import           OS.Common
 
 data ExtensionInfo = ExtensionInfo MisoString Text
 
-nixOsAtom :: Model -> Sink Action -> IO ()
-nixOsAtom m sink = do
+configure :: Model -> Sink Action -> IO ()
+configure m sink = do
   let run = view runConfigure m
   mapM_ (configureNixPackage run sink) $ uncurry ExtensionInfo <$>
-    [ ("Haskell GHC", "haskell.compiler.ghc865")
+    [ ("GHC", "haskell.compiler.ghc865")
     , ("cabal-install", "haskellPackages.cabal-install")
     , ("Atom", "atom")
     , ("Haskell IDE Engine", "((import (fetchTarball \"https://github.com/infinisil/all-hies/tarball/master\")\
     \ {}).selection { selector = p: { inherit (p) ghc865; }; })") ]
 
   mapM_ (configureAtomPackage run sink) [ "nix"
-                                                 , "atom-ide-ui"
-                                                 , "autocomplete-haskell"
-                                                 , "hasklig"
-                                                 , "ide-haskell-cabal"
-                                                 , "ide-haskell-hasktags"
-                                                 , "ide-haskell-hie"
-                                                 , "ide-haskell-hoogle"
-                                                 , "ide-haskell-repl"
-                                                 , "language-haskell" ]
+                                        , "atom-ide-ui"
+                                        , "autocomplete-haskell"
+                                        , "hasklig"
+                                        , "ide-haskell-cabal"
+                                        , "ide-haskell-hasktags"
+                                        , "ide-haskell-hie"
+                                        , "ide-haskell-hoogle"
+                                        , "ide-haskell-repl"
+                                        , "language-haskell" ]
     
 appendLog :: MisoString -> Sink Action -> IO ()
 appendLog text sink = sink $ Append (text <> "\n")

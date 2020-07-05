@@ -41,4 +41,4 @@ updateModel (SetEditorOrIde editorOrIde_ (Checked True)) m = noEff $ m & editorO
 updateModel (SetEditorOrIde _ _) m = noEff m
 updateModel (SetRun (Checked checked)) m = noEff $ m & runConfigure .~ checked
 updateModel (Append appendText) m = noEff m {  _log = _log m <> appendText }
-updateModel Install m = effectSub m (liftIO . nixOsAtom m)
+updateModel Install m = effectSub m (liftIO . configure m)
