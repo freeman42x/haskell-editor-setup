@@ -1,8 +1,6 @@
 module OS.Common where
 
-import           Data.Maybe                     ( isJust )
-import           Data.List                      ( isPrefixOf )
-import           Data.Text                      ( splitOn )
+import qualified Data.Text                     as DT
 import           Data.Text.IO
 import           Control.Monad                  ( filterM )
 import           Prelude                 hiding ( die
@@ -39,8 +37,16 @@ doesFileExist' path
 getExistingNixConfigurations :: IO [NixConfiguration]
 getExistingNixConfigurations = map fst <$> filterM
   (\(_, filePath) -> doesFileExist' filePath)
-  [ (User       , "~/.config/nixpkgs/config.nix")
-  , (NixOS      , "/etc/nixos/configuration.nix")
+  nixConfigurationPaths
+
+getNixConfigurationPath :: NixConfiguration -> Text
+getNixConfigurationPath nixConfiguration =
+  DT.pack $ snd $ RU.fromJust $ find ((==nixConfiguration).fst) nixConfigurationPaths
+
+nixConfigurationPaths :: [(NixConfiguration, FilePath)]
+nixConfigurationPaths =
+  [ (User , "~/.config/nixpkgs/config.nix")
+  , (NixOS, "/etc/nixos/configuration.nix")
   ]
 
 -- TODO user User over NixOS only if it has packages installed in it
@@ -61,7 +67,7 @@ runAsUserCmdPrefix cmd = "sudo -u $SUDO_USER " <> cmd
 isAtomPackageInstalled :: Text -> IO Bool
 isAtomPackageInstalled _name = do
   list <- runShellCommand "apm list --installed --bare --color false"
-  return $ _name `elem` map (RU.head . splitOn "@") (lines list)
+  return $ _name `elem` map (RU.head . DT.splitOn "@") (lines list)
 
 installAtomPackage :: Text -> IO ()
 installAtomPackage atomPackage = do
