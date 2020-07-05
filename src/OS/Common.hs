@@ -9,24 +9,22 @@ import           Prelude                 hiding ( die
                                                 , putStrLn
                                                 )
 import qualified Relude.Unsafe                 as RU
-import           System.Directory               ( findExecutable
-                                                , doesFileExist
+import           System.Directory               ( doesFileExist
                                                 , getHomeDirectory
                                                 )
 import qualified Turtle                        as T
-                                         hiding ( FilePath )
 
-isExecutableInstalled :: String -> IO Bool
-isExecutableInstalled name = isJust <$> findExecutable name
+isExecutableInPath :: T.FilePath -> IO Bool
+isExecutableInPath name = isJust <$> T.which name
 
 isGhcInstalled :: IO Bool
-isGhcInstalled = isExecutableInstalled "ghc"
+isGhcInstalled = isExecutableInPath "ghc"
 
 isCabalInstalled :: IO Bool
-isCabalInstalled = isExecutableInstalled "cabal"
+isCabalInstalled = isExecutableInPath "cabal"
 
 isStackInstalled :: IO Bool
-isStackInstalled = isExecutableInstalled "stack"
+isStackInstalled = isExecutableInPath "stack"
 
 data NixConfiguration
   = System
@@ -61,8 +59,8 @@ runShellCommand command =
     out <- T.inshellWithErr command empty
     return $ T.lineToText $ bifold out
 
-runAsUserPrefix :: Text -> Text
-runAsUserPrefix cmd = "sudo -u $SUDO_USER " <> cmd
+runAsUserCmdPrefix :: Text -> Text
+runAsUserCmdPrefix cmd = "sudo -u $SUDO_USER " <> cmd
 
 isAtomPackageInstalled :: Text -> IO Bool
 isAtomPackageInstalled _name = do
@@ -72,7 +70,7 @@ isAtomPackageInstalled _name = do
 installAtomPackage :: Text -> IO ()
 installAtomPackage atomPackage = do
   putStrLn $ "Installing " <> atomPackage <> " Atom atomPackage"
-  T.shell (runAsUserPrefix $ "apt install --color false " <> atomPackage) empty >>= \case
+  T.shell (runAsUserCmdPrefix $ "apt install --color false " <> atomPackage) empty >>= \case
     T.ExitSuccess -> putStrLn $ atomPackage <> " successfully installed"
     T.ExitFailure n ->
       T.die $ atomPackage <> " installation failed with exit code: " <> T.repr n

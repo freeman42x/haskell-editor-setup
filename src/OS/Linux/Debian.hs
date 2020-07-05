@@ -34,7 +34,7 @@ debianAtom = do
   nixConfigFilePath <- (<> fromText ".config/nixpkgs/config.nix") <$> home
   unlessM (testfile nixConfigFilePath) $ writeTextFile nixConfigFilePath configNixContent
 
-  shell (runAsUserPrefix "nix-env -i all") empty >>= \case
+  shell (runAsUserCmdPrefix "nix-env -i all") empty >>= \case
     ExitSuccess   -> putStrLn "Installation complete"
     ExitFailure n -> die $ "Installation failed with exit code: " <> repr n
 
@@ -63,7 +63,7 @@ installNix =
           (T.intercalate
             " && "
             [ "install -d -m755 -o $(id -u) -g $(id -g) /nix"
-            , runAsUserPrefix "curl https://nixos.org/nix/install | sh"
+            , runAsUserCmdPrefix "curl https://nixos.org/nix/install | sh"
             ]
           )
           empty
