@@ -23,13 +23,13 @@ main = do
   -- TODO: can leak resources if JSaddle does something special
   -- better to use @Control.Concurrent.Async.race@ maybe?
   _ <- forkIO $ JSaddle.run 8080 $ startApp App {
-    initialAction = NoOp,   -- initial action to be executed on application load
-    model  = Model Atom "", -- initial model
-    update = updateModel,   -- update function
-    view   = viewModel,     -- view function
-    events = defaultEvents, -- default delegated events
-    subs   = [],            -- empty subscription list
-    mountPoint = Nothing   -- mount point for application (Nothing defaults to 'body')
+    initialAction = NoOp,        -- initial action to be executed on application load
+    model  = Model Atom True "", -- initial model
+    update = updateModel,        -- update function
+    view   = viewModel,          -- view function
+    events = defaultEvents,      -- default delegated events
+    subs   = [],                 -- empty subscription list
+    mountPoint = Nothing         -- mount point for application (Nothing defaults to 'body')
   }
   _ <- proc "nw" ["."] empty
   return ()
@@ -37,8 +37,9 @@ main = do
 -- | Updates model, optionally introduces side effects
 updateModel :: Action -> Model -> Effect Action Model
 updateModel NoOp m = noEff m
-updateModel (SetChecked editorOrIde_ (Checked True)) m =
-  noEff $ m & editorOrIde .~ editorOrIde_
-updateModel (SetChecked _ _) m = noEff m
+updateModel (SetEditorOrIde editorOrIde_ (Checked True)) m = noEff $ m & editorOrIde .~ editorOrIde_
+updateModel (SetEditorOrIde _ _) m = noEff m
+updateModel (SetSimulate (Checked True)) m = noEff $ m & simulate .~ True
+updateModel (SetSimulate _) m = noEff m
 updateModel (Append appendText) m = noEff m {  _log = _log m <> appendText }
 updateModel Install m = effectSub m (liftIO . nixOsAtom)

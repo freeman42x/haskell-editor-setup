@@ -21,7 +21,7 @@ viewModel m = form_
         [ type_ "radio"
         , name_ "editor"
         , checked_ (_editorOrIde m == Atom)
-        , onChecked (SetChecked Atom)
+        , onChecked (SetEditorOrIde Atom)
         ]
       , "Atom"
       ]
@@ -31,7 +31,7 @@ viewModel m = form_
         [ type_ "radio"
         , name_ "editor"
         , checked_ (_editorOrIde m == VisualStudioCode)
-        , onChecked (SetChecked VisualStudioCode)
+        , onChecked (SetEditorOrIde VisualStudioCode)
         , disabled_ True
         ]
       , "Visual Studio Code"
@@ -42,7 +42,7 @@ viewModel m = form_
         [ type_ "radio"
         , name_ "editor"
         , checked_ (_editorOrIde m == IntelliJIdeaCommunity)
-        , onChecked (SetChecked IntelliJIdeaCommunity)
+        , onChecked (SetEditorOrIde IntelliJIdeaCommunity)
         , disabled_ True
         ]
       , "IntelliJ IDEA Community"
@@ -53,7 +53,7 @@ viewModel m = form_
         [ type_ "radio"
         , name_ "editor"
         , checked_ (_editorOrIde m == SublimeText3)
-        , onChecked (SetChecked SublimeText3)
+        , onChecked (SetEditorOrIde SublimeText3)
         , disabled_ True
         ]
       , "Sublime Text 3"
@@ -64,7 +64,7 @@ viewModel m = form_
         [ type_ "radio"
         , name_ "editor"
         , checked_ (_editorOrIde m == Leksah)
-        , onChecked (SetChecked Leksah)
+        , onChecked (SetEditorOrIde Leksah)
         , disabled_ True
         ]
       , "Leksah"
@@ -72,6 +72,17 @@ viewModel m = form_
     ]
   , br_ []
   , textarea_ [rows_ "15", cols_ "80", disabled_ True ] [ text $ _log m ]
+  , br_ []
+  , label_
+    [class_ "checkbox"]
+    [ input_
+      [ type_ "checkbox"
+      , name_ "simulate"
+      , checked_ True
+      , onChecked SetSimulate
+      ]
+    , "Simulate"
+    ]
   , br_ []
   , button_ [clickHandler Install, class_ "button"] [text "Install"]
   ]
