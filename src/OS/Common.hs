@@ -27,13 +27,7 @@ isStackInstalled :: IO Bool
 isStackInstalled = isExecutableInPath "stack"
 
 data NixConfiguration
-  = System
-  | User
-  | Nixos
-  | Packages
-  | HomeManager
-  | Overlays
-  deriving (Show)
+  = User | NixOS deriving (Show)
 
 doesFileExist' :: FilePath -> IO Bool
 doesFileExist' path
@@ -45,12 +39,8 @@ doesFileExist' path
 getExistingNixConfigurations :: IO [NixConfiguration]
 getExistingNixConfigurations = map fst <$> filterM
   (\(_, filePath) -> doesFileExist' filePath)
-  [ (System     , "/etc/nix/nix.conf")
-  , (User       , "~/.config/nix/nix.conf")
-  , (Nixos      , "/etc/nixos/configuration.nix")
-  , (Packages   , "~/.config/nixpkgs/config.nix")
-  , (HomeManager, "~/.config/nixpkgs/home.nix")
-  , (Overlays   , "~/.config/nixpkgs/overlays.nix")
+  [ (User       , "~/.config/nix/nix.conf")
+  , (NixOS      , "/etc/nixos/configuration.nix")
   ]
 
 runShellCommand :: Text -> IO Text
