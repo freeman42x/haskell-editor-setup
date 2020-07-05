@@ -77,11 +77,11 @@ viewModel m = form_
     [class_ "checkbox"]
     [ input_
       [ type_ "checkbox"
-      , name_ "simulate"
-      , checked_ True
-      , onChecked SetSimulate
+      , name_ "run"
+      , checked_ (_runConfigure m)
+      , onChecked SetRun
       ]
-    , "Simulate"
+    , "Run"
     ]
   , br_ []
   , button_ [clickHandler Install, class_ "button"] [text "Install"]

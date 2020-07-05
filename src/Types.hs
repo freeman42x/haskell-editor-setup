@@ -15,14 +15,14 @@ data EditorOrIde =
 data Action
   = NoOp
   | SetEditorOrIde EditorOrIde Checked
-  | SetSimulate Checked
+  | SetRun Checked
   | Install
   | Append MS.MisoString
   deriving (Show, Eq)
 
 data Model = Model
   { _editorOrIde :: EditorOrIde,
-    _simulate :: Bool,
+    _runConfigure :: Bool,
     _log :: MS.MisoString
   } deriving (Show, Eq)
 

@@ -21,7 +21,7 @@ data ExtensionInfo = ExtensionInfo MisoString Text
 
 nixOsAtom :: Model -> Sink Action -> IO ()
 nixOsAtom m sink = do
-  let run = not $ view simulate m
+  let run = view runConfigure m
   mapM_ (configureNixPackage run sink) $ uncurry ExtensionInfo <$>
     [ ("Haskell GHC", "haskell.compiler.ghc865")
     , ("cabal-install", "haskellPackages.cabal-install")
