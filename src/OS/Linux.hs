@@ -51,6 +51,7 @@ logStep text sink actions = do
 
 configureNixPackage :: Bool -> Sink Action -> ExtensionInfo -> IO ()
 configureNixPackage run sink (ExtensionInfo name package) = do
+  nixConfiguration <- getOptimalNixConfiguration
   let configurationNixFilePath = "/etc/nixos/configuration.nix"
   oldConfigurationNixText <- liftIO $ readFile configurationNixFilePath
 

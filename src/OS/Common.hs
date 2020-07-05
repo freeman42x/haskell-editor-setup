@@ -27,7 +27,7 @@ isStackInstalled :: IO Bool
 isStackInstalled = isExecutableInPath "stack"
 
 data NixConfiguration
-  = User | NixOS deriving (Show)
+  = User | NixOS deriving (Eq, Show)
 
 doesFileExist' :: FilePath -> IO Bool
 doesFileExist' path
@@ -39,9 +39,15 @@ doesFileExist' path
 getExistingNixConfigurations :: IO [NixConfiguration]
 getExistingNixConfigurations = map fst <$> filterM
   (\(_, filePath) -> doesFileExist' filePath)
-  [ (User       , "~/.config/nix/nix.conf")
+  [ (User       , "~/.config/nixpkgs/config.nix")
   , (NixOS      , "/etc/nixos/configuration.nix")
   ]
+
+-- TODO user User over NixOS only if it has packages installed in it
+getOptimalNixConfiguration :: IO NixConfiguration
+getOptimalNixConfiguration = do
+  configurations <- getExistingNixConfigurations
+  return $ if configurations == [NixOS] then NixOS else User
 
 runShellCommand :: Text -> IO Text
 runShellCommand command =
