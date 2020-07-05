@@ -5,6 +5,7 @@ import           Control.Monad
 import           Control.Monad.IO.Class         ( liftIO )
 import           Data.Text                      ( replace
                                                 , isInfixOf
+                                                , unpack
                                                 , Text)
 import           Data.Text.IO                   ( readFile
                                                 , writeFile
@@ -56,7 +57,7 @@ configureNix run sink = undefined
 configureNixPackage :: Bool -> Sink Action -> ExtensionInfo -> IO ()
 configureNixPackage run sink (ExtensionInfo name package) = do
   nixConfiguration <- getOptimalNixConfiguration
-  let configurationNixFilePath = "/etc/nixos/configuration.nix"
+  let configurationNixFilePath = unpack $ getNixConfigurationPath nixConfiguration
   oldConfigurationNixText <- liftIO $ readFile configurationNixFilePath
 
   -- FIXME vvv requires Nix parsing using HNIX
