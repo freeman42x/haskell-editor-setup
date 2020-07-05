@@ -42,4 +42,4 @@ updateModel (SetEditorOrIde _ _) m = noEff m
 updateModel (SetSimulate (Checked True)) m = noEff $ m & simulate .~ True
 updateModel (SetSimulate _) m = noEff m
 updateModel (Append appendText) m = noEff m {  _log = _log m <> appendText }
-updateModel Install m = effectSub m (liftIO . nixOsAtom)
+updateModel Install m = effectSub m (liftIO . nixOsAtom m)
