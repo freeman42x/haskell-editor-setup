@@ -47,9 +47,9 @@ getExistingNixConfigurations = map fst <$> filterM
   (\(_, filePath) -> doesFileExist' filePath)
   nixConfigurationPaths
 
-getNixConfigurationPath :: NixConfiguration -> Text
+getNixConfigurationPath :: NixConfiguration -> IO FilePath
 getNixConfigurationPath nixConfiguration =
-  DT.pack $ snd $ RU.fromJust $ find ((==nixConfiguration).fst) nixConfigurationPaths
+  toFullFilePath $ snd $ RU.fromJust $ find ((==nixConfiguration).fst) nixConfigurationPaths
 
 nixConfigurationPaths :: [(NixConfiguration, FilePath)]
 nixConfigurationPaths =

@@ -13,6 +13,7 @@ import           Data.Text.IO                   ( readFile
 import           Miso.Effect
 import           Miso.String                    ( toMisoString
                                                 , MisoString)
+import           NeatInterpolation
 import           Prelude hiding (readFile, writeFile)
 
 import           Types
@@ -24,7 +25,9 @@ configure :: Model -> Sink Action -> IO ()
 configure m sink = do
   let run = view runConfigure m
   configureNix run sink
-  mapM_ (configureNixPackage run sink) $ uncurry ExtensionInfo <$>
+  nixConfiguration <- getOptimalNixConfiguration
+  configureNixConfiguration nixConfiguration run sink
+  mapM_ (configureNixPackage nixConfiguration run sink) $ uncurry ExtensionInfo <$>
     [ ("GHC", "haskell.compiler.ghc865")
     , ("cabal-install", "haskellPackages.cabal-install")
     , ("Atom", "atom")
@@ -64,10 +67,38 @@ configureNix run sink = do
         nixChannelsFilePath <- toFullFilePath "~/.nix-channels"
         writeFile nixChannelsFilePath "nixpkgs https://nixos.org/channels/nixos-20.03")
 
-configureNixPackage :: Bool -> Sink Action -> ExtensionInfo -> IO ()
-configureNixPackage run sink (ExtensionInfo name package) = do
-  nixConfiguration <- getOptimalNixConfiguration
-  configurationNixFilePath <- toFullFilePath $ unpack $ getNixConfigurationPath nixConfiguration
+configureNixConfiguration :: NixConfiguration -> Bool -> Sink Action -> IO ()
+configureNixConfiguration NixOS _ _ = return ()
+configureNixConfiguration User run sink = do
+  configurationNixFilePath <- getNixConfigurationPath User
+  configExists <- doesFileExist' configurationNixFilePath
+  unless configExists
+    $ logStep ("Writing default user configuration") sink
+    $ when run $ writeFile configurationNixFilePath configNixContent
+
+configNixContent :: Text
+configNixContent =
+  [text|
+    with import <nixpkgs> {};
+
+    {
+      allowUnfree = true;
+
+      packageOverrides = pkgs: rec {
+        all = pkgs.buildEnv {
+          name = "all";
+
+          paths = [
+
+          ];
+        };
+      };
+    }
+  |]
+
+configureNixPackage :: NixConfiguration -> Bool -> Sink Action -> ExtensionInfo -> IO ()
+configureNixPackage nixConfiguration run sink (ExtensionInfo name package) = do
+  configurationNixFilePath <- getNixConfigurationPath nixConfiguration
   oldConfigurationNixText <- liftIO $ readFile configurationNixFilePath
 
   -- FIXME vvv requires Nix parsing using HNIX
