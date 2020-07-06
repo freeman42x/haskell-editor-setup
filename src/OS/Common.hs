@@ -15,6 +15,9 @@ import qualified Turtle                        as T
 isExecutableInPath :: T.FilePath -> IO Bool
 isExecutableInPath name = isJust <$> T.which name
 
+isNixInstalled :: IO Bool
+isNixInstalled = isExecutableInPath "nix"
+
 isGhcInstalled :: IO Bool
 isGhcInstalled = isExecutableInPath "ghc"
 
@@ -28,11 +31,16 @@ data NixConfiguration
   = User | NixOS deriving (Eq, Show)
 
 doesFileExist' :: FilePath -> IO Bool
-doesFileExist' path
-  | "~" `isPrefixOf` path = do
+doesFileExist' filePath = do
+  fullFilePath <- toFullFilePath filePath
+  doesFileExist fullFilePath
+
+toFullFilePath :: FilePath -> IO FilePath
+toFullFilePath filePath
+  | "~" `isPrefixOf` filePath = do
     homepath <- getHomeDirectory
-    doesFileExist $ homepath ++ RU.tail path
-  | otherwise = doesFileExist path
+    return $ homepath ++ RU.tail filePath
+  | otherwise = return filePath
 
 getExistingNixConfigurations :: IO [NixConfiguration]
 getExistingNixConfigurations = map fst <$> filterM

@@ -52,12 +52,20 @@ logStep text sink actions = do
   appendLog ("END   : " <> text) sink
 
 configureNix :: Bool -> Sink Action -> IO ()
-configureNix run sink = undefined
+configureNix run sink = do
+  isNixInstalled' <- isNixInstalled
+  if isNixInstalled'
+    then
+      appendLog "Nix is already installed" sink
+    else
+      logStep "Installing Nix" sink (when run $ do
+      _ <- runShellCommand "curl -L https://nixos.org/nix/install | sh"
+      return ())
 
 configureNixPackage :: Bool -> Sink Action -> ExtensionInfo -> IO ()
 configureNixPackage run sink (ExtensionInfo name package) = do
   nixConfiguration <- getOptimalNixConfiguration
-  let configurationNixFilePath = unpack $ getNixConfigurationPath nixConfiguration
+  configurationNixFilePath <- toFullFilePath $ unpack $ getNixConfigurationPath nixConfiguration
   oldConfigurationNixText <- liftIO $ readFile configurationNixFilePath
 
   -- FIXME vvv requires Nix parsing using HNIX
