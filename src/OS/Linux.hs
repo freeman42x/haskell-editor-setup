@@ -59,8 +59,10 @@ configureNix run sink = do
       appendLog "Nix is already installed" sink
     else
       logStep "Installing Nix" sink (when run $ do
-      _ <- runShellCommand "curl -L https://nixos.org/nix/install | sh"
-      return ())
+        output <- runShellCommand "curl -L https://nixos.org/nix/install | sh"
+        appendLog (toMisoString output) sink
+        nixChannelsFilePath <- toFullFilePath "~/.nix-channels"
+        writeFile nixChannelsFilePath "nixpkgs https://nixos.org/channels/nixos-20.03")
 
 configureNixPackage :: Bool -> Sink Action -> ExtensionInfo -> IO ()
 configureNixPackage run sink (ExtensionInfo name package) = do
@@ -85,8 +87,8 @@ configureNixPackage run sink (ExtensionInfo name package) = do
   if oldConfigurationNixText == newConfigurationNixText -- OPTIMIZE
     then appendLog ("Nix package " <> name <> " already installed") sink
     else logStep ("Installing Nix package - " <> name) sink (when run $ do
-      _ <- runShellCommand "nixos-rebuild switch"
-      return ())
+      output <- runShellCommand "nixos-rebuild switch"
+      appendLog (toMisoString output) sink)
 
 -- TODO install or update? extension or log message
 -- TODO ensure extensions are enabled if not enable them
