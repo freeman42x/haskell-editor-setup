@@ -36,4 +36,4 @@ Project setup:
 
 0. Following steps are not required if you are patient enough for the editor to do the bellow for you on start
 1. Run `hie` in the project root, it will install `cabal 3.0.0.0` and then error out (this is fine)
-2. Open the project using you favorite HIE powered editor and everything should just work
+2. Open the project using your favorite HIE powered editor and everything should just work
