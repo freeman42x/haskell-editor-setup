@@ -3,88 +3,96 @@ module View where
 import           Miso
 import           Types
 
+
+
 viewModel :: Model -> View Action
-viewModel m = form_
+viewModel m = body_
   []
   [ link_
     [ rel_ "stylesheet"
     , href_ "https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"
     ]
-  , h5_ [class_ "title is-5"] [text "Easy Haskell Editor / IDE Setup"]
-  , div_
-    [class_ "control"]
-    [ "Editor / IDE"
+  , form_
+    []
+    [ h5_ [class_ "title is-5"] ["Haskell Editor Setup"]
+    , br_ []
+    , div_
+      [class_ "control"]
+      [ p_ [class_ "subtitle is-5"] ["Select Editor/IDE:"]
+      , label_
+        [class_ "radio"]
+        [ input_
+          [ type_ "radio"
+          , name_ "editor"
+          , checked_ (_editorOrIde m == Atom)
+          , onChecked (SetEditorOrIde Atom)
+          ]
+        , "Atom"
+        ]
+      , label_
+        [class_ "radio"]
+        [ input_
+          [ type_ "radio"
+          , name_ "editor"
+          , checked_ (_editorOrIde m == VisualStudioCode)
+          , onChecked (SetEditorOrIde VisualStudioCode)
+          , disabled_ True
+          ]
+        , "Visual Studio Code"
+        ]
+      , label_
+        [class_ "radio"]
+        [ input_
+          [ type_ "radio"
+          , name_ "editor"
+          , checked_ (_editorOrIde m == IntelliJIdeaCommunity)
+          , onChecked (SetEditorOrIde IntelliJIdeaCommunity)
+          , disabled_ True
+          ]
+        , "IntelliJ IDEA Community"
+        ]
+      , label_
+        [class_ "radio"]
+        [ input_
+          [ type_ "radio"
+          , name_ "editor"
+          , checked_ (_editorOrIde m == SublimeText3)
+          , onChecked (SetEditorOrIde SublimeText3)
+          , disabled_ True
+          ]
+        , "Sublime Text 3"
+        ]
+      , label_
+        [class_ "radio"]
+        [ input_
+          [ type_ "radio"
+          , name_ "editor"
+          , checked_ (_editorOrIde m == Leksah)
+          , onChecked (SetEditorOrIde Leksah)
+          , disabled_ True
+          ]
+        , "Leksah"
+        ]
+      ]
+    , br_ []
+    , textarea_
+      [class_ "textarea is-info", rows_ "10", cols_ "80", disabled_ True]
+      [text $ _log m]
     , br_ []
     , label_
-      [class_ "radio"]
+      [class_ "checkbox"]
       [ input_
-        [ type_ "radio"
-        , name_ "editor"
-        , checked_ (_editorOrIde m == Atom)
-        , onChecked (SetEditorOrIde Atom)
+        [ type_ "checkbox"
+        , name_ "run"
+        , checked_ (_runConfigure m)
+        , onChecked SetRun
         ]
-      , "Atom"
+      , "Run"
       ]
-    , label_
-      [class_ "radio"]
-      [ input_
-        [ type_ "radio"
-        , name_ "editor"
-        , checked_ (_editorOrIde m == VisualStudioCode)
-        , onChecked (SetEditorOrIde VisualStudioCode)
-        , disabled_ True
-        ]
-      , "Visual Studio Code"
-      ]
-    , label_
-      [class_ "radio"]
-      [ input_
-        [ type_ "radio"
-        , name_ "editor"
-        , checked_ (_editorOrIde m == IntelliJIdeaCommunity)
-        , onChecked (SetEditorOrIde IntelliJIdeaCommunity)
-        , disabled_ True
-        ]
-      , "IntelliJ IDEA Community"
-      ]
-    , label_
-      [class_ "radio"]
-      [ input_
-        [ type_ "radio"
-        , name_ "editor"
-        , checked_ (_editorOrIde m == SublimeText3)
-        , onChecked (SetEditorOrIde SublimeText3)
-        , disabled_ True
-        ]
-      , "Sublime Text 3"
-      ]
-    , label_
-      [class_ "radio"]
-      [ input_
-        [ type_ "radio"
-        , name_ "editor"
-        , checked_ (_editorOrIde m == Leksah)
-        , onChecked (SetEditorOrIde Leksah)
-        , disabled_ True
-        ]
-      , "Leksah"
-      ]
+    , br_ []
+    , button_ [clickHandler Install, class_ "button is-primary"]
+              [text "Install"]
     ]
-  , br_ []
-  , textarea_ [rows_ "15", cols_ "80", disabled_ True ] [ text $ _log m ]
-  , br_ []
-  , label_
-    [class_ "checkbox"]
-    [ input_
-      [ type_ "checkbox"
-      , name_ "run"
-      , checked_ (_runConfigure m)
-      , onChecked SetRun
-      ]
-    , "Run"
-    ]
-  , br_ []
-  , button_ [clickHandler Install, class_ "button"] [text "Install"]
   ]
 
 clickHandler :: action -> Attribute action

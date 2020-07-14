@@ -1,8 +1,8 @@
 {
-    "name": "NW.JS JSADDLE Demo",
+    "name": "Haskell Editor Setup",
     "main": "index.html",
     "window": {
-        "title": "NW.JS JSADDLE Demo",
+        "title": "Haskell Editor Setup",
         "width": 800,
         "height": 600
     }
